@@ -12,7 +12,7 @@
 	<packaging>jar</packaging>
 	
 	<name>sporniket-game-papi-swing</name>
-	<description></description>
+	<description>Swing implementation of the platform.</description>
 	<url>${url.base}/blob/master/${project.artifactId}</url>
 
 	<dependencies>

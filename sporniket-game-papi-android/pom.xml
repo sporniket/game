@@ -12,7 +12,7 @@
 	<packaging>jar</packaging>
 
 	<name>sporniket-game-papi-android</name>
-	<description></description>
+	<description>Android implementation of the platform</description>
 	<url>${url.base}/blob/master/${project.artifactId}</url>
 
 	<properties>

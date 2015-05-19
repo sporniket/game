@@ -1,35 +1,44 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>sporniket-game-papi</artifactId>
-	<packaging>jar</packaging>
-	<name>sporniket-game-papi</name>
-	<url>http://maven.apache.org</url>
 	<parent>
 		<groupId>com.sporniket.game</groupId>
 		<artifactId>sporniket-game</artifactId>
 		<version>0-SNAPSHOT</version>
 		<relativePath>../sporniket-game/pom.xml</relativePath>
 	</parent>
+
+	<artifactId>sporniket-game-papi</artifactId>
+	<packaging>jar</packaging>
+	
+	<name>sporniket-game-papi</name>
+	<description></description>
+	<url>${url.base}/blob/master/${project.artifactId}</url>
+
 	<dependencies>
+		<!-- ===INTERNAL DEPENDENCIES -->
+		<dependency>
+			<groupId>com.sporniket.game</groupId>
+			<artifactId>sporniket-game-api</artifactId>
+		</dependency>
+
+		<!-- ===EXTERNAL DEPENDENCIES (non test) -->
+
+		<!-- ===TEST DEPENDENCIES -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.sporniket.game</groupId>
-			<artifactId>sporniket-game-api</artifactId>
-			<version>0-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 	<build>
-		<!-- For annotations and other Java5 stuff -->
 		<plugins>
+			<!-- Version of Java supported -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${version.maven-compiler-plugin}</version>
 				<configuration>
 					<source>${version.jdk}</source>
 					<target>${version.jdk}</target>
@@ -37,4 +46,29 @@
 			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>${version.maven-surefire-report-plugin}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${version.maven-checkstyle-plugin}</version>
+				<configuration>
+					<configLocation>../sporniket-game/checkstyle-custom.xml</configLocation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${version.maven-pmd-plugin}</version>
+				<configuration>
+					<targetJdk>${version.jdk}</targetJdk>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>

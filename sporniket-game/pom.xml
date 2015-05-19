@@ -20,6 +20,9 @@
 		<version.maven-surefire-report-plugin>2.18.1</version.maven-surefire-report-plugin>
 		<version.maven-pmd-plugin>3.4</version.maven-pmd-plugin>
 		<version.maven-release-plugin>2.5.2</version.maven-release-plugin>
+
+		<!-- external libraries version -->
+		<version.sporniket.core>15.03.01</version.sporniket.core>
 	</properties>
 
 	<name>sporniket-game</name>
@@ -32,6 +35,37 @@
 		<module>../sporniket-game-papi-android</module>
 		<module>../sporniket-game-papi-swing</module>
 	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- ===INTERNAL DEPENDENCIES -->
+			<dependency>
+				<groupId>com.sporniket.game</groupId>
+				<artifactId>sporniket-game-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sporniket.game</groupId>
+				<artifactId>sporniket-game-papi</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<!-- ===EXTERNAL DEPENDENCIES (non test) -->
+			<!-- Sporniket-core -->
+			<dependency>
+				<groupId>com.sporniket.core</groupId>
+				<artifactId>sporniket-core-lang</artifactId>
+				<version>${version.sporniket.core}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sporniket.core</groupId>
+				<artifactId>sporniket-core-ui</artifactId>
+				<version>${version.sporniket.core}</version>
+			</dependency>
+
+			<!-- ===TEST DEPENDENCIES -->
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
@@ -128,7 +162,7 @@
 			<!-- </plugin> -->
 		</plugins>
 	</reporting>
-	
+
 	<licenses>
 		<license>
 			<name>GNU LGPL V3</name>
@@ -149,23 +183,23 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-	
+
 	<scm>
 		<connection>scm:git:https://github.com/sporniket/game.git</connection>
 		<url>https://github.com/sporniket/game</url>
 		<tag>HEAD</tag>
 	</scm>
-	
+
 	<issueManagement>
 		<system>GitHub.com</system>
 		<url>https://github.com/sporniket/game/issues</url>
 	</issueManagement>
-	
+
 	<organization>
 		<name>Sporniket-Stutio.com</name>
 		<url>http://Sporniket-Stutio.com</url>
 	</organization>
-	
+
 	<developers>
 		<developer>
 			<id>sporniket</id>
@@ -184,7 +218,7 @@
 			</properties>
 		</developer>
 	</developers>
-	
+
 	<profiles>
 		<profile>
 			<id>deploy2central</id>

@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.sporniket.game</groupId>
 		<artifactId>sporniket-game</artifactId>
-		<version>0-SNAPSHOT</version>
+		<version>15.05.00-SNAPSHOT</version>
 		<relativePath>../sporniket-game/pom.xml</relativePath>
 	</parent>
 

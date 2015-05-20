@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BeanSet xmlns="http://schema.sporniket-studio.com/model/set/javabean">
+	<annotation>
+		<author>David SPORN</author>
+		<licencenotice>LGPL v3</licencenotice>
+		<version>15.05.01-SNAPSHOT</version>
+	</annotation>
+	<package name="com.sporniket.libre.game.api.types.geometry.xy">
+		<annotation>
+			<summary>Collection of types to describe planar object (having
+				coordinate along two axis, usually called 'x' and 'y').</summary>
+			<description>'x' is oriented from left to rigth, 'y' is oriented from top to bottom, like a device screen</description>
+		</annotation>
+		<bean name="Point">
+			<annotation>
+				<summary>Coordinate (x,y).</summary>
+				<description>A point</description>
+			</annotation>
+			<property name="x" type="java:Integer" mode="basic" />
+			<property name="y" type="java:Integer" mode="basic" />
+		</bean>
+		<bean name="Box">
+			<annotation>
+				<summary>A box described by a corner (x,y), width (x axis) and height (y axis).</summary>
+				<description>A point is inside the box if x&lt;=px&lt;(x+width) and y&lt;=py&lt;(y+height).</description>
+			</annotation>
+			<property name="x" type="java:Integer" mode="basic" />
+			<property name="y" type="java:Integer" mode="basic" />
+			<property name="width" type="java:Integer" mode="basic" />
+			<property name="height" type="java:Integer" mode="basic" />
+		</bean>
+		<bean name="SpriteBox">
+			<annotation>
+				<summary>A box positionned using a "hot point".</summary>
+				<description>The hot point is relative to the (x,y) corner.</description>
+				<description>When positionning a object described by a Sprite box, the position of this object is the position of the hot point, thus x and y are computed accordingly.</description>
+			</annotation>
+			<property name="x" type="java:Integer" mode="basic" />
+			<property name="y" type="java:Integer" mode="basic" />
+			<property name="width" type="java:Integer" mode="basic" />
+			<property name="height" type="java:Integer" mode="basic" />
+			<property name="hotX" type="java:Integer" mode="basic" />
+			<property name="hotY" type="java:Integer" mode="basic" />
+		</bean>
+		<bean name="Bounds">
+			<annotation>
+				<summary>A box described by its limits.</summary>
+				<description>A point is inside the box if left&lt;=px&lt;=right and top&lt;=py&lt;bottom.</description>
+			</annotation>
+			<property name="left" type="java:Integer" mode="basic" />
+			<property name="right" type="java:Integer" mode="basic" />
+			<property name="top" type="java:Integer" mode="basic" />
+			<property name="bottom" type="java:Integer" mode="basic" />
+		</bean>
+	</package>
+</BeanSet>

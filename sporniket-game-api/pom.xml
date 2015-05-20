@@ -40,6 +40,20 @@
 					<target>${version.jdk}</target>
 				</configuration>
 			</plugin>
+			<!-- For generating javabeans -->
+			<plugin>
+				<groupId>com.sporniket.javabeans</groupId>
+				<artifactId>sporniket-javabeans-maven</artifactId>
+				<version>${version.sporniket-javabeans}</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<reporting>

@@ -83,8 +83,8 @@ public abstract class OneDimensionSpringSimulator implements AccelerationField, 
 
 	/**
 	 * Initialize the simulator
-	 * @param equilibrium
-	 * @param range
+	 * @param range the max distance from the equilibrium.
+	 * @param springFactor the spring factor.
 	 */
 	public OneDimensionSpringSimulator(int range, double springFactor)
 	{
@@ -95,7 +95,7 @@ public abstract class OneDimensionSpringSimulator implements AccelerationField, 
 	
 	/**
 	 * Constructor that retrieve the Acceleration field of the given reference.
-	 * @param reference
+	 * @param reference the reference to use.
 	 */
 	public OneDimensionSpringSimulator(OneDimensionSpringSimulator reference)
 	{
@@ -114,8 +114,8 @@ public abstract class OneDimensionSpringSimulator implements AccelerationField, 
 
 	/**
 	 * Return the value corresponding to the position.
-	 * @param position
-	 * @return
+	 * @param position the position to test.
+	 * @return the value of the acceleration.
 	 */
 	protected int getValue(int position)
 	{
@@ -128,7 +128,8 @@ public abstract class OneDimensionSpringSimulator implements AccelerationField, 
 	}
 
 	/**
-	 * @param springFactor
+	 * precalculate the spring effect.
+	 * @param springFactor the spring factor.
 	 */
 	private void initField(double springFactor)
 	{

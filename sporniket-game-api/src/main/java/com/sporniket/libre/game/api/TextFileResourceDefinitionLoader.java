@@ -11,9 +11,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 
+import com.sporniket.libre.game.api.sprite.Actor;
 import com.sporniket.libre.game.api.sprite.ActorBank;
+import com.sporniket.libre.game.api.sprite.Sequence;
 import com.sporniket.libre.game.api.sprite.SequenceBank;
+import com.sporniket.libre.game.api.sprite.SequenceInstance;
 import com.sporniket.libre.game.api.sprite.SequenceInstanceBank;
+import com.sporniket.libre.game.api.sprite.Sprite;
 import com.sporniket.libre.game.api.sprite.SpriteBank;
 
 /**
@@ -93,11 +97,17 @@ public abstract class TextFileResourceDefinitionLoader implements
 	/**
 	 * Read the text file line by line.
 	 * @param data
+	 *            The input stream to read.
 	 * @param sprites
+	 *            {@link Sprite} definitions will be added to this bank.
 	 * @param sequences
+	 *            {@link Sequence} definitions will be added to this bank.
 	 * @param sequenceInstances
+	 *            {@link SequenceInstance} definitions will be added to this bank.
 	 * @param actors
+	 *            {@link Actor} definitions will be added to this bank.
 	 * @throws IOException
+	 *             if there is a problem.
 	 */
 	private void doLoadSpriteAndActorDefinitions(LineNumberReader data,
 			SpriteBank sprites, SequenceBank sequences,
@@ -119,10 +129,15 @@ public abstract class TextFileResourceDefinitionLoader implements
 	 * Subclasses MUST implements this.
 	 * 
 	 * @param data
+	 *            The input stream to read.
 	 * @param sprites
+	 *            {@link Sprite} definitions will be added to this bank.
 	 * @param sequences
+	 *            {@link Sequence} definitions will be added to this bank.
 	 * @param sequenceInstances
+	 *            {@link SequenceInstance} definitions will be added to this bank.
 	 * @param actors
+	 *            {@link Actor} definitions will be added to this bank.
 	 */
 	protected abstract void readLineForSpriteAndActorDefinitions(String data,
 			SpriteBank sprites, SequenceBank sequences,

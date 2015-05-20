@@ -46,7 +46,6 @@ public interface CollisionDetector
 	
 	/**
 	 * Test for a collision not dependent from the position of the object to hit (put at (0,0) if required).
-	 * @param toHit position of the object to hit.
 	 * @param hitter position of the hitter.
 	 * @return true if there has been a collision.
 	 */

@@ -33,7 +33,7 @@ import com.sporniket.libre.game.api.types.Position.Vector;
  * 
  * <hr>
  * 
- * @author David SPORN 
+ * @author David SPORN
  * 
  */
 public class CollisionDetectorOnArea implements CollisionDetector
@@ -79,10 +79,12 @@ public class CollisionDetectorOnArea implements CollisionDetector
 		myRight = right;
 		myBottom = bottom;
 	}
-	
+
 	/**
 	 * Constructor using the specified {@link BoxArea}
+	 * 
 	 * @param area
+	 *            the area definition.
 	 */
 	public CollisionDetectorOnArea(BoxArea area)
 	{
@@ -97,7 +99,7 @@ public class CollisionDetectorOnArea implements CollisionDetector
 	 * @see com.sporniket.libre.game.api.collision.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector,
 	 *      com.sporniket.libre.game.api.types.Position.Vector)
 	 */
-	
+
 	public boolean isHit(Vector toHit, Vector hitter)
 	{
 		int _x = hitter.x - toHit.x;
@@ -108,10 +110,12 @@ public class CollisionDetectorOnArea implements CollisionDetector
 		return _isOk__x && _isOk__y;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.sporniket.libre.game.api.collision.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector)
 	 */
-	
+
 	public boolean isHit(Vector hitter)
 	{
 		return CollisionDetectorDefaultMethodImplementation.isHitWithObjectToHitOnZero(this, hitter);

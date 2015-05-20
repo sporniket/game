@@ -34,15 +34,16 @@ import com.sporniket.libre.game.api.types.Position.Vector;
  * 
  * <hr>
  * 
- * @author David SPORN 
+ * @author David SPORN
  *
  */
 public class CollisionDetectorHolder implements CollisionDetector
 {
-	private List<CollisionDetector> myDetectors ;
-	
-/**
+	private List<CollisionDetector> myDetectors;
+
+	/**
 	 * @param detectors
+	 *            the detectors to gather.
 	 */
 	public CollisionDetectorHolder(List<CollisionDetector> detectors)
 	{
@@ -51,30 +52,31 @@ public class CollisionDetectorHolder implements CollisionDetector
 		myDetectors.addAll(detectors);
 	}
 
-	
-
-	/* (non-Javadoc)
-	 * @see com.sporniketstudio.earthdefender.timeattack.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector, com.sporniket.libre.game.api.types.Position.Vector)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.sporniketstudio.earthdefender.timeattack.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector,
+	 * com.sporniket.libre.game.api.types.Position.Vector)
 	 */
-	
+
 	public boolean isHit(Vector toHit, Vector hitter)
 	{
 		for (CollisionDetector _detector : myDetectors)
 		{
-			if(_detector.isHit(toHit, hitter))
+			if (_detector.isHit(toHit, hitter))
 			{
-				return true ;
+				return true;
 			}
 		}
 		return false;
 	}
 
-
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.sporniket.libre.game.api.collision.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector)
 	 */
-	
+
 	public boolean isHit(Vector hitter)
 	{
 		return CollisionDetectorDefaultMethodImplementation.isHitWithObjectToHitOnZero(this, hitter);

@@ -32,7 +32,7 @@ import com.sporniket.libre.game.api.types.Position.Vector;
  * 
  * <hr>
  * 
- * @author David SPORN 
+ * @author David SPORN
  * 
  */
 public class CollisionDetectorBelow extends CollisionDetectorOnBorder
@@ -44,7 +44,7 @@ public class CollisionDetectorBelow extends CollisionDetectorOnBorder
 	 * @see com.sporniket.libre.game.api.collision.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector,
 	 * com.sporniket.libre.game.api.types.Position.Vector)
 	 */
-	
+
 	public boolean isHit(Vector toHit, Vector hitter)
 	{
 		int _value = hitter.y - toHit.y - getBorder();
@@ -53,6 +53,7 @@ public class CollisionDetectorBelow extends CollisionDetectorOnBorder
 
 	/**
 	 * @param border
+	 *            the y limit.
 	 */
 	public CollisionDetectorBelow(int border)
 	{

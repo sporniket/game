@@ -38,8 +38,8 @@ import java.io.InputStream;
 public interface ResourceDefinitionLocator
 {
 	/**Create an {@link InputStream} from a location string of a resource definition.
-	 * @param location
-	 * @return
+	 * @param location a logical location (relative path, uri, url, etc...)
+	 * @return an input stream for reading the requested resource.
 	 */
 	public InputStream getInputStream(String location) throws IOException;
 }

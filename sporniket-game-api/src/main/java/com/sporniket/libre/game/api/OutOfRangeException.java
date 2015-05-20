@@ -29,46 +29,31 @@ package com.sporniket.libre.game.api;
  * 
  * <hr>
  * 
- * @author David SPORN 
+ * @author David SPORN
  *
  */
-public class OutOfRangeException extends RuntimeException {
+public class OutOfRangeException extends RuntimeException
+{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6986197707338369860L;
 
-	/**
-	 * 
-	 */
-	public OutOfRangeException() {
-		// TODO Auto-generated constructor stub
+	public OutOfRangeException()
+	{
 	}
 
-	/**
-	 * @param arg0
-	 */
-	public OutOfRangeException(String arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
+	public OutOfRangeException(String message)
+	{
+		super(message);
 	}
 
-	/**
-	 * @param arg0
-	 */
-	public OutOfRangeException(Throwable arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
+	public OutOfRangeException(Throwable cause)
+	{
+		super(cause);
 	}
 
-	/**
-	 * @param arg0
-	 * @param arg1
-	 */
-	public OutOfRangeException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
+	public OutOfRangeException(String message, Throwable cause)
+	{
+		super(message, cause);
 	}
 
 }

@@ -37,7 +37,7 @@ import com.sporniket.libre.game.api.types.Position.Vector;
 public interface AccelerationField
 {
 	/**Compute the acceleration vector associated with the position
-	 * @param position
+	 * @param position the position of the object to accelerate.
 	 * @return MAY be <code>null</code> if the position is out of the field but SHOULD be vector (0,0) instead.
 	 */
 	Vector getAcceleration(Vector position);

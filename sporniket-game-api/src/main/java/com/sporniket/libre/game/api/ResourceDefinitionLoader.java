@@ -7,9 +7,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.sporniket.libre.game.api.sprite.Actor;
 import com.sporniket.libre.game.api.sprite.ActorBank;
+import com.sporniket.libre.game.api.sprite.Sequence;
 import com.sporniket.libre.game.api.sprite.SequenceBank;
+import com.sporniket.libre.game.api.sprite.SequenceInstance;
 import com.sporniket.libre.game.api.sprite.SequenceInstanceBank;
+import com.sporniket.libre.game.api.sprite.Sprite;
 import com.sporniket.libre.game.api.sprite.SpriteBank;
 
 /**
@@ -41,7 +45,7 @@ import com.sporniket.libre.game.api.sprite.SpriteBank;
  * 
  * <hr>
  * 
- * @author David SPORN 
+ * @author David SPORN
  * 
  */
 public interface ResourceDefinitionLoader
@@ -52,11 +56,17 @@ public interface ResourceDefinitionLoader
 	 * The underlying implementation might use a ResourceDefinitionLocation to find the corresponding InputStream
 	 * 
 	 * @param file
+	 *            The file to load.
 	 * @param sprites
+	 *            {@link Sprite} definitions will be added to this bank.
 	 * @param sequences
+	 *            {@link Sequence} definitions will be added to this bank.
 	 * @param sequenceInstances
+	 *            {@link SequenceInstance} definitions will be added to this bank.
 	 * @param actors
+	 *            {@link Actor} definitions will be added to this bank.
 	 * @throws IOException
+	 *             if there is a problem.
 	 */
 	public void loadSpriteAndActorDefinitions(String file, SpriteBank sprites, SequenceBank sequences,
 			SequenceInstanceBank sequenceInstances, ActorBank actors) throws IOException;
@@ -65,11 +75,17 @@ public interface ResourceDefinitionLoader
 	 * Load into given bank resource definitions contained by the specified file.
 	 * 
 	 * @param file
+	 *            The file to load.
 	 * @param sprites
+	 *            {@link Sprite} definitions will be added to this bank.
 	 * @param sequences
+	 *            {@link Sequence} definitions will be added to this bank.
 	 * @param sequenceInstances
+	 *            {@link SequenceInstance} definitions will be added to this bank.
 	 * @param actors
+	 *            {@link Actor} definitions will be added to this bank.
 	 * @throws IOException
+	 *             if there is a problem.
 	 */
 	public void loadSpriteAndActorDefinitions(File file, SpriteBank sprites, SequenceBank sequences,
 			SequenceInstanceBank sequenceInstances, ActorBank actors) throws IOException;
@@ -77,12 +93,18 @@ public interface ResourceDefinitionLoader
 	/**
 	 * Load into given bank resource definitions contained by the specified inputStream.
 	 * 
-	 * @param file
+	 * @param inputStream
+	 *            The input stream to read.
 	 * @param sprites
+	 *            {@link Sprite} definitions will be added to this bank.
 	 * @param sequences
+	 *            {@link Sequence} definitions will be added to this bank.
 	 * @param sequenceInstances
+	 *            {@link SequenceInstance} definitions will be added to this bank.
 	 * @param actors
+	 *            {@link Actor} definitions will be added to this bank.
 	 * @throws IOException
+	 *             if there is a problem.
 	 */
 	public void loadSpriteAndActorDefinitions(InputStream inputStream, SpriteBank sprites, SequenceBank sequences,
 			SequenceInstanceBank sequenceInstances, ActorBank actors) throws IOException;

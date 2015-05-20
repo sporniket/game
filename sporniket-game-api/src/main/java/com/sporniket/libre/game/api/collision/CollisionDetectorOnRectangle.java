@@ -32,7 +32,7 @@ import com.sporniket.libre.game.api.types.Position.Vector;
  * 
  * <hr>
  * 
- * @author David SPORN 
+ * @author David SPORN
  * 
  */
 public class CollisionDetectorOnRectangle implements CollisionDetector
@@ -40,9 +40,9 @@ public class CollisionDetectorOnRectangle implements CollisionDetector
 	int myRx;
 
 	int myRy;
-	
+
 	int myOffsetX;
-	
+
 	int myOffsetY;
 
 	/**
@@ -57,7 +57,9 @@ public class CollisionDetectorOnRectangle implements CollisionDetector
 
 	/**
 	 * @param rx
+	 *            horizontal radius.
 	 * @param ry
+	 *            vertical radius.
 	 */
 	public CollisionDetectorOnRectangle(int rx, int ry)
 	{
@@ -67,12 +69,15 @@ public class CollisionDetectorOnRectangle implements CollisionDetector
 		myMinusRy = -myRy;
 	}
 
-	
 	/**
 	 * @param rx
+	 *            horizontal radius.
 	 * @param ry
+	 *            vertical radius.
 	 * @param offsetX
+	 *            x of the rectangle center.
 	 * @param offsetY
+	 *            y of the rectangle center.
 	 */
 	public CollisionDetectorOnRectangle(int rx, int ry, int offsetX, int offsetY)
 	{
@@ -81,27 +86,27 @@ public class CollisionDetectorOnRectangle implements CollisionDetector
 		myOffsetY = offsetY;
 	}
 
-
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see com.sporniketstudio.earthdefender.timeattack.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector,
 	 * com.sporniket.libre.game.api.types.Position.Vector)
 	 */
-	
+
 	public boolean isHit(Vector toHit, Vector hitter)
 	{
-		int _deltaX = toHit.x - hitter.x - myOffsetX ;
-		int _deltaY = toHit.y - hitter.y - myOffsetY ;
-		
+		int _deltaX = toHit.x - hitter.x - myOffsetX;
+		int _deltaY = toHit.y - hitter.y - myOffsetY;
+
 		return ((_deltaX <= myRx) && (_deltaX >= myMinusRx) && (_deltaY <= myRy) && (_deltaY >= myMinusRy));
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.sporniket.libre.game.api.collision.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector)
 	 */
-	
+
 	public boolean isHit(Vector hitter)
 	{
 		return CollisionDetectorDefaultMethodImplementation.isHitWithObjectToHitOnZero(this, hitter);

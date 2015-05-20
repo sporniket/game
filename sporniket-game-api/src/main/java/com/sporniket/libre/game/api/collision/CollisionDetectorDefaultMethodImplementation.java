@@ -42,10 +42,10 @@ class CollisionDetectorDefaultMethodImplementation
 	private static final Vector ZERO = new Vector();
 	
 	/**
-	 * Default implementation for {@link CollisionDetector#isHit(Vector)}.
-	 * @param detector
-	 * @param hitter
-	 * @return
+	 * Default implementation for {@link CollisionDetector#isHit(Vector)} : the hitter is the (0,0) location.
+	 * @param detector the detector to use.
+	 * @param hitter the coordinates to test.
+	 * @return true if the detector is hit by the hitter.
 	 */
 	public static boolean isHitWithObjectToHitOnZero(CollisionDetector detector, Vector hitter)
 	{

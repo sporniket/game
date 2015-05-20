@@ -32,10 +32,10 @@ import com.sporniket.libre.game.api.types.Position.Vector;
  * 
  * <hr>
  * 
- * @author David SPORN 
+ * @author David SPORN
  * 
  */
-//FIXME create a detector on limits (on the left, on the right)
+// FIXME create a detector on limits (on the left, on the right)
 public abstract class CollisionDetectorOnBorder implements CollisionDetector
 {
 	/**
@@ -53,6 +53,7 @@ public abstract class CollisionDetectorOnBorder implements CollisionDetector
 
 	/**
 	 * @param border
+	 *            the border value.
 	 */
 	public CollisionDetectorOnBorder(int border)
 	{
@@ -65,7 +66,7 @@ public abstract class CollisionDetectorOnBorder implements CollisionDetector
 	 * 
 	 * @see com.sporniket.libre.game.api.collision.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector)
 	 */
-	
+
 	public boolean isHit(Vector hitter)
 	{
 		return CollisionDetectorDefaultMethodImplementation.isHitWithObjectToHitOnZero(this, hitter);

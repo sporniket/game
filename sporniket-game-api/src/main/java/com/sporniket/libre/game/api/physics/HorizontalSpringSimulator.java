@@ -34,50 +34,33 @@ import com.sporniket.libre.game.api.types.Position.Vector;
  * 
  * <hr>
  * 
- * @author David SPORN 
+ * @author David SPORN
  * 
  */
 public class HorizontalSpringSimulator extends OneDimensionSpringSimulator
 {
 	int myVerticalAcceleration = 0;
 
-	/**
-	 * Initialize the simulator
-	 * 
-	 * @param equilibrium
-	 * @param range
-	 */
 	public HorizontalSpringSimulator(int range, double springFactor)
 	{
 		super(range, springFactor);
 	}
 
-	/**
-	 * @param reference
-	 */
 	public HorizontalSpringSimulator(OneDimensionSpringSimulator reference)
 	{
 		super(reference);
 	}
 
-	
 	public Vector getAcceleration(Vector position)
 	{
 		return new Vector(getValue(position.x), getVerticalAcceleration());
 	}
 
-	/**
-	 * @return the verticalAcceleration
-	 */
 	public int getVerticalAcceleration()
 	{
 		return myVerticalAcceleration;
 	}
 
-	/**
-	 * @param verticalAcceleration
-	 *            the verticalAcceleration to set
-	 */
 	public void setVerticalAcceleration(int verticalAcceleration)
 	{
 		myVerticalAcceleration = verticalAcceleration;

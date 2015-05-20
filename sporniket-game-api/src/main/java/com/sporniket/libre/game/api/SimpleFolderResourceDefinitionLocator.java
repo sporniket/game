@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Simple locator, that try to load a file from a folder.
+ * Simple locator, locations are pathes relative to a root folder.
  * <p>
  * &copy; Copyright 2010-2013 David Sporn
  * </p>
@@ -58,7 +58,7 @@ public class SimpleFolderResourceDefinitionLocator implements ResourceDefinition
 	}
 
 	/**
-	 * @param folder
+	 * @param folder the root folder.
 	 */
 	public SimpleFolderResourceDefinitionLocator(File folder)
 	{

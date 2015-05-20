@@ -29,46 +29,31 @@ package com.sporniket.libre.game.api;
  * 
  * <hr>
  * 
- * @author David SPORN 
+ * @author David SPORN
  *
  */
-public class InvalidValueException extends RuntimeException {
-
-	/**
-	 * 
-	 */
+public class InvalidValueException extends RuntimeException
+{
 	private static final long serialVersionUID = -3798641684454381456L;
 
-	/**
-	 * 
-	 */
-	public InvalidValueException() {
-		// TODO Auto-generated constructor stub
+	public InvalidValueException()
+	{
+		super();
 	}
 
-	/**
-	 * @param arg0
-	 */
-	public InvalidValueException(String arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
+	public InvalidValueException(String message)
+	{
+		super(message);
 	}
 
-	/**
-	 * @param arg0
-	 */
-	public InvalidValueException(Throwable arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
+	public InvalidValueException(Throwable cause)
+	{
+		super(cause);
 	}
 
-	/**
-	 * @param arg0
-	 * @param arg1
-	 */
-	public InvalidValueException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
+	public InvalidValueException(String message, Throwable cause)
+	{
+		super(message, cause);
 	}
 
 }

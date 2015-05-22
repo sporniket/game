@@ -6,7 +6,7 @@ package com.sporniket.libre.game.api.collision;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
  * A collision detector made of several collision detectors.
@@ -59,7 +59,7 @@ public class CollisionDetectorHolder implements CollisionDetector
 	 * com.sporniket.libre.game.api.types.Position.Vector)
 	 */
 
-	public boolean isHit(Vector toHit, Vector hitter)
+	public boolean isHit(Point toHit, Point hitter)
 	{
 		for (CollisionDetector _detector : myDetectors)
 		{
@@ -77,7 +77,7 @@ public class CollisionDetectorHolder implements CollisionDetector
 	 * @see com.sporniket.libre.game.api.collision.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector)
 	 */
 
-	public boolean isHit(Vector hitter)
+	public boolean isHit(Point hitter)
 	{
 		return CollisionDetectorDefaultMethodImplementation.isHitWithObjectToHitOnZero(this, hitter);
 	}

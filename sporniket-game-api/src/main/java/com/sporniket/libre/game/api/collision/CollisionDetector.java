@@ -3,7 +3,7 @@
  */
 package com.sporniket.libre.game.api.collision;
 
-import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
  * Interface for a collision detector, implementation will be dealing with one type of actor.
@@ -42,12 +42,12 @@ public interface CollisionDetector
 	 * @param hitter position of the hitter.
 	 * @return true if there has been a collision.
 	 */
-	boolean isHit(Vector toHit, Vector hitter) ;
+	boolean isHit(Point toHit, Point hitter) ;
 	
 	/**
 	 * Test for a collision not dependent from the position of the object to hit (put at (0,0) if required).
 	 * @param hitter position of the hitter.
 	 * @return true if there has been a collision.
 	 */
-	boolean isHit(Vector hitter);
+	boolean isHit(Point hitter);
 }

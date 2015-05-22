@@ -3,7 +3,7 @@
  */
 package com.sporniket.libre.game.api.collision;
 
-import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
  * Detector that watch for anything that is strictly below an y limit.
@@ -45,7 +45,7 @@ public class CollisionDetectorBelow extends CollisionDetectorOnBorder
 	 * com.sporniket.libre.game.api.types.Position.Vector)
 	 */
 
-	public boolean isHit(Vector toHit, Vector hitter)
+	public boolean isHit(Point toHit, Point hitter)
 	{
 		int _value = hitter.getY() - toHit.getY() - getBorder();
 		return _value > 0;

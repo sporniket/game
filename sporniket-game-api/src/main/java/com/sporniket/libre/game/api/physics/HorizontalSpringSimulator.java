@@ -4,6 +4,7 @@
 package com.sporniket.libre.game.api.physics;
 
 import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
  * Acceleraton field that allow to simulate the move of one end of a spring laying on the floor when the other end cannot move.
@@ -51,7 +52,7 @@ public class HorizontalSpringSimulator extends OneDimensionSpringSimulator
 		super(reference);
 	}
 
-	public Vector getAcceleration(Vector position)
+	public Vector getAcceleration(Point position)
 	{
 		return new Vector(getValue(position.getX()), getVerticalAcceleration());
 	}

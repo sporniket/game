@@ -4,6 +4,7 @@
 package com.sporniket.libre.game.api.physics;
 
 import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
  * Interface of an "acceleration field", that can provide, for a position, an associated acceleration.
@@ -40,5 +41,5 @@ public interface AccelerationField
 	 * @param position the position of the object to accelerate.
 	 * @return MAY be <code>null</code> if the position is out of the field but SHOULD be vector (0,0) instead.
 	 */
-	Vector getAcceleration(Vector position);
+	Vector getAcceleration(Point position);
 }

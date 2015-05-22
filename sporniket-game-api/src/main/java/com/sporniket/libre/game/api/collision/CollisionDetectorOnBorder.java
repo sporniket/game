@@ -3,7 +3,7 @@
  */
 package com.sporniket.libre.game.api.collision;
 
-import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
  * Base class for detectors watching a border (horizontal or vertical)
@@ -67,7 +67,7 @@ public abstract class CollisionDetectorOnBorder implements CollisionDetector
 	 * @see com.sporniket.libre.game.api.collision.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector)
 	 */
 
-	public boolean isHit(Vector hitter)
+	public boolean isHit(Point hitter)
 	{
 		return CollisionDetectorDefaultMethodImplementation.isHitWithObjectToHitOnZero(this, hitter);
 	}

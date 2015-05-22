@@ -15,6 +15,7 @@ import com.sporniket.libre.game.api.sprite.Sprite;
 import com.sporniket.libre.game.api.sprite.SpriteBank;
 import com.sporniket.libre.game.api.types.BlocDefinition;
 import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
  * Simulate a console screen with a fixed font {@link ActorBankSet}.
@@ -210,7 +211,8 @@ public class FixedFontAsciiMatrix
 			{
 				Actor _newChar = Actor.createFromSequence(_referenceSequence);
 				_newChar.setActive(false);
-				_newChar.getPosition().setCurrentPositionVector(new Vector(_currentX, _currentY));
+				final Point _position = new Point().withX(_currentX).withY(_currentY);
+				_newChar.getPosition().setPosition(_position);
 
 				myActorBank.add(_newChar);
 				myDirectAccessToChars[_currentCell] = _newChar;

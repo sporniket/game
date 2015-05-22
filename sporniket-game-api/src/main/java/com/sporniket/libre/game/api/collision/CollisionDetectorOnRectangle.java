@@ -3,7 +3,7 @@
  */
 package com.sporniket.libre.game.api.collision;
 
-import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
  * Collision detector between two objects, the active zone is a rectangle defined by two radius, the rectangle might be offset.
@@ -93,7 +93,7 @@ public class CollisionDetectorOnRectangle implements CollisionDetector
 	 * com.sporniket.libre.game.api.types.Position.Vector)
 	 */
 
-	public boolean isHit(Vector toHit, Vector hitter)
+	public boolean isHit(Point toHit, Point hitter)
 	{
 		int _deltaX = toHit.getX() - hitter.getX() - myOffsetX;
 		int _deltaY = toHit.getY() - hitter.getY() - myOffsetY;
@@ -107,7 +107,7 @@ public class CollisionDetectorOnRectangle implements CollisionDetector
 	 * @see com.sporniket.libre.game.api.collision.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector)
 	 */
 
-	public boolean isHit(Vector hitter)
+	public boolean isHit(Point hitter)
 	{
 		return CollisionDetectorDefaultMethodImplementation.isHitWithObjectToHitOnZero(this, hitter);
 	}

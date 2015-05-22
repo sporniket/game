@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.sporniket.libre.game.api.collision.CollisionDetector;
-import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
  * Base class for creating interactive area.
@@ -97,7 +97,7 @@ public class UiArea<Value>
 	 * @param position
 	 * @return a value, might be null (no area)
 	 */
-	public Value findValue(Vector position)
+	public Value findValue(Point position)
 	{
 		Value _result = null;
 		if (myDetector.isHit(position))

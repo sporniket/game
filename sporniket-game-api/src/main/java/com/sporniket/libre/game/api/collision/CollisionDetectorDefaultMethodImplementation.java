@@ -3,7 +3,7 @@
  */
 package com.sporniket.libre.game.api.collision;
 
-import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
  * Provide default implementation for some methods of {@link CollisionDetector}.
@@ -39,15 +39,15 @@ class CollisionDetectorDefaultMethodImplementation
 	/**
 	 * cache of the zero Vector.
 	 */
-	private static final Vector ZERO = new Vector();
+	private static final Point ZERO = new Point();
 	
 	/**
-	 * Default implementation for {@link CollisionDetector#isHit(Vector)} : the hitter is the (0,0) location.
+	 * Default implementation for {@link CollisionDetector#isHit(Point)} : the hitter is the (0,0) location.
 	 * @param detector the detector to use.
 	 * @param hitter the coordinates to test.
 	 * @return true if the detector is hit by the hitter.
 	 */
-	public static boolean isHitWithObjectToHitOnZero(CollisionDetector detector, Vector hitter)
+	public static boolean isHitWithObjectToHitOnZero(CollisionDetector detector, Point hitter)
 	{
 		return detector.isHit(ZERO, hitter);
 	}

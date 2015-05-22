@@ -3,7 +3,6 @@
  */
 package com.sporniket.libre.game.api.types;
 
-import com.sporniket.libre.game.api.types.Position.Vector;
 import com.sporniket.libre.game.api.types.xy.area.BoundsArea;
 import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
@@ -35,7 +34,7 @@ import com.sporniket.libre.game.api.types.xy.geometry.Point;
  * <hr>
  * 
  * @author David SPORN 
- * 
+ * @deprecated use {@link BoundsArea}
  */
 public class BoxArea extends BoundsArea implements Area
 {
@@ -65,7 +64,7 @@ public class BoxArea extends BoundsArea implements Area
 	 * @see com.sporniket.libre.game.api.types.Area#isInside(com.sporniket.libre.game.api.types.Position.Vector)
 	 */
 	
-	public boolean isInside(Vector position)
+	public boolean isInside(Point position)
 	{
 		return isInside((Point)position);
 	}

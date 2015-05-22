@@ -4,7 +4,8 @@
 package com.sporniket.libre.game.api.collision;
 
 import com.sporniket.libre.game.api.types.BoxArea;
-import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.area.BoundsArea;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
  * Collision detector for a rectangular area from (left,top) to (right,bottom), inclusive.
@@ -36,28 +37,8 @@ import com.sporniket.libre.game.api.types.Position.Vector;
  * @author David SPORN
  * 
  */
-public class CollisionDetectorOnArea implements CollisionDetector
+public class CollisionDetectorOnArea extends BoundsArea implements CollisionDetector
 {
-
-	/**
-	 * Bottom limit, inclusive.
-	 */
-	private int myBottom;
-
-	/**
-	 * Left limit, inclusive.
-	 */
-	private int myLeft;
-
-	/**
-	 * Right limit, inclusive.
-	 */
-	private int myRight;
-
-	/**
-	 * Top limit, inclusive.
-	 */
-	private int myTop;
 
 	/**
 	 * Instanciate a fully specified detector.
@@ -74,10 +55,10 @@ public class CollisionDetectorOnArea implements CollisionDetector
 	public CollisionDetectorOnArea(int left, int top, int right, int bottom)
 	{
 		super();
-		myLeft = left;
-		myTop = top;
-		myRight = right;
-		myBottom = bottom;
+		setLeft(left);
+		setTop(top);
+		setRight(right);
+		setBottom(bottom);
 	}
 
 	/**
@@ -86,7 +67,7 @@ public class CollisionDetectorOnArea implements CollisionDetector
 	 * @param area
 	 *            the area definition.
 	 */
-	public CollisionDetectorOnArea(BoxArea area)
+	public CollisionDetectorOnArea(BoundsArea area)
 	{
 		this(area.getLeft(), area.getTop(), area.getRight(), area.getBottom());
 	}
@@ -96,18 +77,15 @@ public class CollisionDetectorOnArea implements CollisionDetector
 	 * 
 	 * The detection will be shifted by <code>toHit</code> value. (non-Javadoc)
 	 * 
-	 * @see com.sporniket.libre.game.api.collision.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector,
-	 *      com.sporniket.libre.game.api.types.Position.Vector)
+	 * @see com.sporniket.libre.game.api.collision.CollisionDetector#isHit(Point, Point)
 	 */
 
-	public boolean isHit(Vector toHit, Vector hitter)
+	public boolean isHit(Point toHit, Point hitter)
 	{
 		int _x = hitter.getX() - toHit.getX();
 		int _y = hitter.getY() - toHit.getY();
-
-		boolean _isOk__x = (myLeft <= _x) && (_x <= myRight);
-		boolean _isOk__y = (myTop <= _y) && (_y <= myBottom);
-		return _isOk__x && _isOk__y;
+		
+		return isInside(new Point().withX(_x).withY(_y));
 	}
 
 	/*
@@ -116,7 +94,7 @@ public class CollisionDetectorOnArea implements CollisionDetector
 	 * @see com.sporniket.libre.game.api.collision.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector)
 	 */
 
-	public boolean isHit(Vector hitter)
+	public boolean isHit(Point hitter)
 	{
 		return CollisionDetectorDefaultMethodImplementation.isHitWithObjectToHitOnZero(this, hitter);
 	}

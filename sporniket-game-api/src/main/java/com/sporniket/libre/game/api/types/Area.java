@@ -36,10 +36,4 @@ import com.sporniket.libre.game.api.types.Position.Vector;
  */
 public interface Area extends com.sporniket.libre.game.api.types.xy.area.Area
 {
-	/**
-	 * Return <code>true</code> when the position is "inside" the area.
-	 * @param position
-	 * @return
-	 */
-	boolean isInside(Vector position) ;
 }

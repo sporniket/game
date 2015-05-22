@@ -8,7 +8,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.sporniket.libre.game.api.collision.CollisionDetectorOnRectangle;
-import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
  * <p>
@@ -48,7 +48,7 @@ public class TestCollisionDetectorOnRectangle
 	public void testCollisionOnCenter()
 	{
 		CollisionDetectorOnRectangle _detector = new CollisionDetectorOnRectangle(12, 12);
-		if (!_detector.isHit(new Vector(120,140), new Vector(120,140)))
+		if (!_detector.isHit(new Point().withX(120).withY(140), new Point().withX(120).withY(140)))
 		{
 			fail("Could not detect collision on center of the area");
 		}

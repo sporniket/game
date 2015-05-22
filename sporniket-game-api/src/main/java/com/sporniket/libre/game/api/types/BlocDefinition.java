@@ -3,6 +3,8 @@
  */
 package com.sporniket.libre.game.api.types;
 
+import com.sporniket.libre.game.api.types.xy.geometry.Box;
+
 /**
  * Definition of a rectangular bloc of a picture.
  *
@@ -39,59 +41,36 @@ package com.sporniket.libre.game.api.types;
  * <hr>
  * 
  * @author David SPORN 
+ * @deprecated replaced by {@link Box}
  *
  */
-public class BlocDefinition implements Cloneable {
-	private int myHeight = 0 ;
-	private int myLeft = 0 ;
-	private int myTop = 0 ;
-	private int myWidth = 0 ;
-	/**
-	 * @return the height
-	 */
-	public int getHeight() {
-		return myHeight;
-	}
-	/**
-	 * @param height the height to set
-	 */
-	public void setHeight(int height) {
-		myHeight = height;
-	}
+public class BlocDefinition extends Box implements Cloneable{
 	/**
 	 * @return the left
+	 * @deprecated
 	 */
 	public int getLeft() {
-		return myLeft;
+		return getX();
 	}
 	/**
 	 * @param left the left to set
+	 * @deprecated
 	 */
 	public void setLeft(int left) {
-		myLeft = left;
+		setX(left);
 	}
 	/**
 	 * @return the top
+	 * @deprecated
 	 */
 	public int getTop() {
-		return myTop;
+		return getY();
 	}
 	/**
 	 * @param top the top to set
+	 * @deprecated
 	 */
 	public void setTop(int top) {
-		myTop = top;
-	}
-	/**
-	 * @return the width
-	 */
-	public int getWidth() {
-		return myWidth;
-	}
-	/**
-	 * @param width the width to set
-	 */
-	public void setWidth(int width) {
-		myWidth = width;
+		setY(top);
 	}
 }

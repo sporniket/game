@@ -3,10 +3,6 @@
  */
 package com.sporniket.libre.game.api.types;
 
-import com.sporniket.libre.game.api.sprite.Actor;
-import com.sporniket.libre.game.api.sprite.SequenceInstance;
-import com.sporniket.libre.game.api.sprite.Sprite;
-import com.sporniket.libre.game.api.sprite.SpriteBank;
 import com.sporniket.libre.game.api.types.Position.Vector;
 
 /**
@@ -36,9 +32,9 @@ import com.sporniket.libre.game.api.types.Position.Vector;
  * <hr>
  * 
  * @author David SPORN 
- *
+ * @deprecated use {@link com.sporniket.libre.game.api.types.xy.area.Area}
  */
-public interface Area
+public interface Area extends com.sporniket.libre.game.api.types.xy.area.Area
 {
 	/**
 	 * Return <code>true</code> when the position is "inside" the area.

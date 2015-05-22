@@ -5,7 +5,7 @@
 		<licencenotice>LGPL v3</licencenotice>
 		<version>15.05.01-SNAPSHOT</version>
 	</annotation>
-	<package name="com.sporniket.libre.game.api.types.geometry.xy">
+	<package name="com.sporniket.libre.game.api.types.xy.geometry">
 		<annotation>
 			<summary>Collection of types to describe planar object (having
 				coordinate along two axis, usually called 'x' and 'y').</summary>

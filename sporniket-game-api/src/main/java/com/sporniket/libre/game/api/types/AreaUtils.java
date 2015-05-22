@@ -48,8 +48,8 @@ public class AreaUtils
 	public static BoxArea createAreaFromSprite(Sprite sprite, Vector position)
 	{
 		BoxArea _area = new BoxArea();
-		_area.setLeft(position.x - sprite.getHotSpotX());
-		_area.setTop(position.y - sprite.getHotSpotY());
+		_area.setLeft(position.getX() - sprite.getHotSpotX());
+		_area.setTop(position.getY() - sprite.getHotSpotY());
 		_area.setRight(_area.getLeft() + sprite.getBloc().getWidth() - 1);
 		_area.setBottom(_area.getTop() + sprite.getBloc().getHeight() - 1);
 		return _area;

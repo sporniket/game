@@ -652,8 +652,8 @@ class GamePanel extends JPanel implements GraphicAbstractionLayerInterface, Soun
 			}
 			Sprite _sprite = spriteBank.get(_spriteIndex);
 			Vector _dpos = _actor.getPosition().getCurrentPositionVector();
-			int _dx = _dpos.x - _sprite.getHotSpotX();
-			int _dy = _dpos.y - _sprite.getHotSpotY();
+			int _dx = _dpos.getX() - _sprite.getHotSpotX();
+			int _dy = _dpos.getY() - _sprite.getHotSpotY();
 			CopyMode _mode = CopyMode.NORMAL;
 			BlocDefinition _bloc = _sprite.getBloc();
 			switch (_mode)

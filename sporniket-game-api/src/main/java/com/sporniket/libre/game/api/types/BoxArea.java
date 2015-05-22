@@ -4,6 +4,8 @@
 package com.sporniket.libre.game.api.types;
 
 import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.area.BoundsArea;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
  * Rectangular Area, defined by its top, bottom right and left borders, borders are included.
@@ -35,7 +37,7 @@ import com.sporniket.libre.game.api.types.Position.Vector;
  * @author David SPORN 
  * 
  */
-public class BoxArea implements Area
+public class BoxArea extends BoundsArea implements Area
 {
 
 	/**
@@ -57,46 +59,6 @@ public class BoxArea implements Area
 		return _result;
 	}
 
-	private int myBottom = 0;
-
-	private int myLeft = 0;
-
-	private int myRight = 0;
-
-	private int myTop = 0;
-
-	/**
-	 * @return the bottom
-	 */
-	public int getBottom()
-	{
-		return myBottom;
-	}
-
-	/**
-	 * @return the left
-	 */
-	public int getLeft()
-	{
-		return myLeft;
-	}
-
-	/**
-	 * @return the right
-	 */
-	public int getRight()
-	{
-		return myRight;
-	}
-
-	/**
-	 * @return the top
-	 */
-	public int getTop()
-	{
-		return myTop;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -105,45 +67,7 @@ public class BoxArea implements Area
 	
 	public boolean isInside(Vector position)
 	{
-		boolean _isOk__x = (position.x >= getLeft()) && (position.x <= getRight());
-		boolean _isOk__y = (position.y >= getTop()) && (position.y <= getBottom());
-		return _isOk__x && _isOk__y;
-	}
-
-	/**
-	 * @param bottom
-	 *            the bottom to set
-	 */
-	public void setBottom(int bottom)
-	{
-		myBottom = bottom;
-	}
-
-	/**
-	 * @param left
-	 *            the left to set
-	 */
-	public void setLeft(int left)
-	{
-		myLeft = left;
-	}
-
-	/**
-	 * @param right
-	 *            the right to set
-	 */
-	public void setRight(int right)
-	{
-		myRight = right;
-	}
-
-	/**
-	 * @param top
-	 *            the top to set
-	 */
-	public void setTop(int top)
-	{
-		myTop = top;
+		return isInside((Point)position);
 	}
 
 }

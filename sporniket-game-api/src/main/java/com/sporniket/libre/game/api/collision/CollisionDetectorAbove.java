@@ -47,7 +47,7 @@ public class CollisionDetectorAbove extends CollisionDetectorOnBorder
 
 	public boolean isHit(Vector toHit, Vector hitter)
 	{
-		int _value = hitter.y - toHit.y - getBorder();
+		int _value = hitter.getY() - toHit.getY() - getBorder();
 		return _value < 0;
 	}
 

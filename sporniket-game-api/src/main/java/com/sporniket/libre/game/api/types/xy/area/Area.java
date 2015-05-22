@@ -1,13 +1,12 @@
 /**
  * 
  */
-package com.sporniket.libre.game.api.collision;
+package com.sporniket.libre.game.api.types.xy.area;
 
-import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
 
 /**
- * Detector that watch for anything that is strictly below an y limit.
- * 
+ * Model for a surface where an actor can be "inside"
  * <p>
  * &copy; Copyright 2010-2013 David Sporn
  * </p>
@@ -32,32 +31,15 @@ import com.sporniket.libre.game.api.types.Position.Vector;
  * 
  * <hr>
  * 
- * @author David SPORN
- * 
+ * @author David SPORN 
+ *
  */
-public class CollisionDetectorBelow extends CollisionDetectorOnBorder
+public interface Area
 {
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.sporniket.libre.game.api.collision.CollisionDetector#isHit(com.sporniket.libre.game.api.types.Position.Vector,
-	 * com.sporniket.libre.game.api.types.Position.Vector)
-	 */
-
-	public boolean isHit(Vector toHit, Vector hitter)
-	{
-		int _value = hitter.getY() - toHit.getY() - getBorder();
-		return _value > 0;
-	}
-
 	/**
-	 * @param border
-	 *            the y limit.
+	 * Return <code>true</code> when the position is "inside" the area.
+	 * @param position
+	 * @return
 	 */
-	public CollisionDetectorBelow(int border)
-	{
-		super(border);
-	}
-
+	boolean isInside(Point position) ;
 }

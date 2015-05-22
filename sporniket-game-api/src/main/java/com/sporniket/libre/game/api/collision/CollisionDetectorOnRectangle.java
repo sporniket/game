@@ -95,8 +95,8 @@ public class CollisionDetectorOnRectangle implements CollisionDetector
 
 	public boolean isHit(Vector toHit, Vector hitter)
 	{
-		int _deltaX = toHit.x - hitter.x - myOffsetX;
-		int _deltaY = toHit.y - hitter.y - myOffsetY;
+		int _deltaX = toHit.getX() - hitter.getX() - myOffsetX;
+		int _deltaY = toHit.getY() - hitter.getY() - myOffsetY;
 
 		return ((_deltaX <= myRx) && (_deltaX >= myMinusRx) && (_deltaY <= myRy) && (_deltaY >= myMinusRy));
 	}

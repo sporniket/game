@@ -102,8 +102,8 @@ public class CollisionDetectorOnArea implements CollisionDetector
 
 	public boolean isHit(Vector toHit, Vector hitter)
 	{
-		int _x = hitter.x - toHit.x;
-		int _y = hitter.y - toHit.y;
+		int _x = hitter.getX() - toHit.getX();
+		int _y = hitter.getY() - toHit.getY();
 
 		boolean _isOk__x = (myLeft <= _x) && (_x <= myRight);
 		boolean _isOk__y = (myTop <= _y) && (_y <= myBottom);

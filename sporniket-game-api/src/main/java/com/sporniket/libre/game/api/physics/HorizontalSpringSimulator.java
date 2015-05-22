@@ -53,7 +53,7 @@ public class HorizontalSpringSimulator extends OneDimensionSpringSimulator
 
 	public Vector getAcceleration(Vector position)
 	{
-		return new Vector(getValue(position.x), getVerticalAcceleration());
+		return new Vector(getValue(position.getX()), getVerticalAcceleration());
 	}
 
 	public int getVerticalAcceleration()

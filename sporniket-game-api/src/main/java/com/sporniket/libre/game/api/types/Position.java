@@ -3,6 +3,9 @@
  */
 package com.sporniket.libre.game.api.types;
 
+import com.sporniket.libre.game.api.types.xy.geometry.Point;
+import com.sporniket.libre.game.api.types.xy.physics.PsaPoint;
+
 /**
  * Model of a moving point, having position, speed and acceleration vectors.
  * 
@@ -35,7 +38,7 @@ package com.sporniket.libre.game.api.types;
  * @author David SPORN 
  * 
  */
-public class Position {
+public class Position extends PsaPoint{
 	/**
 	 * Models the position for 1 dimension.
 	 * 
@@ -121,11 +124,9 @@ public class Position {
 	 * 
 	 * Since it is used merely for exchanging data expressively, there is no data encapsulation.
 	 * @author David SPORN
-	 *
+	 * @deprecated replaced by {@link Point}.
 	 */
-	public static class Vector {
-		public int x = 0;
-		public int y = 0;
+	public static class Vector extends Point{
 		/**
 		 * For classical instanciation "a la Javabeans". Or simply instanciate (0,0) vector.
 		 */
@@ -137,8 +138,7 @@ public class Position {
 		 * @param y
 		 */
 		public Vector(int x, int y) {
-			this.x = x;
-			this.y = y;
+			withX(x).withY(y);
 		}
 	}
 	
@@ -158,7 +158,7 @@ public class Position {
 	 */
 	public Vector getCurrentAccelerationVector()
 	{
-		return new Vector(getX().getAcceleration(), getY().getAcceleration());
+		return new Vector(getAcceleration().getX(),getAcceleration().getY());
 	}
 	
 	/**
@@ -167,7 +167,7 @@ public class Position {
 	 */
 	public Vector getCurrentPositionVector()
 	{
-		return new Vector(getX().getPosition(), getY().getPosition());
+		return new Vector(getPosition().getX(),getPosition().getY());
 	}
 
 	/**
@@ -176,7 +176,7 @@ public class Position {
 	 */
 	public Vector getCurrentSpeedVector()
 	{
-		return new Vector(getX().getSpeed(), getY().getSpeed());
+		return new Vector(getSpeed().getX(),getSpeed().getY());
 	}
 	
 	/**
@@ -199,8 +199,19 @@ public class Position {
 	 */
 	public void run(int msec)
 	{
-		getX().evolve(msec);
-		getY().evolve(msec);
+		//evolve speed using acceleration
+		int _deltaSpeedX = getAcceleration().getX()*msec/1000 ;
+		int _deltaSpeedY = getAcceleration().getY()*msec/1000 ;
+		int _speedX = getSpeed().getX() + _deltaSpeedX;
+		int _speedY = getSpeed().getY() + _deltaSpeedY;
+		getSpeed().withX(_speedX).withY(_speedY);
+		
+		//evolve position using speed
+		int _deltaX = getSpeed().getX()*msec/1000;
+		int _deltaY = getSpeed().getY()*msec/1000;
+		int _x = getPosition().getX() + _deltaX;
+		int _y = getPosition().getY() + _deltaY;
+		getPosition().withX(_x).withY(_y);
 	}
 
 	/**
@@ -208,8 +219,7 @@ public class Position {
 	 */
 	public void setCurrentAccelerationVector(Vector acceleration)
 	{
-		getX().setAcceleration(acceleration.x);
-		getY().setAcceleration(acceleration.y);
+		getAcceleration().withX(acceleration.getX()).withY(acceleration.getY());
 	}
 
 	/**
@@ -217,8 +227,7 @@ public class Position {
 	 */
 	public void setCurrentPositionVector(Vector position)
 	{
-		getX().setPosition(position.x);
-		getY().setPosition(position.y);
+		getPosition().withX(position.getX()).withY(position.getY());
 	}
 	
 	/**
@@ -226,8 +235,7 @@ public class Position {
 	 */
 	public void setCurrentSpeedVector(Vector speed)
 	{
-		getX().setSpeed(speed.x);
-		getY().setSpeed(speed.y);
+		getSpeed().withX(speed.getX()).withY(speed.getY());
 	}
 	
 }

@@ -4,7 +4,7 @@
 package com.sporniket.libre.game.api.types;
 
 import com.sporniket.libre.game.api.types.xy.area.BoundsArea;
-import com.sporniket.libre.game.api.types.xy.geometry.Point;
+import com.sporniket.libre.game.api.types.canvas.Point;
 
 /**
  * Rectangular Area, defined by its top, bottom right and left borders, borders are included.

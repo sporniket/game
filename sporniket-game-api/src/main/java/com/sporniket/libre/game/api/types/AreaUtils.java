@@ -8,8 +8,9 @@ import com.sporniket.libre.game.api.sprite.SequenceInstance;
 import com.sporniket.libre.game.api.sprite.Sprite;
 import com.sporniket.libre.game.api.sprite.SpriteBank;
 import com.sporniket.libre.game.api.types.Position.Vector;
-import com.sporniket.libre.game.api.types.xy.geometry.Box;
-import com.sporniket.libre.game.api.types.xy.geometry.Point;
+import com.sporniket.libre.game.api.types.canvas.Box;
+import com.sporniket.libre.game.api.types.canvas.Point;
+import com.sporniket.libre.game.api.types.physics.xy.PhysicVector;
 
 /**
  * Utilities for Area.
@@ -68,7 +69,8 @@ public class AreaUtils
 	 */
 	public static BoxArea createAreaFromActor(Actor actor, SpriteBank sprites)
 	{
-		Point _position = actor.getPosition().getPosition();
+		final PhysicVector _physicalPosition = actor.getPosition().getPosition();
+		Point _position = new Point().withX(_physicalPosition.getX().intValue()).withY(_physicalPosition.getY().intValue());
 		SequenceInstance _sequenceInstance = actor.getSequence();
 		return createAreaFromSequenceInstance(_sequenceInstance, _position, sprites);
 	}

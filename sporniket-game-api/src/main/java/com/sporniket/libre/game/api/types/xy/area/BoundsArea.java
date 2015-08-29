@@ -3,8 +3,8 @@
  */
 package com.sporniket.libre.game.api.types.xy.area;
 
-import com.sporniket.libre.game.api.types.xy.geometry.Bounds;
-import com.sporniket.libre.game.api.types.xy.geometry.Point;
+import com.sporniket.libre.game.api.types.canvas.Bounds;
+import com.sporniket.libre.game.api.types.canvas.Point;
 
 /**
  * @author dsporn
@@ -14,7 +14,7 @@ public class BoundsArea extends Bounds implements Area
 {
 
 	/* (non-Javadoc)
-	 * @see com.sporniket.libre.game.api.types.xy.area.Area#isInside(com.sporniket.libre.game.api.types.xy.geometry.Point)
+	 * @see com.sporniket.libre.game.api.types.xy.area.Area#isInside(com.sporniket.libre.game.api.types.canvas.Point)
 	 */
 	@Override
 	public boolean isInside(Point position)

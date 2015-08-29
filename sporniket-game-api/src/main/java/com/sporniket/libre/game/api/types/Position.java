@@ -3,8 +3,8 @@
  */
 package com.sporniket.libre.game.api.types;
 
-import com.sporniket.libre.game.api.types.xy.geometry.Point;
-import com.sporniket.libre.game.api.types.xy.physics.PsaPoint;
+import com.sporniket.libre.game.api.types.physics.xy.PhysicPoint;
+import com.sporniket.libre.game.api.types.canvas.Point;
 
 /**
  * Model of a moving point, having position, speed and acceleration vectors.
@@ -35,17 +35,19 @@ import com.sporniket.libre.game.api.types.xy.physics.PsaPoint;
  * 
  * <hr>
  * 
- * @author David SPORN 
+ * @author David SPORN
  * 
  */
-public class Position extends PsaPoint{
+public class Position extends PhysicPoint
+{
 	/**
 	 * Models the position for 1 dimension.
 	 * 
 	 * @author David SPORN
 	 * 
 	 */
-	private static class OneDimensionPosition {
+	private static class OneDimensionPosition
+	{
 		/**
 		 * Acceleration (delta v per second).
 		 */
@@ -66,7 +68,8 @@ public class Position extends PsaPoint{
 		 * 
 		 * @param msec
 		 */
-		public void evolve(int msec) {
+		public void evolve(int msec)
+		{
 			int _accel = getAcceleration() * msec / 1000;
 			setSpeed(getSpeed() + _accel);
 			int _move = getSpeed() * msec / 1000;
@@ -76,21 +79,24 @@ public class Position extends PsaPoint{
 		/**
 		 * @return the a
 		 */
-		public int getAcceleration() {
+		public int getAcceleration()
+		{
 			return myA;
 		}
 
 		/**
 		 * @return the x
 		 */
-		public int getPosition() {
+		public int getPosition()
+		{
 			return myX;
 		}
 
 		/**
 		 * @return the v
 		 */
-		public int getSpeed() {
+		public int getSpeed()
+		{
 			return myV;
 		}
 
@@ -98,7 +104,8 @@ public class Position extends PsaPoint{
 		 * @param a
 		 *            the a to set
 		 */
-		public void setAcceleration(int a) {
+		public void setAcceleration(int a)
+		{
 			myA = a;
 		}
 
@@ -106,7 +113,8 @@ public class Position extends PsaPoint{
 		 * @param x
 		 *            the x to set
 		 */
-		public void setPosition(int x) {
+		public void setPosition(int x)
+		{
 			myX = x;
 		}
 
@@ -114,104 +122,117 @@ public class Position extends PsaPoint{
 		 * @param v
 		 *            the v to set
 		 */
-		public void setSpeed(int v) {
+		public void setSpeed(int v)
+		{
 			myV = v;
 		}
 	}
-	
+
 	/**
 	 * Structure for exchanging 2D data (position vector, speed vector, acceleration vector).
 	 * 
 	 * Since it is used merely for exchanging data expressively, there is no data encapsulation.
+	 * 
 	 * @author David SPORN
 	 * @deprecated replaced by {@link Point}.
 	 */
-	public static class Vector extends Point{
+	public static class Vector extends Point
+	{
 		/**
 		 * For classical instanciation "a la Javabeans". Or simply instanciate (0,0) vector.
 		 */
-		public Vector() {
+		public Vector()
+		{
 		}
+
 		/**
 		 * For direct instanciation.
+		 * 
 		 * @param x
 		 * @param y
 		 */
-		public Vector(int x, int y) {
+		public Vector(int x, int y)
+		{
 			withX(x).withY(y);
 		}
 	}
-	
+
 	/**
 	 * X coordinate.
 	 */
 	private OneDimensionPosition myX = new OneDimensionPosition();
-	
+
 	/**
 	 * Y coordinate.
 	 */
 	private OneDimensionPosition myY = new OneDimensionPosition();
-	
+
 	/**
 	 * Return the current acceleration vector (ax,ay coordinates)
+	 * 
 	 * @return
 	 */
 	public Vector getCurrentAccelerationVector()
 	{
-		return new Vector(getAcceleration().getX(),getAcceleration().getY());
+		return new Vector(getAcceleration().getX().intValue(), getAcceleration().getY().intValue());
 	}
-	
+
 	/**
 	 * Return the current position vector (x,y coordinates)
+	 * 
 	 * @return
 	 */
 	public Vector getCurrentPositionVector()
 	{
-		return new Vector(getPosition().getX(),getPosition().getY());
+		return new Vector(getPosition().getX().intValue(), getPosition().getY().intValue());
 	}
 
 	/**
 	 * Return the current speed vector (vx,vy coordinates)
+	 * 
 	 * @return
 	 */
 	public Vector getCurrentSpeedVector()
 	{
-		return new Vector(getSpeed().getX(),getSpeed().getY());
+		return new Vector(getSpeed().getX().intValue(), getSpeed().getY().intValue());
 	}
-	
+
 	/**
 	 * @return the x
 	 */
-	private OneDimensionPosition getX() {
+	private OneDimensionPosition getX()
+	{
 		return myX;
 	}
-	
+
 	/**
 	 * @return the y
 	 */
-	private OneDimensionPosition getY() {
+	private OneDimensionPosition getY()
+	{
 		return myY;
 	}
-	
+
 	/**
 	 * Let the position evolve.
+	 * 
 	 * @param msec
 	 */
 	public void run(int msec)
 	{
-		//evolve speed using acceleration
-		int _deltaSpeedX = getAcceleration().getX()*msec/1000 ;
-		int _deltaSpeedY = getAcceleration().getY()*msec/1000 ;
-		int _speedX = getSpeed().getX() + _deltaSpeedX;
-		int _speedY = getSpeed().getY() + _deltaSpeedY;
-		getSpeed().withX(_speedX).withY(_speedY);
-		
-		//evolve position using speed
-		int _deltaX = getSpeed().getX()*msec/1000;
-		int _deltaY = getSpeed().getY()*msec/1000;
-		int _x = getPosition().getX() + _deltaX;
-		int _y = getPosition().getY() + _deltaY;
-		getPosition().withX(_x).withY(_y);
+		// evolve speed using acceleration
+		int _deltaSpeedX = getAcceleration().getX().intValue() * msec / 1000;
+		int _deltaSpeedY = getAcceleration().getY().intValue() * msec / 1000;
+		int _speedX = getSpeed().getX().intValue() + _deltaSpeedX;
+		int _speedY = getSpeed().getY().intValue() + _deltaSpeedY;
+		getSpeed().withX(new ProgressiveValue(_speedX)).withY(new ProgressiveValue(_speedY));
+
+		// evolve position using speed
+		int _deltaX = getSpeed().getX().intValue() * msec / 1000;
+		int _deltaY = getSpeed().getY().intValue() * msec / 1000;
+		int _x = getPosition().getX().intValue() + _deltaX;
+		int _y = getPosition().getY().intValue() + _deltaY;
+		getPosition().withX(new ProgressiveValue(_x)).withY(new ProgressiveValue(_y));
 	}
 
 	/**
@@ -219,7 +240,7 @@ public class Position extends PsaPoint{
 	 */
 	public void setCurrentAccelerationVector(Vector acceleration)
 	{
-		getAcceleration().withX(acceleration.getX()).withY(acceleration.getY());
+		getAcceleration().withX(new ProgressiveValue(acceleration.getX())).withY(new ProgressiveValue(acceleration.getY()));
 	}
 
 	/**
@@ -227,15 +248,15 @@ public class Position extends PsaPoint{
 	 */
 	public void setCurrentPositionVector(Vector position)
 	{
-		getPosition().withX(position.getX()).withY(position.getY());
+		getPosition().withX(new ProgressiveValue(position.getX())).withY(new ProgressiveValue(position.getY()));
 	}
-	
+
 	/**
 	 * @param speed
 	 */
 	public void setCurrentSpeedVector(Vector speed)
 	{
-		getSpeed().withX(speed.getX()).withY(speed.getY());
+		getSpeed().withX(new ProgressiveValue(speed.getX())).withY(new ProgressiveValue(speed.getY()));
 	}
-	
+
 }

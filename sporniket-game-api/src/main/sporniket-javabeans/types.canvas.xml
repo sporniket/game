@@ -5,11 +5,10 @@
 		<licencenotice>LGPL v3</licencenotice>
 		<version>15.05.01-SNAPSHOT</version>
 	</annotation>
-	<package name="com.sporniket.libre.game.api.types.xy.geometry">
+	<package name="com.sporniket.libre.game.api.types.canvas">
 		<annotation>
-			<summary>Collection of types to describe planar object (having
-				coordinate along two axis, usually called 'x' and 'y').</summary>
-			<description>'x' is oriented from left to rigth, 'y' is oriented from top to bottom, like a device screen</description>
+			<summary>Collection of types to describe object defined in a canvas, a 2D space where coordinates are along two axis usually called 'x' and 'y'.</summary>
+			<description>In a canvas, 'x' is oriented from left to rigth, and 'y' is oriented from top to bottom and coordinates are integer values.</description>
 		</annotation>
 		<bean name="Point">
 			<annotation>
@@ -29,19 +28,6 @@
 			<property name="width" type="java:Integer" mode="basic" />
 			<property name="height" type="java:Integer" mode="basic" />
 		</bean>
-		<bean name="SpriteBox">
-			<annotation>
-				<summary>A box positionned using a "hot point".</summary>
-				<description>The hot point is relative to the (x,y) corner.</description>
-				<description>When positionning a object described by a Sprite box, the position of this object is the position of the hot point, thus x and y are computed accordingly.</description>
-			</annotation>
-			<property name="x" type="java:Integer" mode="basic" />
-			<property name="y" type="java:Integer" mode="basic" />
-			<property name="width" type="java:Integer" mode="basic" />
-			<property name="height" type="java:Integer" mode="basic" />
-			<property name="hotX" type="java:Integer" mode="basic" />
-			<property name="hotY" type="java:Integer" mode="basic" />
-		</bean>
 		<bean name="Bounds">
 			<annotation>
 				<summary>A box described by its limits.</summary>
@@ -51,6 +37,17 @@
 			<property name="right" type="java:Integer" mode="basic" />
 			<property name="top" type="java:Integer" mode="basic" />
 			<property name="bottom" type="java:Integer" mode="basic" />
+		</bean>
+		<bean name="Sprite">
+			<annotation>
+				<summary>A sprite is basically a box from a source canvas that is positionned on a target canvas using a "hot point".</summary>
+				<description>The hot point is relative to the (x,y) corner.</description>
+				<description>When positionning a object described by a Sprite box, the position of this object is the position of the hot point, thus x and y are computed accordingly.</description>
+				<description>To look up more easily a sprite, it is identifiable by an identifier.</description>
+			</annotation>
+			<property name="id" type="java:String" mode="basic" />
+			<property name="sourceBox" type="java:com.sporniket.libre.game.api.types.canvas.Box" mode="basic" />
+			<property name="hotPoint" type="java:com.sporniket.libre.game.api.types.canvas.Point" mode="basic" />
 		</bean>
 	</package>
 </BeanSet>

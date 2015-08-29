@@ -15,7 +15,9 @@ import com.sporniket.libre.game.api.sprite.Sprite;
 import com.sporniket.libre.game.api.sprite.SpriteBank;
 import com.sporniket.libre.game.api.types.BlocDefinition;
 import com.sporniket.libre.game.api.types.Position.Vector;
-import com.sporniket.libre.game.api.types.xy.geometry.Point;
+import com.sporniket.libre.game.api.types.ProgressiveValue;
+import com.sporniket.libre.game.api.types.canvas.Point;
+import com.sporniket.libre.game.api.types.physics.xy.PhysicVector;
 
 /**
  * Simulate a console screen with a fixed font {@link ActorBankSet}.
@@ -203,27 +205,27 @@ public class FixedFontAsciiMatrix
 		Sequence _referenceSequence = mySequenceBank.get(0);
 
 		int _currentCell = 0;
-		int _currentY = displayArea.getTop() + _referenceGlyph.getHotSpotY();
+		ProgressiveValue _currentY = new ProgressiveValue(displayArea.getTop() + _referenceGlyph.getHotSpotY());
 		for (int _row = 0; _row < getRowCount(); _row++)
 		{
-			int _currentX = displayArea.getLeft() + _referenceGlyph.getHotSpotX();
+			ProgressiveValue _currentX = new ProgressiveValue(displayArea.getLeft() + _referenceGlyph.getHotSpotX());
 			for (int _col = 0; _col < myColumnCount; _col++)
 			{
 				Actor _newChar = Actor.createFromSequence(_referenceSequence);
 				_newChar.setActive(false);
-				final Point _position = new Point().withX(_currentX).withY(_currentY);
+				final PhysicVector _position = new PhysicVector().withX(_currentX).withY(_currentY);
 				_newChar.getPosition().setPosition(_position);
 
 				myActorBank.add(_newChar);
 				myDirectAccessToChars[_currentCell] = _newChar;
 
 				// next
-				_currentX += _glyphWidth;
+				_currentX = new ProgressiveValue(_currentX.intValue() + _glyphWidth);
 				_currentCell++;
 			}
 
 			// next line
-			_currentY += _lineHeight;
+			_currentY = new ProgressiveValue(_currentY.intValue()+_lineHeight);
 		}
 	}
 

@@ -3,9 +3,9 @@
  */
 package com.sporniket.libre.game.api.types.xy.area;
 
-import com.sporniket.libre.game.api.types.xy.geometry.Bounds;
-import com.sporniket.libre.game.api.types.xy.geometry.Box;
-import com.sporniket.libre.game.api.types.xy.geometry.Point;
+import com.sporniket.libre.game.api.types.canvas.Bounds;
+import com.sporniket.libre.game.api.types.canvas.Box;
+import com.sporniket.libre.game.api.types.canvas.Point;
 
 /**
  * @author dsporn
@@ -16,7 +16,7 @@ public class BoxArea extends Box implements Area
 	private Bounds myBounds = new Bounds();
 
 	/* (non-Javadoc)
-	 * @see com.sporniket.libre.game.api.types.xy.area.Area#isInside(com.sporniket.libre.game.api.types.xy.geometry.Point)
+	 * @see com.sporniket.libre.game.api.types.xy.area.Area#isInside(com.sporniket.libre.game.api.types.canvas.Point)
 	 */
 	@Override
 	public boolean isInside(Point position)
@@ -27,7 +27,7 @@ public class BoxArea extends Box implements Area
 	}
 
 	/* (non-Javadoc)
-	 * @see com.sporniket.libre.game.api.types.xy.geometry.Box#setX(java.lang.Integer)
+	 * @see com.sporniket.libre.game.api.types.canvas.Box#setX(java.lang.Integer)
 	 */
 	@Override
 	public void setX(Integer x)
@@ -37,7 +37,7 @@ public class BoxArea extends Box implements Area
 	}
 
 	/* (non-Javadoc)
-	 * @see com.sporniket.libre.game.api.types.xy.geometry.Box#setY(java.lang.Integer)
+	 * @see com.sporniket.libre.game.api.types.canvas.Box#setY(java.lang.Integer)
 	 */
 	@Override
 	public void setY(Integer y)
@@ -47,7 +47,7 @@ public class BoxArea extends Box implements Area
 	}
 
 	/* (non-Javadoc)
-	 * @see com.sporniket.libre.game.api.types.xy.geometry.Box#setWidth(java.lang.Integer)
+	 * @see com.sporniket.libre.game.api.types.canvas.Box#setWidth(java.lang.Integer)
 	 */
 	@Override
 	public void setWidth(Integer width)
@@ -57,7 +57,7 @@ public class BoxArea extends Box implements Area
 	}
 
 	/* (non-Javadoc)
-	 * @see com.sporniket.libre.game.api.types.xy.geometry.Box#setHeight(java.lang.Integer)
+	 * @see com.sporniket.libre.game.api.types.canvas.Box#setHeight(java.lang.Integer)
 	 */
 	@Override
 	public void setHeight(Integer height)

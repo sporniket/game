@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BeanSet xmlns="http://schema.sporniket-studio.com/model/set/javabean">
+	<annotation>
+		<author>David SPORN</author>
+		<licencenotice>LGPL v3</licencenotice>
+		<version>15.05.01-SNAPSHOT</version>
+	</annotation>
+	<package name="com.sporniket.libre.game.api.types.physics.xy">
+		<annotation>
+			<summary>Collection of types to model a physic engine on the xy plane.</summary>
+			<description>'x' is oriented from left to rigth, 'y' is oriented from top to bottom, like a device screen</description>
+		</annotation>
+		<bean name="PhysicVector">
+			<annotation>
+				<summary>2-dimensional vector, each coordinate is a fixed point float value.</summary>
+			</annotation>
+			<property name="x" type="java:com.sporniket.libre.game.api.types.ProgressiveValue" mode="basic" />
+			<property name="y" type="java:com.sporniket.libre.game.api.types.ProgressiveValue" mode="basic" />
+		</bean>
+		<bean name="PhysicPoint">
+			<annotation>
+				<summary>Physical point, having a position, a speed and an acceleration.</summary>
+			</annotation>
+			<property name="position" type="java:com.sporniket.libre.game.api.types.physics.xy.PhysicVector" mode="basic" />
+			<property name="speed" type="java:com.sporniket.libre.game.api.types.physics.xy.PhysicVector" mode="basic" />
+			<property name="acceleration" type="java:com.sporniket.libre.game.api.types.physics.xy.PhysicVector" mode="basic" />
+		</bean>
+	</package>
+</BeanSet>

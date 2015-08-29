@@ -3,7 +3,7 @@
  */
 package com.sporniket.libre.game.api.collision;
 
-import com.sporniket.libre.game.api.types.xy.geometry.Point;
+import com.sporniket.libre.game.api.types.canvas.Point;
 
 /**
  * Collision detector between two objects, the active zone is a rectangle defined by two radius, the rectangle might be offset.

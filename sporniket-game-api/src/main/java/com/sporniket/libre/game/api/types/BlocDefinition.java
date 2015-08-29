@@ -3,7 +3,7 @@
  */
 package com.sporniket.libre.game.api.types;
 
-import com.sporniket.libre.game.api.types.xy.geometry.Box;
+import com.sporniket.libre.game.api.types.canvas.Box;
 
 /**
  * Definition of a rectangular bloc of a picture.

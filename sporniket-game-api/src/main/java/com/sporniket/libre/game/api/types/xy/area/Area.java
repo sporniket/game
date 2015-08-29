@@ -3,7 +3,7 @@
  */
 package com.sporniket.libre.game.api.types.xy.area;
 
-import com.sporniket.libre.game.api.types.xy.geometry.Point;
+import com.sporniket.libre.game.api.types.canvas.Point;
 
 /**
  * Model for a surface where an actor can be "inside"

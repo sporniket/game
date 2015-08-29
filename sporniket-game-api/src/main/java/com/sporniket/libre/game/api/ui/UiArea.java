@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.sporniket.libre.game.api.collision.CollisionDetector;
-import com.sporniket.libre.game.api.types.xy.geometry.Point;
+import com.sporniket.libre.game.api.types.canvas.Point;
 
 /**
  * Base class for creating interactive area.

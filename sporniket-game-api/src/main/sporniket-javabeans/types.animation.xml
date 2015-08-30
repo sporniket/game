@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BeanSet xmlns="http://schema.sporniket-studio.com/model/set/javabean">
+	<annotation>
+		<author>David SPORN</author>
+		<licencenotice>LGPL v3</licencenotice>
+		<version>15.05.01-SNAPSHOT</version>
+	</annotation>
+	<package name="com.sporniket.libre.game.api.types.animation">
+		<annotation>
+			<summary>Collection of types to describe an animation.</summary>
+			<description>An animation is a sequence of steps to replay.</description>
+		</annotation>
+		<bean name="StepValue" extends="Step">
+			<annotation>
+				<summary>The step is a value that should take a given duration.</summary>
+			</annotation>
+			<property name="value" type="java:Integer" mode="basic" />
+			<property name="duration" type="java:Long" mode="basic" />
+		</bean>
+		<bean name="LoopValue" extends="Step">
+			<annotation>
+				<summary>The step tells the engine to go to the given step (value is positive), or to go back to the current step + value (value is negative).</summary>
+			</annotation>
+			<property name="value" type="java:Integer" mode="basic" />
+		</bean>
+	</package>
+</BeanSet>

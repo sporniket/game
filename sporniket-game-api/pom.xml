@@ -19,12 +19,18 @@
 		<!-- ===INTERNAL DEPENDENCIES -->
 
 		<!-- ===EXTERNAL DEPENDENCIES (non test) -->
-
+			<!-- Sporniket-core -->
+			<dependency>
+				<groupId>com.sporniket.core</groupId>
+				<artifactId>sporniket-core-io</artifactId>
+				<version>${version.sporniket.core}</version>
+			</dependency>
+		
 		<!-- ===TEST DEPENDENCIES -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

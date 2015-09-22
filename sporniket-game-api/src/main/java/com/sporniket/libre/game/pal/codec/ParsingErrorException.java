@@ -19,11 +19,6 @@ public class ParsingErrorException extends PalException
 		super(message);
 	}
 
-	public ParsingErrorException(Throwable cause)
-	{
-		super(cause);
-	}
-
 	public ParsingErrorException(String message, Throwable cause)
 	{
 		super(message, cause);
@@ -32,6 +27,11 @@ public class ParsingErrorException extends PalException
 	public ParsingErrorException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)
 	{
 		super(message, cause, enableSuppression, writableStackTrace);
+	}
+
+	public ParsingErrorException(Throwable cause)
+	{
+		super(cause);
 	}
 
 }

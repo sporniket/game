@@ -22,12 +22,14 @@ public class TestJavaDecoder
 {
 
 	@Test
-	public void testDecodePoint() throws ParsingErrorException
+	public void testDecodeBounds() throws ParsingErrorException
 	{
-		String _source = "1,2";
-		Point _got = new Canvas().decodePoint(_source);
-		assertThat(_got.getX(), equalTo(1));
-		assertThat(_got.getY(), equalTo(2));
+		String _source = "1,2,3,4";
+		Bounds _got = new Canvas().decodeBounds(_source);
+		assertThat(_got.getLeft(), equalTo(1));
+		assertThat(_got.getTop(), equalTo(2));
+		assertThat(_got.getRight(), equalTo(3));
+		assertThat(_got.getBottom(), equalTo(4));
 	}
 
 	@Test
@@ -42,14 +44,12 @@ public class TestJavaDecoder
 	}
 
 	@Test
-	public void testDecodeBounds() throws ParsingErrorException
+	public void testDecodePoint() throws ParsingErrorException
 	{
-		String _source = "1,2,3,4";
-		Bounds _got = new Canvas().decodeBounds(_source);
-		assertThat(_got.getLeft(), equalTo(1));
-		assertThat(_got.getTop(), equalTo(2));
-		assertThat(_got.getRight(), equalTo(3));
-		assertThat(_got.getBottom(), equalTo(4));
+		String _source = "1,2";
+		Point _got = new Canvas().decodePoint(_source);
+		assertThat(_got.getX(), equalTo(1));
+		assertThat(_got.getY(), equalTo(2));
 	}
 
 	@Test

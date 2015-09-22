@@ -22,11 +22,11 @@ import com.sporniket.libre.game.api.types.canvas.Sprite;
 public class TestCanvasEncoder
 {
 	@Test
-	public void testPoint()
+	public void testBounds()
 	{
-		Point _sample = new Point().withX(1).withY(2);
+		Bounds _sample = new Bounds().withLeft(1).withTop(2).withRight(3).withBottom(4);
 		String _encoded = new Canvas().encode(_sample);
-		assertThat(_encoded, equalTo("1,2"));
+		assertThat(_encoded, equalTo("1,2,3,4"));
 	}
 
 	@Test
@@ -38,11 +38,11 @@ public class TestCanvasEncoder
 	}
 
 	@Test
-	public void testBounds()
+	public void testPoint()
 	{
-		Bounds _sample = new Bounds().withLeft(1).withTop(2).withRight(3).withBottom(4);
+		Point _sample = new Point().withX(1).withY(2);
 		String _encoded = new Canvas().encode(_sample);
-		assertThat(_encoded, equalTo("1,2,3,4"));
+		assertThat(_encoded, equalTo("1,2"));
 	}
 
 	@Test

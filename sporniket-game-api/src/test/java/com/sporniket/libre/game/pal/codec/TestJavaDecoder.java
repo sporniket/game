@@ -22,7 +22,7 @@ public class TestJavaDecoder
 {
 
 	@Test
-	public void testDecodePoint()
+	public void testDecodePoint() throws ParsingErrorException
 	{
 		String _source = "1,2";
 		Point _got = new Canvas().decodePoint(_source);
@@ -31,7 +31,7 @@ public class TestJavaDecoder
 	}
 
 	@Test
-	public void testDecodeBox()
+	public void testDecodeBox() throws ParsingErrorException
 	{
 		String _source = "1,2,3,4";
 		Box _got = new Canvas().decodeBox(_source);
@@ -42,7 +42,7 @@ public class TestJavaDecoder
 	}
 
 	@Test
-	public void testDecodeBounds()
+	public void testDecodeBounds() throws ParsingErrorException
 	{
 		String _source = "1,2,3,4";
 		Bounds _got = new Canvas().decodeBounds(_source);
@@ -53,7 +53,7 @@ public class TestJavaDecoder
 	}
 
 	@Test
-	public void testDecodeSprite()
+	public void testDecodeSprite() throws ParsingErrorException
 	{
 		String _source = "foo:1,2,3,4:5,6";
 		Sprite _got = new Canvas().decodeSprite(_source);

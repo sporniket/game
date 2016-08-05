@@ -3,9 +3,9 @@
  */
 package com.sporniket.libre.game.api.types.xy.area;
 
+import com.sporniket.libre.game.api.canvas.Box;
+import com.sporniket.libre.game.api.canvas.Point;
 import com.sporniket.libre.game.api.types.canvas.Bounds;
-import com.sporniket.libre.game.api.types.canvas.Box;
-import com.sporniket.libre.game.api.types.canvas.Point;
 
 /**
  * @author dsporn

@@ -3,9 +3,9 @@
  */
 package com.sporniket.libre.game.api.collision;
 
+import com.sporniket.libre.game.api.canvas.Point;
 import com.sporniket.libre.game.api.types.BoxArea;
 import com.sporniket.libre.game.api.types.xy.area.BoundsArea;
-import com.sporniket.libre.game.api.types.canvas.Point;
 
 /**
  * Collision detector for a rectangular area from (left,top) to (right,bottom), inclusive.

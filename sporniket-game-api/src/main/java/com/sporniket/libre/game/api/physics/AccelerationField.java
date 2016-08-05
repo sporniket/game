@@ -3,8 +3,8 @@
  */
 package com.sporniket.libre.game.api.physics;
 
+import com.sporniket.libre.game.api.canvas.Point;
 import com.sporniket.libre.game.api.types.Position.Vector;
-import com.sporniket.libre.game.api.types.canvas.Point;
 
 /**
  * Interface of an "acceleration field", that can provide, for a position, an associated acceleration.

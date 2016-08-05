@@ -3,7 +3,7 @@
  */
 package com.sporniket.libre.game.api.collision;
 
-import com.sporniket.libre.game.api.types.canvas.Point;
+import com.sporniket.libre.game.api.canvas.Point;
 
 /**
  * Provide default implementation for some methods of {@link CollisionDetector}.

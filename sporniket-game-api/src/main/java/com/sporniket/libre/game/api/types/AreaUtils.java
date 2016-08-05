@@ -3,13 +3,13 @@
  */
 package com.sporniket.libre.game.api.types;
 
+import com.sporniket.libre.game.api.canvas.Box;
+import com.sporniket.libre.game.api.canvas.Point;
 import com.sporniket.libre.game.api.sprite.Actor;
 import com.sporniket.libre.game.api.sprite.SequenceInstance;
 import com.sporniket.libre.game.api.sprite.Sprite;
 import com.sporniket.libre.game.api.sprite.SpriteBank;
 import com.sporniket.libre.game.api.types.Position.Vector;
-import com.sporniket.libre.game.api.types.canvas.Box;
-import com.sporniket.libre.game.api.types.canvas.Point;
 import com.sporniket.libre.game.api.types.physics.xy.PhysicVector;
 
 /**

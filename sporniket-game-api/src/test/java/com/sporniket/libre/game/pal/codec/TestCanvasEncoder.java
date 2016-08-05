@@ -8,10 +8,10 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import com.sporniket.libre.game.api.canvas.Box;
+import com.sporniket.libre.game.api.canvas.Point;
+import com.sporniket.libre.game.api.sprite.SpriteDefinition;
 import com.sporniket.libre.game.api.types.canvas.Bounds;
-import com.sporniket.libre.game.api.types.canvas.Box;
-import com.sporniket.libre.game.api.types.canvas.Point;
-import com.sporniket.libre.game.api.types.canvas.Sprite;
 
 /**
  * Tests on the encoding of canvas objects.
@@ -50,7 +50,7 @@ public class TestCanvasEncoder
 	{
 		Point _hotPoint = new Point().withX(5).withY(6);
 		Box _sourceBox = new Box().withX(1).withY(2).withWidth(3).withHeight(4);
-		Sprite _sample = new Sprite().withId("foo").withSourceBox(_sourceBox).withHotPoint(_hotPoint);
+		SpriteDefinition _sample = new SpriteDefinition().withId("foo").withSourceBox(_sourceBox).withHotPoint(_hotPoint);
 		String _encoded = new Canvas().encode(_sample);
 		assertThat(_encoded, equalTo("foo:1,2,3,4:5,6"));
 	}

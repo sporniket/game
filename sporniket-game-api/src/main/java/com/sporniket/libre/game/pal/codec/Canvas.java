@@ -11,10 +11,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.sporniket.libre.game.api.canvas.Box;
+import com.sporniket.libre.game.api.canvas.Point;
+import com.sporniket.libre.game.api.sprite.SpriteDefinition;
 import com.sporniket.libre.game.api.types.canvas.Bounds;
-import com.sporniket.libre.game.api.types.canvas.Box;
-import com.sporniket.libre.game.api.types.canvas.Point;
-import com.sporniket.libre.game.api.types.canvas.Sprite;
 import com.sporniket.libre.game.pal.PalException;
 
 /**
@@ -24,7 +24,7 @@ import com.sporniket.libre.game.pal.PalException;
  * {@link Point}, {@link Box} and {@link Bounds} are compressed into a comma separated list of their values.
  * </p>
  * <p>
- * {@link Sprite} use those compressed values in a colon (':') separated values representation.
+ * {@link SpriteDefinition} use those compressed values in a colon (':') separated values representation.
  * </p>
  * 
  * <p>
@@ -80,7 +80,7 @@ public class Canvas
 		// TODO Auto-generated constructor stub
 		Class<?>[] _supportedClasses =
 		{
-				Point.class, Box.class, Bounds.class, Sprite.class
+				Point.class, Box.class, Bounds.class, SpriteDefinition.class
 		};
 		initMapOfMethods(getClassToEncoder(), METHODNAME_ENCODE, _supportedClasses);
 	}
@@ -119,7 +119,7 @@ public class Canvas
 		throw new ParsingErrorException(new IllegalArgumentException(computeErrorMessage__expectedPattern(PATTERN_POINT, source)));
 	}
 
-	public Sprite decodeSprite(String source) throws ParsingErrorException
+	public SpriteDefinition decodeSprite(String source) throws ParsingErrorException
 	{
 		final Matcher _matcher = getPatternSprite().matcher(source);
 		if (_matcher.matches())
@@ -127,7 +127,7 @@ public class Canvas
 			final String _id = source.substring(_matcher.start(1), _matcher.end(1));
 			Box _sourceBox = extractMatchedBox(source, _matcher, 3);
 			Point _hotPoint = extractMatchedPoint(source, _matcher, 8);
-			return new Sprite().withId(_id).withSourceBox(_sourceBox).withHotPoint(_hotPoint);
+			return new SpriteDefinition().withId(_id).withSourceBox(_sourceBox).withHotPoint(_hotPoint);
 		}
 		throw new ParsingErrorException(new IllegalArgumentException(computeErrorMessage__expectedPattern(PATTERN_SPRITE, source)));
 	}
@@ -170,7 +170,7 @@ public class Canvas
 		return getFormatterPoint().format(_args);
 	}
 
-	public String encode(Sprite source)
+	public String encode(SpriteDefinition source)
 	{
 		final String _encSourceBox = encode(source.getSourceBox());
 		final String _encHotPoint = encode(source.getHotPoint());

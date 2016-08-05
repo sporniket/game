@@ -7,8 +7,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.sporniket.libre.game.api.canvas.Point;
 import com.sporniket.libre.game.api.collision.CollisionDetectorOnRectangle;
-import com.sporniket.libre.game.api.types.canvas.Point;
 
 /**
  * <p>

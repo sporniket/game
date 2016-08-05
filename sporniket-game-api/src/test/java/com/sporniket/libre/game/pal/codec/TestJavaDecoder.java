@@ -8,10 +8,10 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import com.sporniket.libre.game.api.canvas.Box;
+import com.sporniket.libre.game.api.canvas.Point;
+import com.sporniket.libre.game.api.sprite.SpriteDefinition;
 import com.sporniket.libre.game.api.types.canvas.Bounds;
-import com.sporniket.libre.game.api.types.canvas.Box;
-import com.sporniket.libre.game.api.types.canvas.Point;
-import com.sporniket.libre.game.api.types.canvas.Sprite;
 
 /**
  * Test the decoding of canvas objects.
@@ -56,7 +56,7 @@ public class TestJavaDecoder
 	public void testDecodeSprite() throws ParsingErrorException
 	{
 		String _source = "foo:1,2,3,4:5,6";
-		Sprite _got = new Canvas().decodeSprite(_source);
+		SpriteDefinition _got = new Canvas().decodeSprite(_source);
 		assertThat(_got.getId(), equalTo("foo"));
 		assertThat(_got.getSourceBox().getX(), equalTo(1));
 		assertThat(_got.getSourceBox().getY(), equalTo(2));

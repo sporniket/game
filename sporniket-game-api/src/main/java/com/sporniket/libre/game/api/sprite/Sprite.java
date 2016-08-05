@@ -33,7 +33,7 @@ import com.sporniket.libre.game.api.types.BlocDefinition;
  * <hr>
  * 
  * @author David SPORN 
- *
+ * @deprecated replaced by {@link SpriteDefinition}
  */
 public class Sprite implements Cloneable{
 	private BlocDefinition myBloc = new BlocDefinition();

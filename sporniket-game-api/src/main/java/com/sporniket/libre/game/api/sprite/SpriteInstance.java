@@ -63,13 +63,13 @@ public class SpriteInstance
 	public SpriteInstance withActive(boolean isActive)
 	{
 		setActive(isActive);
-		return this ;
+		return this;
 	}
 
 	public SpriteInstance withDefinition(SpriteDefinition definition)
 	{
 		setDefinition(definition);
-		return this ;
+		return this;
 	}
 
 	public SpriteInstance withPosition(Point position)

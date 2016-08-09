@@ -1,10 +1,5 @@
 package com.sporniket.libre.game.api.sprite;
 
-import java.beans.*;
-import java.util.*;
-
-import com.sporniket.libre.game.api.canvas.Box;
-import com.sporniket.libre.game.api.canvas.Point;
 
 /**
  * A sprite is basically a box from a source canvas that is positionned on a target canvas using a "hot point"..
@@ -163,4 +158,3 @@ public class SpriteDefinition
 	}
 
 }
-// Generation date : 2016-08-04 22:16:42.865.

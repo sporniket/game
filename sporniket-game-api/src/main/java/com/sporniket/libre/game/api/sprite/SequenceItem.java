@@ -38,7 +38,7 @@ import com.sporniket.libre.game.api.InvalidValueException;
  * <hr>
  * 
  * @author David SPORN 
- * 
+ * @deprecated will be replaced by another api
  */
 public class SequenceItem implements Cloneable {
 	/**

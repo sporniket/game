@@ -38,7 +38,7 @@ import com.sporniket.libre.game.api.types.Bank;
  * <hr>
  * 
  * @author David SPORN 
- *
+ * @deprecated use directly a list of {@link SpriteDefinition}
  */
 public class SpriteBank implements List<Sprite>, Bank {
 	

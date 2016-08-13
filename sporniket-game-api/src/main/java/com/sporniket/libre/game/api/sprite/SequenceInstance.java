@@ -38,7 +38,7 @@ import com.sporniket.libre.game.api.types.Updatable;
  * <hr>
  * 
  * @author David SPORN 
- * 
+ * @deprecated replaced by another api
  */
 public class SequenceInstance implements Updatable
 {

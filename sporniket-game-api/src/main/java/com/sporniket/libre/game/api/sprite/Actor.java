@@ -48,7 +48,7 @@ import com.sporniket.libre.game.api.types.Position;
  * <hr>
  * 
  * @author David SPORN 
- *
+ * @deprecated lack of abstraction, too limited
  */
 public class Actor implements Cloneable {
 	public static final CopyMode DEFAULT__COPY_MODE = CopyMode.NORMAL;

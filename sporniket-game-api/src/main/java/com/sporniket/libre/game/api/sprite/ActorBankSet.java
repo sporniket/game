@@ -28,7 +28,7 @@ package com.sporniket.libre.game.api.sprite;
  * <hr>
  * 
  * @author David SPORN 
- *
+ * @deprecated lack of abstraction, too limited.
  */
 public class ActorBankSet
 {

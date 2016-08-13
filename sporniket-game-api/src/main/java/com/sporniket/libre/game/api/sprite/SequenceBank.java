@@ -35,7 +35,7 @@ import com.sporniket.libre.game.api.types.Bank;
  * <hr>
  * 
  * @author David SPORN 
- *
+ * @deprecated use a list
  */
 public class SequenceBank implements List<Sequence>, Bank {
 

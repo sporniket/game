@@ -1,4 +1,4 @@
-package com.sporniket.libre.game.api.canvas;
+package com.sporniket.libre.game.canvas;
 
 import java.beans.*;
 import java.util.*;

@@ -1,17 +1,17 @@
 /**
  * 
  */
-package com.sporniket.libre.game.pal.swing;
+package com.sporniket.libre.game.canvas.swing;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
-import com.sporniket.libre.game.api.canvas.Box;
-import com.sporniket.libre.game.api.canvas.BoxCopyMachine;
-import com.sporniket.libre.game.api.canvas.CanvasManager;
-import com.sporniket.libre.game.api.canvas.Point;
+import com.sporniket.libre.game.canvas.Box;
+import com.sporniket.libre.game.canvas.BoxCopyMachine;
+import com.sporniket.libre.game.canvas.CanvasManager;
+import com.sporniket.libre.game.canvas.Point;
 
 /**
  * @author dsporn

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import com.sporniket.libre.game.api.types.Bank;
+import com.sporniket.libre.game.canvas.sprite.SpriteDefinition;
 
 /**
  * Sprite instances are grouped in an SpriteBank.

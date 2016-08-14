@@ -6,7 +6,7 @@ package com.sporniket.libre.game.api.collision;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sporniket.libre.game.api.canvas.Point;
+import com.sporniket.libre.game.canvas.Point;
 
 /**
  * A collision detector made of several collision detectors.

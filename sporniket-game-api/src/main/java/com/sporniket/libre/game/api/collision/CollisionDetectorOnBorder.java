@@ -3,7 +3,7 @@
  */
 package com.sporniket.libre.game.api.collision;
 
-import com.sporniket.libre.game.api.canvas.Point;
+import com.sporniket.libre.game.canvas.Point;
 
 /**
  * Base class for detectors watching a border (horizontal or vertical)

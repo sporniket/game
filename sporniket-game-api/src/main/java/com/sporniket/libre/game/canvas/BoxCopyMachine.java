@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sporniket.libre.game.api.canvas;
+package com.sporniket.libre.game.canvas;
 
 /**
  * Define the service allowing to copy a box from a canvas to another one.

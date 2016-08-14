@@ -1,4 +1,4 @@
-package com.sporniket.libre.game.api.sprite;
+package com.sporniket.libre.game.canvas.sprite;
 
 
 /**
@@ -19,7 +19,7 @@ public class SpriteDefinition
 	/**
 	 * Property "hotPoint" : .
 	 */
-	private com.sporniket.libre.game.api.canvas.Point myHotPoint;
+	private com.sporniket.libre.game.canvas.Point myHotPoint;
 
 	/**
 	 * Property "id" : .
@@ -29,7 +29,7 @@ public class SpriteDefinition
 	/**
 	 * Property "sourceBox" : .
 	 */
-	private com.sporniket.libre.game.api.canvas.Box mySourceBox;
+	private com.sporniket.libre.game.canvas.Box mySourceBox;
 
 	/**
 	 * Read accessor for property "hotPoint" : .
@@ -39,7 +39,7 @@ public class SpriteDefinition
 	 * @return Property "hotPoint".
 	 *
 	 */
-	public com.sporniket.libre.game.api.canvas.Point getHotPoint()
+	public com.sporniket.libre.game.canvas.Point getHotPoint()
 	{
 		return myHotPoint;
 	}
@@ -65,7 +65,7 @@ public class SpriteDefinition
 	 * @return Property "sourceBox".
 	 *
 	 */
-	public com.sporniket.libre.game.api.canvas.Box getSourceBox()
+	public com.sporniket.libre.game.canvas.Box getSourceBox()
 	{
 		return mySourceBox;
 	}
@@ -79,7 +79,7 @@ public class SpriteDefinition
 	 *            Value of property "hotPoint".
 	 *
 	 */
-	public void setHotPoint(com.sporniket.libre.game.api.canvas.Point hotPoint)
+	public void setHotPoint(com.sporniket.libre.game.canvas.Point hotPoint)
 	{
 		myHotPoint = hotPoint;
 	}
@@ -107,7 +107,7 @@ public class SpriteDefinition
 	 *            Value of property "sourceBox".
 	 *
 	 */
-	public void setSourceBox(com.sporniket.libre.game.api.canvas.Box sourceBox)
+	public void setSourceBox(com.sporniket.libre.game.canvas.Box sourceBox)
 	{
 		mySourceBox = sourceBox;
 	}
@@ -121,7 +121,7 @@ public class SpriteDefinition
 	 *            Value of property "hotPoint".
 	 *
 	 */
-	public SpriteDefinition withHotPoint(com.sporniket.libre.game.api.canvas.Point hotPoint)
+	public SpriteDefinition withHotPoint(com.sporniket.libre.game.canvas.Point hotPoint)
 	{
 		setHotPoint(hotPoint);
 		return this;
@@ -151,7 +151,7 @@ public class SpriteDefinition
 	 *            Value of property "sourceBox".
 	 *
 	 */
-	public SpriteDefinition withSourceBox(com.sporniket.libre.game.api.canvas.Box sourceBox)
+	public SpriteDefinition withSourceBox(com.sporniket.libre.game.canvas.Box sourceBox)
 	{
 		setSourceBox(sourceBox);
 		return this;

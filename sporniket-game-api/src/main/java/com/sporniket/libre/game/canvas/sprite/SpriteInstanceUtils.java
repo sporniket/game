@@ -1,9 +1,9 @@
 /**
  * 
  */
-package com.sporniket.libre.game.api.sprite;
+package com.sporniket.libre.game.canvas.sprite;
 
-import com.sporniket.libre.game.api.canvas.BoxCopyMachine;
+import com.sporniket.libre.game.canvas.BoxCopyMachine;
 
 /**
  * Utility class for {@link SpriteInstance}.

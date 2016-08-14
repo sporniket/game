@@ -3,8 +3,8 @@
  */
 package com.sporniket.libre.game.api.types;
 
-import com.sporniket.libre.game.api.canvas.Point;
 import com.sporniket.libre.game.api.types.physics.xy.PhysicPoint;
+import com.sporniket.libre.game.canvas.Point;
 
 /**
  * Model of a moving point, having position, speed and acceleration vectors.

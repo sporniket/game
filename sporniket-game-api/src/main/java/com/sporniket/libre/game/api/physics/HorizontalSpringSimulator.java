@@ -3,8 +3,8 @@
  */
 package com.sporniket.libre.game.api.physics;
 
-import com.sporniket.libre.game.api.canvas.Point;
 import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.canvas.Point;
 
 /**
  * Acceleraton field that allow to simulate the move of one end of a spring laying on the floor when the other end cannot move.

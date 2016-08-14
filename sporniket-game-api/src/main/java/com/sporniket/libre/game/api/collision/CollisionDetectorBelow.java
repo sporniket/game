@@ -3,7 +3,7 @@
  */
 package com.sporniket.libre.game.api.collision;
 
-import com.sporniket.libre.game.api.canvas.Point;
+import com.sporniket.libre.game.canvas.Point;
 
 /**
  * Detector that watch for anything that is strictly below an y limit.

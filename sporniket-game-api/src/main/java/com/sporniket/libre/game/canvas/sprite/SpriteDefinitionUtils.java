@@ -1,14 +1,14 @@
 /**
  * 
  */
-package com.sporniket.libre.game.api.sprite;
+package com.sporniket.libre.game.canvas.sprite;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sporniket.libre.game.api.canvas.Box;
-import com.sporniket.libre.game.api.canvas.BoxCopyMachine;
-import com.sporniket.libre.game.api.canvas.Point;
+import com.sporniket.libre.game.canvas.Box;
+import com.sporniket.libre.game.canvas.BoxCopyMachine;
+import com.sporniket.libre.game.canvas.Point;
 
 /**
  * Utility class for {@link SpriteDefinition}.

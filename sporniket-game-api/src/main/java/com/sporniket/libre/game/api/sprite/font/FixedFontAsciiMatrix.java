@@ -6,7 +6,6 @@ package com.sporniket.libre.game.api.sprite.font;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sporniket.libre.game.api.canvas.Point;
 import com.sporniket.libre.game.api.sprite.Actor;
 import com.sporniket.libre.game.api.sprite.ActorBank;
 import com.sporniket.libre.game.api.sprite.ActorBankSet;
@@ -18,6 +17,7 @@ import com.sporniket.libre.game.api.types.BlocDefinition;
 import com.sporniket.libre.game.api.types.Position.Vector;
 import com.sporniket.libre.game.api.types.ProgressiveValue;
 import com.sporniket.libre.game.api.types.physics.xy.PhysicVector;
+import com.sporniket.libre.game.canvas.Point;
 
 /**
  * Simulate a console screen with a fixed font {@link ActorBankSet}.

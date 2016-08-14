@@ -10,5 +10,5 @@
 
  
  */
-package com.sporniket.libre.game.api.canvas;
+package com.sporniket.libre.game.canvas;
 

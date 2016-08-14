@@ -1,9 +1,9 @@
 /**
  * 
  */
-package com.sporniket.libre.game.api.sprite;
+package com.sporniket.libre.game.canvas.sprite;
 
-import com.sporniket.libre.game.api.canvas.Point;
+import com.sporniket.libre.game.canvas.Point;
 
 /**
  * An instance of sprite is what is displayed on screen, defined by a {@link SpriteDefinition} and a position.

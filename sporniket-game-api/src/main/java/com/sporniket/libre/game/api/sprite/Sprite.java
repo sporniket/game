@@ -4,6 +4,7 @@
 package com.sporniket.libre.game.api.sprite;
 
 import com.sporniket.libre.game.api.types.BlocDefinition;
+import com.sporniket.libre.game.canvas.sprite.SpriteDefinition;
 
 /**
  * A Sprite consists of a BlocDefinition and a HotSpot.

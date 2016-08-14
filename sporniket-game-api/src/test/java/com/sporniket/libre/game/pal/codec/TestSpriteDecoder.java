@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.sporniket.libre.game.api.sprite.SpriteDefinition;
+import com.sporniket.libre.game.canvas.sprite.SpriteDefinition;
 
 /**
  * Test the decoding of sprite objects.

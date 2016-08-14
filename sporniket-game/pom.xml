@@ -23,7 +23,7 @@
 		<version.sporniket-javabeans>15.04.01</version.sporniket-javabeans>
 
 		<!-- external libraries version -->
-		<version.sporniket.core>15.09.01</version.sporniket.core>
+		<version.sporniket.core>16.08.00</version.sporniket.core>
 	</properties>
 
 	<name>sporniket-game</name>

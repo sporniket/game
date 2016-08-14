@@ -34,12 +34,17 @@ public class BufferedImagesManager extends CanvasManager<BufferedImage> implemen
 	@Override
 	public void copy(int canvasIdFrom, Box boxSpecs, int canvasIdTo, Point position)
 	{
-		BufferedImage _from = getCanvasRegistry().get(canvasIdFrom).getCanvas() ;
 		Graphics2D _to = getCanvasRegistry().get(canvasIdTo).getCanvas().createGraphics() ;
 		
+		copyToGraphics(canvasIdFrom, boxSpecs, _to, position, this);
+	}
+
+	void copyToGraphics(int canvasIdFrom, Box boxSpecs, Graphics2D to, Point position, ImageObserver observer)
+	{
+		BufferedImage _from = getCanvasRegistry().get(canvasIdFrom).getCanvas() ;
 		Box _toBox = new Box().withX(position.getX()).withY(position.getY()).withWidth(boxSpecs.getWidth()).withHeight(boxSpecs.getHeight());
 		
-		_to.drawImage(_from, _toBox.getX(), _toBox.getY(), _toBox.getX2(), _toBox.getY2(), boxSpecs.getX(), boxSpecs.getY(), boxSpecs.getX2(), boxSpecs.getY2(), this) ;
+		to.drawImage(_from, _toBox.getX(), _toBox.getY(), _toBox.getX2(), _toBox.getY2(), boxSpecs.getX(), boxSpecs.getY(), boxSpecs.getX2(), boxSpecs.getY2(), observer) ;
 	}
 
 	@Override

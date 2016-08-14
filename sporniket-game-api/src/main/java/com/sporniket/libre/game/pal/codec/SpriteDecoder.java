@@ -8,11 +8,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.sporniket.libre.game.api.canvas.Box;
-import com.sporniket.libre.game.api.canvas.Point;
 import com.sporniket.libre.game.api.sprite.SpriteDefinition;
 import com.sporniket.libre.game.api.sprite.SpriteDefinitionUtils;
-import com.sporniket.libre.game.api.types.canvas.Bounds;
 import com.sporniket.libre.lang.regexp.FormattedInputSimpleParserFactory;
 
 /**

@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
  * @author dsporn
  *
  */
-class CanvasDescriptor<CanvasType>
+public class CanvasDescriptor<CanvasType>
 {
 	private CanvasType myCanvas;
 
@@ -25,7 +25,7 @@ class CanvasDescriptor<CanvasType>
 
 	private String myGuid;
 
-	CanvasType getCanvas()
+	public CanvasType getCanvas()
 	{
 		return myCanvas;
 	}
@@ -67,7 +67,10 @@ class CanvasDescriptor<CanvasType>
 
 	void regenerate() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
 	{
-		getCallback().invoke(getCallbackHolder(), getGuid(), getCanvas());
+		if (null != getCallback() && null != getCallbackHolder())
+		{
+			getCallback().invoke(getCallbackHolder(), getGuid(), getCanvas());
+		}
 	}
 
 	/**

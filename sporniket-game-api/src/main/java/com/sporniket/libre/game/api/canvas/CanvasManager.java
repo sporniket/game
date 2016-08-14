@@ -3,6 +3,7 @@
  */
 package com.sporniket.libre.game.api.canvas;
 
+import java.awt.image.BufferedImage;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,7 +75,15 @@ public abstract class CanvasManager<CanvasType>
 	 *            canvas height.
 	 * @return the canvas id.
 	 */
-	public abstract int createCanvas(String guid, int width, int height);
+	public int createCanvas(String guid, int width, int height)
+	{
+		CanvasType _data = createCanvasData(width, height);
+		CanvasDescriptor<CanvasType> _descriptor = new CanvasDescriptor<CanvasType>();
+		_descriptor.setGuid(guid);
+		_descriptor.setCanvas(_data);
+		getCanvasRegistry().add(_descriptor);
+		return getCanvasRegistry().size() - 1;
+	}
 
 	/**
 	 * Search a canvas by GUID and return the canvas id.
@@ -111,4 +120,6 @@ public abstract class CanvasManager<CanvasType>
 	{
 		return myCanvasRegistry;
 	}
+
+	protected abstract CanvasType createCanvasData(int width, int height);
 }

@@ -21,21 +21,21 @@ import com.sporniket.libre.lang.regexp.FormattedInputSimpleParserFactory;
 public class SpriteDecoder
 {
 
-	private static final String PATTERN_SPRITE__ANONYMOUS = "sprite\u00a0 # , # , # , # @ # , #";
+	private static final String PATTERN_SPRITE__ANONYMOUS = "sprite\u00a0# , # , # , # @ # , #";
 
-	private static final String PATTERN_SPRITE__NAMED = "sprite\u00a0 $ : # , # , # , # @ # , #";
+	private static final String PATTERN_SPRITE__NAMED = "sprite\u00a0$ : # , # , # , # @ # , #";
 
-	private static final String PATTERN_SPRITE_GRID__ANONYMOUS = "spriteGrid\u00a0 # x # : # , # , # , # @ # , #";
+	private static final String PATTERN_SPRITE_GRID__ANONYMOUS = "spriteGrid\u00a0# x # : # , # , # , # @ # , #";
 
-	private static final String PATTERN_SPRITE_GRID__NAMED = "spriteGrid\u00a0 $ : # x # : # , # , # , # @ # , #";
+	private static final String PATTERN_SPRITE_GRID__NAMED = "spriteGrid\u00a0$ : # x # : # , # , # , # @ # , #";
 
-	private static final String PATTERN_TILE__ANONYMOUS = "tile\u00a0 # , # , # , #";
+	private static final String PATTERN_TILE__ANONYMOUS = "tile\u00a0# , # , # , #";
 
-	private static final String PATTERN_TILE__NAMED = "tile\u00a0 $ : # , # , # , #";
+	private static final String PATTERN_TILE__NAMED = "tile\u00a0$ : # , # , # , #";
 
-	private static final String PATTERN_TILE_GRID__ANONYMOUS = "tileGrid\u00a0 # x # : # , # , # , #";
+	private static final String PATTERN_TILE_GRID__ANONYMOUS = "tileGrid\u00a0# x # : # , # , # , #";
 
-	private static final String PATTERN_TILE_GRID__NAMED = "tileGrid\u00a0 $ : # x # : # , # , # , #";
+	private static final String PATTERN_TILE_GRID__NAMED = "tileGrid\u00a0$ : # x # : # , # , # , #";
 
 	private final Pattern myPatternSpriteAnonymous = FormattedInputSimpleParserFactory.getSimpleParser(PATTERN_SPRITE__ANONYMOUS);
 

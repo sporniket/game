@@ -24,6 +24,10 @@ public class CanvasDescriptor<CanvasType>
 	private Method myCallback;
 
 	private String myGuid;
+	
+	private int myWidth ;
+	
+	private int myHeight ;
 
 	public CanvasType getCanvas()
 	{
@@ -87,6 +91,26 @@ public class CanvasDescriptor<CanvasType>
 	void dispose()
 	{
 		setCanvas(null);
+	}
+
+	public int getWidth()
+	{
+		return myWidth;
+	}
+
+	public void setWidth(int width)
+	{
+		myWidth = width;
+	}
+
+	public int getHeight()
+	{
+		return myHeight;
+	}
+
+	public void setHeight(int height)
+	{
+		myHeight = height;
 	}
 
 }

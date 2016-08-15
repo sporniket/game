@@ -123,6 +123,11 @@ public abstract class CanvasManager<CanvasType>
 	public void regenerate(int canvasId) throws CanvasException
 	{
 		CanvasDescriptor<CanvasType> _canvasDescriptor = getCanvasRegistry().get(canvasId);
+		if(_canvasDescriptor.isDisposed())
+		{
+			CanvasType _newCanvas = createCanvasData(_canvasDescriptor.getWidth(), _canvasDescriptor.getHeight());
+			_canvasDescriptor.setCanvas(_newCanvas);
+		}
 		_canvasDescriptor.getRegenerator().execute(_canvasDescriptor.getGuid(), _canvasDescriptor.getCanvas());
 	}
 

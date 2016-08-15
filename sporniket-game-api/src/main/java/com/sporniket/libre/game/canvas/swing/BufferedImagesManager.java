@@ -47,7 +47,7 @@ public class BufferedImagesManager extends CanvasManager<BufferedImage> implemen
 		
 		to.drawImage(_from, _toBox.getX(), _toBox.getY(), _toBox.getX2(), _toBox.getY2(), boxSpecs.getX(), boxSpecs.getY(), boxSpecs.getX2(), boxSpecs.getY2(), observer) ;
 	}
-
+	
 	@Override
 	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height)
 	{

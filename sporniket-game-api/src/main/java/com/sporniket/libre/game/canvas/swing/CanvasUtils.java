@@ -3,6 +3,10 @@
  */
 package com.sporniket.libre.game.canvas.swing;
 
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+
+import com.sporniket.libre.game.canvas.CanvasCallback;
 import com.sporniket.libre.game.canvas.CanvasException;
 
 /**
@@ -39,6 +43,17 @@ public abstract class CanvasUtils
 	{
 		int _result = canvasManager.createCanvas(guid, width, height);
 		canvasManager.attachRegenerator(_result, RegeneratorFillers.getBlackFiller());
+		canvasManager.regenerate(_result);
+		return _result ;
+	}
+	
+	public static int createCanvasFromImage(BufferedImagesManager canvasManager, String guid, String imageUrl) throws CanvasException
+	{
+		ImageReloader _reloader = new ImageReloader(imageUrl);
+		Dimension _imageSize = _reloader.getImageDimension();
+		int _result = canvasManager.createCanvas(guid, _imageSize.width, _imageSize.height);
+		CanvasCallback<BufferedImage> _callback = _reloader.getImageReloader();
+		canvasManager.attachRegenerator(_result, _callback);
 		canvasManager.regenerate(_result);
 		return _result ;
 	}

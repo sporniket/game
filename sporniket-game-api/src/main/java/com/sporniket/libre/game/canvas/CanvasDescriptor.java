@@ -3,8 +3,6 @@
  */
 package com.sporniket.libre.game.canvas;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * Canvas description, with the actual canvas, a callback and a globally unique identifier.
@@ -19,15 +17,13 @@ public class CanvasDescriptor<CanvasType>
 {
 	private CanvasType myCanvas;
 
-	private Object myCallbackHolder;
-
-	private Method myCallback;
+	private CanvasCallback<CanvasType> myRegenerator;
 
 	private String myGuid;
-	
-	private int myWidth ;
-	
-	private int myHeight ;
+
+	private int myWidth;
+
+	private int myHeight;
 
 	public CanvasType getCanvas()
 	{
@@ -37,26 +33,6 @@ public class CanvasDescriptor<CanvasType>
 	void setCanvas(CanvasType canvas)
 	{
 		myCanvas = canvas;
-	}
-
-	Object getCallbackHolder()
-	{
-		return myCallbackHolder;
-	}
-
-	void setCallbackHolder(Object callbackHolder)
-	{
-		myCallbackHolder = callbackHolder;
-	}
-
-	Method getCallback()
-	{
-		return myCallback;
-	}
-
-	void setCallback(Method callback)
-	{
-		myCallback = callback;
 	}
 
 	String getGuid()
@@ -69,11 +45,11 @@ public class CanvasDescriptor<CanvasType>
 		myGuid = guid;
 	}
 
-	void regenerate() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+	void regenerate() throws CanvasException
 	{
-		if (null != getCallback() && null != getCallbackHolder())
+		if (null != getRegenerator())
 		{
-			getCallback().invoke(getCallbackHolder(), getGuid(), getCanvas());
+			getRegenerator().execute(getGuid(), getCanvas());
 		}
 	}
 
@@ -98,7 +74,7 @@ public class CanvasDescriptor<CanvasType>
 		return myWidth;
 	}
 
-	public void setWidth(int width)
+	void setWidth(int width)
 	{
 		myWidth = width;
 	}
@@ -108,9 +84,19 @@ public class CanvasDescriptor<CanvasType>
 		return myHeight;
 	}
 
-	public void setHeight(int height)
+	void setHeight(int height)
 	{
 		myHeight = height;
+	}
+
+	CanvasCallback<CanvasType> getRegenerator()
+	{
+		return myRegenerator;
+	}
+
+	void setRegenerator(CanvasCallback<CanvasType> regenerator)
+	{
+		myRegenerator = regenerator;
 	}
 
 }

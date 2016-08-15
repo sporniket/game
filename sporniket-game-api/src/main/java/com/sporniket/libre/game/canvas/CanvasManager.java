@@ -45,11 +45,10 @@ public abstract class CanvasManager<CanvasType>
 		myScreenHeight = screenHeight;
 	}
 
-	public void attachRegenerationCallback(int canvas, Object callbackHolder, Method callback)
+	public void attachRegenerator(int canvas, CanvasCallback<CanvasType> regenerator)
 	{
 		CanvasDescriptor<CanvasType> _canvasDescriptor = getCanvasRegistry().get(canvas);
-		_canvasDescriptor.setCallbackHolder(callbackHolder);
-		_canvasDescriptor.setCallback(callback);
+		_canvasDescriptor.setRegenerator(regenerator);
 	}
 
 	/**
@@ -81,6 +80,8 @@ public abstract class CanvasManager<CanvasType>
 		CanvasDescriptor<CanvasType> _descriptor = new CanvasDescriptor<CanvasType>();
 		_descriptor.setGuid(guid);
 		_descriptor.setCanvas(_data);
+		_descriptor.setWidth(width);
+		_descriptor.setHeight(height);
 		getCanvasRegistry().add(_descriptor);
 		return getCanvasRegistry().size() - 1;
 	}

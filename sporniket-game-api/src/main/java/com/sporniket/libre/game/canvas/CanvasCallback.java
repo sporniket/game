@@ -35,7 +35,7 @@ public class CanvasCallback<CanvasType>
 
 	public void execute(String guid, CanvasType canvas) throws CanvasException
 	{
-		if (null != getCallback() && null != getCallbackHolder())
+		if (null != getCallback())
 		{
 			try
 			{

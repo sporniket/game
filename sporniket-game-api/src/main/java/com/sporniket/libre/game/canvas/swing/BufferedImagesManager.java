@@ -14,6 +14,7 @@ import com.sporniket.libre.game.canvas.CanvasManager;
 import com.sporniket.libre.game.canvas.Point;
 
 /**
+ * The swing implementation of {@link CanvasManager} uses {@link BufferedImage}.
  * @author dsporn
  *
  */

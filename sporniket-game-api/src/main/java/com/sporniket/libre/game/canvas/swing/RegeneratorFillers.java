@@ -37,6 +37,7 @@ public class RegeneratorFillers
 	{
 		Graphics2D _g2 = canvas.createGraphics();
 		_g2.setColor(Color.BLACK);
+		_g2.setBackground(Color.BLACK);
 		_g2.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	}
 }

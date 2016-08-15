@@ -3,8 +3,6 @@
  */
 package com.sporniket.libre.game.canvas;
 
-import java.awt.image.BufferedImage;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +11,7 @@ import java.util.Map;
 import com.sporniket.libre.game.api.InvalidValueException;
 
 /**
- * Canvas manager that will deal with creating/maintaining a set of Canvas.
+ * Canvas manager that will deal with creating/maintaining a set of Canvas, and serve as a proxy to use those canvas.
  *
  * @author dsporn
  *
@@ -83,7 +81,9 @@ public abstract class CanvasManager<CanvasType>
 		_descriptor.setWidth(width);
 		_descriptor.setHeight(height);
 		getCanvasRegistry().add(_descriptor);
-		return getCanvasRegistry().size() - 1;
+		int _result = getCanvasRegistry().size() - 1;
+		getCanvasGuidToIdMap().put(guid, _result);
+		return _result;
 	}
 
 	/**
@@ -112,6 +112,31 @@ public abstract class CanvasManager<CanvasType>
 		return myScreenWidth;
 	}
 
+	/**
+	 * Call the regenerator of the canvas.
+	 * 
+	 * @param canvasId
+	 *            canvas id.
+	 * @throws CanvasException
+	 *             when there is a problem.
+	 */
+	public void regenerate(int canvasId) throws CanvasException
+	{
+		CanvasDescriptor<CanvasType> _canvasDescriptor = getCanvasRegistry().get(canvasId);
+		_canvasDescriptor.getRegenerator().execute(_canvasDescriptor.getGuid(), _canvasDescriptor.getCanvas());
+	}
+
+	/**
+	 * Create the actual canvas.
+	 * 
+	 * @param width
+	 *            the width of the canvas.
+	 * @param height
+	 *            the height of the canvas.
+	 * @return the canvas to store in the descriptor.
+	 */
+	protected abstract CanvasType createCanvasData(int width, int height);
+
 	protected Map<String, Integer> getCanvasGuidToIdMap()
 	{
 		return myCanvasGuidToIdMap;
@@ -121,6 +146,4 @@ public abstract class CanvasManager<CanvasType>
 	{
 		return myCanvasRegistry;
 	}
-
-	protected abstract CanvasType createCanvasData(int width, int height);
 }

@@ -30,9 +30,9 @@ public class CanvasView extends JComponent
 
 	private BufferedImagesManager myCanvasManager;
 
-	private final Box myDestinationBox = new Box();
+	private final Box myDestinationBox = new Box().withX(0).withY(0);
 
-	private final Point myDestinationPoint = new Point();
+	private final Point myDestinationPoint = new Point().withX(0).withY(0);
 
 	/**
 	 * 

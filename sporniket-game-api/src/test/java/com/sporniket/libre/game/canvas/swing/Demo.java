@@ -90,6 +90,10 @@ public class Demo
 			_y += GRID_SIZE;
 			_to.setY(_y);
 		}
+		
+		//test transparency mode
+		myCanvasManager.copy(_cidTileset, _sprites.get(2).getSourceBox(), _cidDisplay, new Point().withX(40).withY(40));
+		myCanvasManager.replace(_cidTileset, _sprites.get(2).getSourceBox(), _cidDisplay, new Point().withX(104).withY(40));
 
 		SwingUtilities.invokeLater(new Runnable()
 		{

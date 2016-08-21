@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sporniket.libre.game.papi.types;
+package com.sporniket.libre.game.gamelet.input;
 
 /**
  * Model for a pointer, providing basic informations..

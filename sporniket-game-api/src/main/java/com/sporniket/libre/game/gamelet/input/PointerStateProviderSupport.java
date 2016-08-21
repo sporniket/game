@@ -1,10 +1,8 @@
 /**
  * 
  */
-package com.sporniket.libre.game.papi;
+package com.sporniket.libre.game.gamelet.input;
 
-import com.sporniket.libre.game.papi.InputAbstractionLayerInterface.PointerStateProvider;
-import com.sporniket.libre.game.papi.types.Pointer;
 
 /**
  * Support class for helping managing pointers support.

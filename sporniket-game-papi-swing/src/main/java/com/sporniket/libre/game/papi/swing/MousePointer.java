@@ -7,9 +7,9 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.event.MouseInputAdapter;
 
-import com.sporniket.libre.game.papi.InputAbstractionLayerInterface.PointerStateProvider;
-import com.sporniket.libre.game.papi.types.Pointer;
-import com.sporniket.libre.game.papi.types.Pointer.State;
+import com.sporniket.libre.game.gamelet.input.Pointer;
+import com.sporniket.libre.game.gamelet.input.PointerStateProvider;
+import com.sporniket.libre.game.gamelet.input.Pointer.State;
 
 /**
  * Implementation of PointerStateProvider returning mouse position.

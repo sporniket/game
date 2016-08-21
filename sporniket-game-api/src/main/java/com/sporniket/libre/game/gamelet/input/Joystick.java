@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sporniket.libre.game.papi.types;
+package com.sporniket.libre.game.gamelet.input;
 
 /**
  * Models of a game controller.
@@ -133,7 +133,6 @@ public class Joystick {
 	 * 
 	 */
 	private Joystick() {
-		//TODO init arrays
 		initValues();
 	}
 

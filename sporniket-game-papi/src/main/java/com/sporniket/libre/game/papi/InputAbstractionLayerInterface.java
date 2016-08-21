@@ -1,7 +1,9 @@
 package com.sporniket.libre.game.papi;
 
-import com.sporniket.libre.game.papi.types.Joystick;
-import com.sporniket.libre.game.papi.types.Pointer;
+import com.sporniket.libre.game.gamelet.input.GameControllerStateProvider;
+import com.sporniket.libre.game.gamelet.input.KeyboardStateProvider;
+import com.sporniket.libre.game.gamelet.input.PointerStateProvider;
+
 
 /**
  * Layer that provide access to the input peripherals.
@@ -34,56 +36,6 @@ import com.sporniket.libre.game.papi.types.Pointer;
  */
 public interface InputAbstractionLayerInterface
 {
-	/**
-	 * Interface for using game controllers.
-	 * @author dsporn
-	 *
-	 */
-	public static interface GameControllerStateProvider
-	{
-		/**
-		 * Get the number of controllers present.
-		 * @return
-		 */
-		int getControllerCount();
-		
-		/**
-		 * Return one {@link Joystick} instance per controller.
-		 * @return
-		 */
-		Joystick[] getStates();
-	}
-
-	/**
-	 * Interface for using a keyboard.
-	 * @author dsporn
-	 *
-	 */
-	public static interface KeyboardStateProvider
-	{
-		//FIXME to do : define keyboard state, returns a collection of states.
-	}
-
-	/**
-	 * Interfaces for using pointers (mouse, fingers, etc...).
-	 * @author dsporn
-	 *
-	 */
-	public static interface PointerStateProvider
-	{
-		/**
-		 * Get the number of supported pointers (==> support multitouch).
-		 * @return
-		 */
-		int getPointerCount();
-		
-		/**
-		 * Return one pointer per device/touch.
-		 * @return
-		 */
-		Pointer[] getStates();
-	}
-	
 	/**
 	 * Tells whether {@link GameControllerStateProvider} may be used.
 	 * @return

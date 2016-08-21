@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
+import com.sporniket.libre.game.gamelet.input.GameControllerStateProvider;
+import com.sporniket.libre.game.gamelet.input.KeyboardStateProvider;
+import com.sporniket.libre.game.gamelet.input.PointerStateProvider;
+import com.sporniket.libre.game.gamelet.input.PointerStateProviderSupport;
 import com.sporniket.libre.game.papi.Game;
 import com.sporniket.libre.game.papi.InputAbstractionLayerInterface;
-import com.sporniket.libre.game.papi.PointerStateProviderSupport;
-import com.sporniket.libre.game.papi.InputAbstractionLayerInterface.PointerStateProvider;
 import com.sporniket.libre.game.papi.profile.ScreenFeatureSet;
 
 /**

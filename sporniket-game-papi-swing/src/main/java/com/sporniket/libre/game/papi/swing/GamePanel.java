@@ -40,6 +40,10 @@ import com.sporniket.libre.game.api.sprite.SpriteBank;
 import com.sporniket.libre.game.api.types.BlocDefinition;
 import com.sporniket.libre.game.api.types.CopyMode;
 import com.sporniket.libre.game.api.types.Position.Vector;
+import com.sporniket.libre.game.gamelet.input.GameControllerStateProvider;
+import com.sporniket.libre.game.gamelet.input.KeyboardStateProvider;
+import com.sporniket.libre.game.gamelet.input.Pointer;
+import com.sporniket.libre.game.gamelet.input.PointerStateProvider;
 import com.sporniket.libre.game.papi.BufferingStrategy;
 import com.sporniket.libre.game.papi.GraphicAbstractionLayerInterface;
 import com.sporniket.libre.game.papi.InputAbstractionLayerInterface;
@@ -47,7 +51,6 @@ import com.sporniket.libre.game.papi.PictureHandler;
 import com.sporniket.libre.game.papi.SoundAbstractionLayerInterface;
 import com.sporniket.libre.game.papi.SoundHandler;
 import com.sporniket.libre.game.papi.profile.ScreenFeatureSet;
-import com.sporniket.libre.game.papi.types.Pointer;
 
 /**
  * Custom panel that will provide game rendering.
@@ -157,7 +160,7 @@ class GamePanel extends JPanel implements GraphicAbstractionLayerInterface, Soun
 	 * @author dsporn
 	 * 
 	 */
-	private static class PointerProvider implements InputAbstractionLayerInterface.PointerStateProvider
+	private static class PointerProvider implements PointerStateProvider
 	{
 		Pointer myNextPointer;
 

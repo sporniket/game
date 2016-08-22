@@ -20,7 +20,7 @@ import com.sporniket.libre.game.gamelet.events.Render;
  * @author dsporn
  *
  */
-public class GameletControler<CanvasType> implements GameletListener<CanvasType>
+public class CanvasGameletControler<CanvasType> implements GameletListener<CanvasType>
 {
 	private static final int INITIAL_CAPACITY__GAMELET_REGISTRY = 10;
 
@@ -34,7 +34,7 @@ public class GameletControler<CanvasType> implements GameletListener<CanvasType>
 	 */
 	private String[] myCanvasBufferingList;
 
-	private GameletContext<CanvasType> myContext;
+	private CanvasGameletContext<CanvasType> myContext;
 
 	/**
 	 * Canvas id of the canvas into which drawing is done, initialized with a negative (invalid) value.
@@ -46,10 +46,10 @@ public class GameletControler<CanvasType> implements GameletListener<CanvasType>
 	 */
 	private int myCurrentDisplayedCanvas = -1;
 
-	private final Map<String, Gamelet<CanvasType>> myGameletRegistry = new HashMap<String, Gamelet<CanvasType>>(
+	private final Map<String, CanvasGamelet<CanvasType>> myGameletRegistry = new HashMap<String, CanvasGamelet<CanvasType>>(
 			INITIAL_CAPACITY__GAMELET_REGISTRY);
 
-	private final Deque<Gamelet<CanvasType>> myRunningStack = new ArrayDeque<Gamelet<CanvasType>>(
+	private final Deque<CanvasGamelet<CanvasType>> myRunningStack = new ArrayDeque<CanvasGamelet<CanvasType>>(
 			INITIAL_CAPACITY__GAMELET_REGISTRY);
 
 	public int getCanvasBufferingCurrentIndex()
@@ -62,7 +62,7 @@ public class GameletControler<CanvasType> implements GameletListener<CanvasType>
 		return myCanvasBufferingList;
 	}
 
-	public GameletContext<CanvasType> getContext()
+	public CanvasGameletContext<CanvasType> getContext()
 	{
 		return myContext;
 	}
@@ -91,7 +91,7 @@ public class GameletControler<CanvasType> implements GameletListener<CanvasType>
 		{
 			throw new GameletNotFoundException(_name);
 		}
-		Gamelet<CanvasType> _gamelet = getGameletRegistry().get(_name);
+		CanvasGamelet<CanvasType> _gamelet = getGameletRegistry().get(_name);
 		getRunningStack().addLast(_gamelet);
 
 	}
@@ -110,7 +110,7 @@ public class GameletControler<CanvasType> implements GameletListener<CanvasType>
 		setCurrentDisplayedCanvas(getCurrentCanvas());
 	}
 
-	public void registerGamelet(String name, Gamelet<CanvasType> gamelet) throws GameletException
+	public void registerGamelet(String name, CanvasGamelet<CanvasType> gamelet) throws GameletException
 	{
 		// sanity check
 		if (null == name)
@@ -140,7 +140,7 @@ public class GameletControler<CanvasType> implements GameletListener<CanvasType>
 		{
 			throw new GameletException(new IllegalStateException("nothing to run"));
 		}
-		Gamelet<CanvasType> _currentGamelet = getRunningStack().peekLast();
+		CanvasGamelet<CanvasType> _currentGamelet = getRunningStack().peekLast();
 		_currentGamelet.run(elapsedTime, getContext());
 	}
 
@@ -154,7 +154,7 @@ public class GameletControler<CanvasType> implements GameletListener<CanvasType>
 		myCanvasBufferingList = canvasBufferingList;
 	}
 
-	public void setContext(GameletContext<CanvasType> context)
+	public void setContext(CanvasGameletContext<CanvasType> context)
 	{
 		myContext = context;
 	}
@@ -169,12 +169,12 @@ public class GameletControler<CanvasType> implements GameletListener<CanvasType>
 		myCurrentDisplayedCanvas = currentDisplayedCanvas;
 	}
 
-	private Map<String, Gamelet<CanvasType>> getGameletRegistry()
+	private Map<String, CanvasGamelet<CanvasType>> getGameletRegistry()
 	{
 		return myGameletRegistry;
 	}
 
-	private Deque<Gamelet<CanvasType>> getRunningStack()
+	private Deque<CanvasGamelet<CanvasType>> getRunningStack()
 	{
 		return myRunningStack;
 	}

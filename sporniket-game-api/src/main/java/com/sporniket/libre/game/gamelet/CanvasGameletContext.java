@@ -13,7 +13,7 @@ import com.sporniket.libre.game.gamelet.input.PointerStateProvider;
  * @author dsporn
  *
  */
-public class GameletContext<CanvasType>
+public class CanvasGameletContext<CanvasType>
 {
 	private GameControllerStateProvider myGameControllers;
 

@@ -18,7 +18,7 @@ import com.sporniket.libre.game.gamelet.events.Render;
  * @author dsporn
  *
  */
-public abstract class Gamelet<CanvasType>
+public abstract class CanvasGamelet<CanvasType>
 {
 	private static final int INITIAL_CAPACITY__LISTENERS = 10;
 
@@ -143,7 +143,7 @@ public abstract class Gamelet<CanvasType>
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	public void run(long elapsedTime, GameletContext<CanvasType> context) throws GameletException
+	public void run(long elapsedTime, CanvasGameletContext<CanvasType> context) throws GameletException
 	{
 		if (isFinished())
 		{
@@ -186,7 +186,7 @@ public abstract class Gamelet<CanvasType>
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	protected abstract void doRun(long elapsedTime, GameletContext<CanvasType> context) throws GameletException;
+	protected abstract void doRun(long elapsedTime, CanvasGameletContext<CanvasType> context) throws GameletException;
 
 	private List<GameletListener<CanvasType>> getListeners()
 	{

@@ -4,8 +4,6 @@
 package com.sporniket.libre.game.gamelet;
 
 import com.sporniket.libre.game.canvas.CanvasManager;
-import com.sporniket.libre.game.gamelet.input.GameControllerStateProvider;
-import com.sporniket.libre.game.gamelet.input.PointerStateProvider;
 
 /**
  * A GameletContext give access to game support classes.
@@ -13,13 +11,9 @@ import com.sporniket.libre.game.gamelet.input.PointerStateProvider;
  * @author dsporn
  *
  */
-public class CanvasGameletContext<CanvasType>
+public class CanvasGameletContext<CanvasType> extends GameletContext
 {
-	private GameControllerStateProvider myGameControllers;
-
-	private PointerStateProvider myPointers;
-
-	CanvasManager<CanvasType> myCanvasManager;
+	private CanvasManager<CanvasType> myCanvasManager;
 
 	/**
 	 * The canvas manager used to do game rendering.
@@ -31,38 +25,8 @@ public class CanvasGameletContext<CanvasType>
 		return myCanvasManager;
 	}
 
-	/**
-	 * Give access to the game controllers.
-	 * 
-	 * @return access to the game controller states.
-	 */
-	public GameControllerStateProvider getGameControllers()
-	{
-		return myGameControllers;
-	}
-
-	/**
-	 * Give access to the pointer (mouse or finger touches)
-	 * 
-	 * @return the pointers.
-	 */
-	public PointerStateProvider getPointers()
-	{
-		return myPointers;
-	}
-
 	public void setCanvasManager(CanvasManager<CanvasType> canvasManager)
 	{
 		myCanvasManager = canvasManager;
-	}
-
-	public void setGameControllers(GameControllerStateProvider gameControllers)
-	{
-		myGameControllers = gameControllers;
-	}
-
-	public void setPointers(PointerStateProvider pointers)
-	{
-		myPointers = pointers;
 	}
 }

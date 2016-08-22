@@ -3,8 +3,6 @@
  */
 package com.sporniket.libre.game.pal.game.canvas.descriptor;
 
-import com.sporniket.libre.lang.string.StringTools;
-
 /**
  * Base url that will be used to load various kind of ressources.
  * 
@@ -13,25 +11,15 @@ import com.sporniket.libre.lang.string.StringTools;
  */
 public class BaseUrlSpecs
 {
-	private final String myBaseUrlForData;
+	private String myBaseUrlForData;
 
-	private final String myBaseUrlForJukebox;
+	private String myBaseUrlForJukebox;
 
-	private final String myBaseUrlForPictures;
+	private String myBaseUrlForPictures;
 
-	private final String myBaseUrlForSoundEffects;
+	private String myBaseUrlForSoundEffects;
 
-	private final String myBaseUrlForSprites;
-
-	public BaseUrlSpecs(String baseUrlForData, String baseUrlForPictures, String baseUrlForSprites, String baseUrlForSoundEffects,
-			String baseUrlForJukebox, CanvasSpecs canvasSpecs)
-	{
-		myBaseUrlForData = baseUrlForData;
-		myBaseUrlForPictures = baseUrlForPictures.replace("{prefix}", canvasSpecs.getPrefix());
-		myBaseUrlForSprites = baseUrlForSprites.replace("{prefix}", canvasSpecs.getPrefix());
-		myBaseUrlForSoundEffects = baseUrlForSoundEffects;
-		myBaseUrlForJukebox = baseUrlForJukebox;
-	}
+	private String myBaseUrlForSprites;
 
 	public String getBaseUrlForData()
 	{
@@ -56,5 +44,30 @@ public class BaseUrlSpecs
 	public String getBaseUrlForSprites()
 	{
 		return myBaseUrlForSprites;
+	}
+
+	public void setBaseUrlForData(String baseUrlForData)
+	{
+		myBaseUrlForData = baseUrlForData;
+	}
+
+	public void setBaseUrlForJukebox(String baseUrlForJukebox)
+	{
+		myBaseUrlForJukebox = baseUrlForJukebox;
+	}
+
+	public void setBaseUrlForPictures(String baseUrlForPictures)
+	{
+		myBaseUrlForPictures = baseUrlForPictures;
+	}
+
+	public void setBaseUrlForSoundEffects(String baseUrlForSoundEffects)
+	{
+		myBaseUrlForSoundEffects = baseUrlForSoundEffects;
+	}
+
+	public void setBaseUrlForSprites(String baseUrlForSprites)
+	{
+		myBaseUrlForSprites = baseUrlForSprites;
 	}
 }

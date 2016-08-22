@@ -16,17 +16,17 @@ public class CanvasSpecs
 	/**
 	 * Canvas height.
 	 */
-	private final int myHeight;
+	private int myHeight;
 
 	/**
 	 * Displayable label.
 	 */
-	private final String myLabel;
+	private String myLabel;
 
 	/**
 	 * Prefix to find image and sprite resources.
 	 */
-	private final String myPrefix;
+	private String myPrefix;
 
 	/**
 	 * Canvas width.
@@ -59,6 +59,21 @@ public class CanvasSpecs
 	public int getWidth()
 	{
 		return myWidth;
+	}
+
+	public void setHeight(int height)
+	{
+		myHeight = height;
+	}
+
+	public void setLabel(String label)
+	{
+		myLabel = label;
+	}
+
+	public void setPrefix(String prefix)
+	{
+		myPrefix = prefix;
 	}
 
 }

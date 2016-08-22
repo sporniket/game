@@ -3,7 +3,7 @@
  */
 package com.sporniket.libre.game.gamelet.events;
 
-import com.sporniket.libre.game.gamelet.CanvasGamelet;
+import com.sporniket.libre.game.gamelet.Gamelet;
 
 /**
  * Enclosing class for gamelet events.
@@ -11,16 +11,16 @@ import com.sporniket.libre.game.gamelet.CanvasGamelet;
  * @author dsporn
  *
  */
-public abstract class GameletEvent<CanvasType>
+public abstract class GameletEvent
 {
-	private final CanvasGamelet<CanvasType> mySource;
+	private final Gamelet mySource;
 
-	public GameletEvent(CanvasGamelet<CanvasType> source)
+	public GameletEvent(Gamelet source)
 	{
 		mySource = source;
 	}
 
-	public CanvasGamelet<CanvasType> getSource()
+	public Gamelet getSource()
 	{
 		return mySource;
 	}

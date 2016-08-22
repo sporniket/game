@@ -1,6 +1,6 @@
 package com.sporniket.libre.game.gamelet.events;
 
-import com.sporniket.libre.game.gamelet.CanvasGamelet;
+import com.sporniket.libre.game.gamelet.Gamelet;
 
 /**
  * When receiving a render event, the controler MUST call the rendering of the Gamelet.
@@ -8,10 +8,10 @@ import com.sporniket.libre.game.gamelet.CanvasGamelet;
  * @author dsporn
  *
  */
-public class Render<CanvasType> extends GameletEvent<CanvasType>
+public class Render extends GameletEvent
 {
 
-	public Render(CanvasGamelet<CanvasType> source)
+	public Render(Gamelet source)
 	{
 		super(source);
 	}

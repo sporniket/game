@@ -20,7 +20,7 @@ import com.sporniket.libre.game.gamelet.events.Render;
  * @author dsporn
  *
  */
-public class CanvasGameletControler<CanvasType> implements GameletListener<CanvasType>
+public abstract class CanvasGameletControler<CanvasType> implements GameletListener
 {
 	private static final int INITIAL_CAPACITY__GAMELET_REGISTRY = 10;
 
@@ -78,13 +78,13 @@ public class CanvasGameletControler<CanvasType> implements GameletListener<Canva
 	}
 
 	@Override
-	public void onBackward(Backward<CanvasType> event) throws GameletException
+	public void onBackward(Backward event) throws GameletException
 	{
 		getRunningStack().removeLast();
 	}
 
 	@Override
-	public void onForward(Forward<CanvasType> event) throws GameletException
+	public void onForward(Forward event) throws GameletException
 	{
 		String _name = event.getName();
 		if (!getGameletRegistry().containsKey(_name))
@@ -97,7 +97,7 @@ public class CanvasGameletControler<CanvasType> implements GameletListener<Canva
 	}
 
 	@Override
-	public void onRender(Render<CanvasType> event) throws GameletException
+	public void onRender(Render event) throws GameletException
 	{
 		// buffering management
 		int _canvasBufferingCurrentIndex = (getCanvasBufferingCurrentIndex() + 1) % getCanvasBufferingList().length;
@@ -105,7 +105,9 @@ public class CanvasGameletControler<CanvasType> implements GameletListener<Canva
 
 		CanvasManager<CanvasType> _canvasManager = getContext().getCanvasManager();
 		setCurrentCanvas(_canvasManager.getCanvasId(getCanvasBufferingList()[_canvasBufferingCurrentIndex]));
-		event.getSource().render(_canvasManager, getCurrentCanvas(), getCurrentDisplayedCanvas());
+		@SuppressWarnings("unchecked")
+		CanvasGamelet<CanvasType> _source = (CanvasGamelet<CanvasType>) event.getSource();
+		_source.render(_canvasManager, getCurrentCanvas(), getCurrentDisplayedCanvas());
 
 		setCurrentDisplayedCanvas(getCurrentCanvas());
 	}

@@ -1,6 +1,6 @@
 package com.sporniket.libre.game.gamelet.events;
 
-import com.sporniket.libre.game.gamelet.CanvasGamelet;
+import com.sporniket.libre.game.gamelet.Gamelet;
 
 /**
  * When receiving a backward event, the controler MUST give back control to the gamelet that previously send the forward event.
@@ -8,10 +8,10 @@ import com.sporniket.libre.game.gamelet.CanvasGamelet;
  * @author dsporn
  *
  */
-public class Backward<CanvasType> extends GameletEvent<CanvasType>
+public class Backward extends GameletEvent
 {
 
-	public Backward(CanvasGamelet<CanvasType> source)
+	public Backward(Gamelet source)
 	{
 		super(source);
 	}

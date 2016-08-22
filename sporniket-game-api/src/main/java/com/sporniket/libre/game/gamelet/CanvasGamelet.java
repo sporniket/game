@@ -18,17 +18,11 @@ import com.sporniket.libre.game.gamelet.events.Render;
  * @author dsporn
  *
  */
-public abstract class CanvasGamelet<CanvasType>
+public abstract class CanvasGamelet<CanvasType> extends Gamelet
 {
 	private static final int INITIAL_CAPACITY__LISTENERS = 10;
 
-	/**
-	 * <code>true</code> when the gamelet sends the backward event.
-	 */
-	private boolean myFinished;
-
-	private final List<GameletListener<CanvasType>> myListeners = new ArrayList<GameletListener<CanvasType>>(
-			INITIAL_CAPACITY__LISTENERS);
+	private final List<GameletListener> myListeners = new ArrayList<GameletListener>(INITIAL_CAPACITY__LISTENERS);
 
 	/**
 	 * Add a listener interested in {@link GameletEvent}.
@@ -36,7 +30,7 @@ public abstract class CanvasGamelet<CanvasType>
 	 * @param listener
 	 *            the listener.
 	 */
-	public void addListener(GameletListener<CanvasType> listener)
+	public void addListener(GameletListener listener)
 	{
 		if (null != listener)
 		{
@@ -44,55 +38,28 @@ public abstract class CanvasGamelet<CanvasType>
 		}
 	}
 
-	/**
-	 * method to call before quitting.
-	 * 
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	public void exit() throws GameletException
+	public void fireBackwardEvent(Backward event) throws GameletException
 	{
-		doExit();
-	}
-
-	public void fireBackwardEvent(Backward<CanvasType> event) throws GameletException
-	{
-		for (GameletListener<CanvasType> _listener : getListeners())
+		for (GameletListener _listener : getListeners())
 		{
 			_listener.onBackward(event);
 		}
 	}
 
-	public void fireForwardEvent(Forward<CanvasType> event) throws GameletException
+	public void fireForwardEvent(Forward event) throws GameletException
 	{
-		for (GameletListener<CanvasType> _listener : getListeners())
+		for (GameletListener _listener : getListeners())
 		{
 			_listener.onForward(event);
 		}
 	}
 
-	public void fireRenderEvent(Render<CanvasType> event) throws GameletException
+	public void fireRenderEvent(Render event) throws GameletException
 	{
-		for (GameletListener<CanvasType> _listener : getListeners())
+		for (GameletListener _listener : getListeners())
 		{
 			_listener.onRender(event);
 		}
-	}
-
-	/**
-	 * method to call before the first run.
-	 * 
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	public void init() throws GameletException
-	{
-		doInit();
-	}
-
-	public boolean isFinished()
-	{
-		return myFinished;
 	}
 
 	/**
@@ -101,7 +68,7 @@ public abstract class CanvasGamelet<CanvasType>
 	 * @param listener
 	 *            the listener.
 	 */
-	public void removeListener(GameletListener<CanvasType> listener)
+	public void removeListener(GameletListener listener)
 	{
 		if (null != listener && getListeners().contains(listener))
 		{
@@ -120,18 +87,6 @@ public abstract class CanvasGamelet<CanvasType>
 	 *            the canvas id of the previous rendering, may be invalid (negative).
 	 */
 	public abstract void render(CanvasManager<CanvasType> canvasManager, int cidDestination, int cidPreviousRender);
-
-	/**
-	 * method to call before running again the gamelet.
-	 * 
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	public void rewind() throws GameletException
-	{
-		doRewind();
-		setFinished(false);
-	}
 
 	/**
 	 * Execute the gamelet (poll events, change state, send events, return).
@@ -153,30 +108,6 @@ public abstract class CanvasGamelet<CanvasType>
 	}
 
 	/**
-	 * Extension point : specific exit code.
-	 * 
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	protected abstract void doExit() throws GameletException;
-
-	/**
-	 * Extension point : specific init code.
-	 * 
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	protected abstract void doInit() throws GameletException;
-
-	/**
-	 * Extension point : specific before any run code.
-	 * 
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	protected abstract void doRewind() throws GameletException;
-
-	/**
 	 * Extension point : specific run code.
 	 * 
 	 * @param elapsedTime
@@ -188,13 +119,8 @@ public abstract class CanvasGamelet<CanvasType>
 	 */
 	protected abstract void doRun(long elapsedTime, CanvasGameletContext<CanvasType> context) throws GameletException;
 
-	private List<GameletListener<CanvasType>> getListeners()
+	private List<GameletListener> getListeners()
 	{
 		return myListeners;
-	}
-
-	private void setFinished(boolean finished)
-	{
-		myFinished = finished;
 	}
 }

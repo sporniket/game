@@ -1,9 +1,10 @@
 /**
  * 
  */
-package com.sporniket.libre.game.gamelet;
+package com.sporniket.libre.game.canvas.gamelet;
 
 import com.sporniket.libre.game.canvas.CanvasManager;
+import com.sporniket.libre.game.gamelet.GameletContext;
 
 /**
  * A GameletContext give access to game support classes.

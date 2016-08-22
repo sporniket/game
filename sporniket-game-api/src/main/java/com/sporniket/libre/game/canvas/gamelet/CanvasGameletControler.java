@@ -1,9 +1,12 @@
 /**
  * 
  */
-package com.sporniket.libre.game.gamelet;
+package com.sporniket.libre.game.canvas.gamelet;
 
 import com.sporniket.libre.game.canvas.CanvasManager;
+import com.sporniket.libre.game.gamelet.GameletControler;
+import com.sporniket.libre.game.gamelet.GameletException;
+import com.sporniket.libre.game.gamelet.GameletListener;
 import com.sporniket.libre.game.gamelet.events.Render;
 
 /**

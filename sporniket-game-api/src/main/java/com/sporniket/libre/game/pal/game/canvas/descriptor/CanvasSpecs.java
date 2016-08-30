@@ -31,7 +31,7 @@ public class CanvasSpecs
 	/**
 	 * Canvas width.
 	 */
-	private final int myWidth;
+	private int myWidth;
 
 	public CanvasSpecs(String label, int width, int height, String prefix)
 	{
@@ -74,6 +74,11 @@ public class CanvasSpecs
 	public void setPrefix(String prefix)
 	{
 		myPrefix = prefix;
+	}
+
+	public void setWidth(int width)
+	{
+		myWidth = width;
 	}
 
 }

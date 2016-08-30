@@ -18,10 +18,9 @@ public class CanvasGameDescriptor
 		return INITIAL_CAPACITY__MANAGER_SPECS;
 	}
 
-	private BaseUrlSpecs myBaseUrlSpecs;
+	private final BaseUrlSpecs myBaseUrlSpecs = new BaseUrlSpecs() ;
 
-	private final Map<String, CanvasManagerSpecs> myCanvasManagerSpecs = new HashMap<String, CanvasManagerSpecs>(
-			INITIAL_CAPACITY__MANAGER_SPECS);
+	private final CanvasManagerSpecs myCanvasManagerSpecs = new CanvasManagerSpecs() ;
 
 	private CanvasSpecs[] myCanvasSpecs;
 
@@ -30,7 +29,7 @@ public class CanvasGameDescriptor
 		return myBaseUrlSpecs;
 	}
 
-	public Map<String, CanvasManagerSpecs> getCanvasManagerSpecs()
+	public CanvasManagerSpecs getCanvasManagerSpecs()
 	{
 		return myCanvasManagerSpecs;
 	}
@@ -38,11 +37,6 @@ public class CanvasGameDescriptor
 	public CanvasSpecs[] getCanvasSpecs()
 	{
 		return myCanvasSpecs;
-	}
-
-	public void setBaseUrlSpecs(BaseUrlSpecs baseUrlSpecs)
-	{
-		myBaseUrlSpecs = baseUrlSpecs;
 	}
 
 	public void setCanvasSpecs(CanvasSpecs[] canvasSpecs)

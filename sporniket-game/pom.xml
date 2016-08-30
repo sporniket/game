@@ -23,7 +23,8 @@
 		<version.sporniket-javabeans>15.04.01</version.sporniket-javabeans>
 
 		<!-- external libraries version -->
-		<version.sporniket.core>16.08.00</version.sporniket.core>
+		<version.sporniket.core>16.08.02</version.sporniket.core>
+		<version.sporniket.p3>3</version.sporniket.p3>
 	</properties>
 
 	<name>sporniket-game</name>
@@ -60,8 +61,20 @@
 			</dependency>
 			<dependency>
 				<groupId>com.sporniket.core</groupId>
+				<artifactId>sporniket-core-io</artifactId>
+				<version>${version.sporniket.core}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sporniket.core</groupId>
 				<artifactId>sporniket-core-ui</artifactId>
 				<version>${version.sporniket.core}</version>
+			</dependency>
+
+			<!-- Sporniket-p3 -->
+			<dependency>
+				<groupId>com.sporniket.p3</groupId>
+				<artifactId>p3</artifactId>
+				<version>${version.sporniket.p3}</version>
 			</dependency>
 
 			<!-- ===TEST DEPENDENCIES -->

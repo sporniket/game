@@ -23,7 +23,7 @@
 		<version.sporniket-javabeans>15.04.01</version.sporniket-javabeans>
 
 		<!-- external libraries version -->
-		<version.sporniket.core>16.08.02</version.sporniket.core>
+		<version.sporniket.core>16.09.00</version.sporniket.core>
 		<version.sporniket.p3>3</version.sporniket.p3>
 	</properties>
 

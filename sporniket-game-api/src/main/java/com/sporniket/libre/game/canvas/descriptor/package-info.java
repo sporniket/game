@@ -4,4 +4,4 @@
  * @author dsporn
  *
  */
-package com.sporniket.libre.game.pal.game.canvas.descriptor;
+package com.sporniket.libre.game.canvas.descriptor;

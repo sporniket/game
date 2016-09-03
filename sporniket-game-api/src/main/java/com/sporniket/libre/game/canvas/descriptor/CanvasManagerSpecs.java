@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sporniket.libre.game.pal.game.canvas.descriptor;
+package com.sporniket.libre.game.canvas.descriptor;
 
 /**
  * Specifications of canvas to create.

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sporniket.libre.game.pal.game.canvas.descriptor;
+package com.sporniket.libre.game.canvas.descriptor;
 
 /**
  * Base url that will be used to load various kind of ressources.

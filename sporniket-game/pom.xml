@@ -24,7 +24,7 @@
 
 		<!-- external libraries version -->
 		<version.sporniket.core>16.09.00</version.sporniket.core>
-		<version.sporniket.p3>3</version.sporniket.p3>
+		<version.sporniket.p3>4</version.sporniket.p3>
 	</properties>
 
 	<name>sporniket-game</name>

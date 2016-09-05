@@ -11,7 +11,7 @@
 	<properties>
 		<url.base>https://github.com/sporniket/game</url.base>
 		<url.base.site.deploy>${project.baseUri}../mvnsites</url.base.site.deploy>
-		<version.jdk>1.7</version.jdk>
+		<version.jdk>1.8</version.jdk>
 
 		<!-- maven plugins version -->
 		<version.maven-compiler-plugin>3.2</version.maven-compiler-plugin>

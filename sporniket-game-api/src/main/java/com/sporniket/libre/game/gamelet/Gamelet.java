@@ -51,54 +51,6 @@ public abstract class Gamelet
 	}
 
 	/**
-	 * Notify listener of a {@link Backward} event.
-	 * 
-	 * @param event
-	 *            the event to notify.
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	protected void fireBackwardEvent(Backward event) throws GameletException
-	{
-		for (GameletListener _listener : getListeners())
-		{
-			_listener.onBackward(event);
-		}
-	}
-
-	/**
-	 * Notify listener of a {@link Forward} event.
-	 * 
-	 * @param event
-	 *            the event to notify.
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	protected void fireForwardEvent(Forward event) throws GameletException
-	{
-		for (GameletListener _listener : getListeners())
-		{
-			_listener.onForward(event);
-		}
-	}
-
-	/**
-	 * Notify listener of a {@link Render} event.
-	 * 
-	 * @param event
-	 *            the event to notify.
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	protected void fireRenderEvent(Render event) throws GameletException
-	{
-		for (GameletListener _listener : getListeners())
-		{
-			_listener.onRender(event);
-		}
-	}
-
-	/**
 	 * Method to call before the first run.
 	 * 
 	 * @throws GameletException
@@ -194,6 +146,54 @@ public abstract class Gamelet
 	 *             when there is a problem.
 	 */
 	protected abstract void doRun(long elapsedTime, GameletContext context) throws GameletException;
+
+	/**
+	 * Notify listener of a {@link Backward} event.
+	 * 
+	 * @param event
+	 *            the event to notify.
+	 * @throws GameletException
+	 *             when there is a problem.
+	 */
+	protected void fireBackwardEvent(Backward event) throws GameletException
+	{
+		for (GameletListener _listener : getListeners())
+		{
+			_listener.onBackward(event);
+		}
+	}
+
+	/**
+	 * Notify listener of a {@link Forward} event.
+	 * 
+	 * @param event
+	 *            the event to notify.
+	 * @throws GameletException
+	 *             when there is a problem.
+	 */
+	protected void fireForwardEvent(Forward event) throws GameletException
+	{
+		for (GameletListener _listener : getListeners())
+		{
+			_listener.onForward(event);
+		}
+	}
+
+	/**
+	 * Notify listener of a {@link Render} event.
+	 * 
+	 * @param event
+	 *            the event to notify.
+	 * @throws GameletException
+	 *             when there is a problem.
+	 */
+	protected void fireRenderEvent(Render event) throws GameletException
+	{
+		for (GameletListener _listener : getListeners())
+		{
+			_listener.onRender(event);
+		}
+	}
 
 	protected void setFinished(boolean finished)
 	{

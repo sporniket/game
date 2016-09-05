@@ -50,7 +50,15 @@ public abstract class Gamelet
 		doExit();
 	}
 
-	public void fireBackwardEvent(Backward event) throws GameletException
+	/**
+	 * Notify listener of a {@link Backward} event.
+	 * 
+	 * @param event
+	 *            the event to notify.
+	 * @throws GameletException
+	 *             when there is a problem.
+	 */
+	protected void fireBackwardEvent(Backward event) throws GameletException
 	{
 		for (GameletListener _listener : getListeners())
 		{
@@ -58,7 +66,15 @@ public abstract class Gamelet
 		}
 	}
 
-	public void fireForwardEvent(Forward event) throws GameletException
+	/**
+	 * Notify listener of a {@link Forward} event.
+	 * 
+	 * @param event
+	 *            the event to notify.
+	 * @throws GameletException
+	 *             when there is a problem.
+	 */
+	protected void fireForwardEvent(Forward event) throws GameletException
 	{
 		for (GameletListener _listener : getListeners())
 		{
@@ -66,7 +82,15 @@ public abstract class Gamelet
 		}
 	}
 
-	public void fireRenderEvent(Render event) throws GameletException
+	/**
+	 * Notify listener of a {@link Render} event.
+	 * 
+	 * @param event
+	 *            the event to notify.
+	 * @throws GameletException
+	 *             when there is a problem.
+	 */
+	protected void fireRenderEvent(Render event) throws GameletException
 	{
 		for (GameletListener _listener : getListeners())
 		{
@@ -75,7 +99,7 @@ public abstract class Gamelet
 	}
 
 	/**
-	 * method to call before the first run.
+	 * Method to call before the first run.
 	 * 
 	 * @throws GameletException
 	 *             when there is a problem.

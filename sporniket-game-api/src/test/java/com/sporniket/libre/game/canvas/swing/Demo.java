@@ -106,8 +106,8 @@ public class Demo
 		{
 			int _cidBackground = canvasManager.getCanvasId(CANVAS_GUID__BACKGROUND);
 
-			((BoxCopyMachine) canvasManager).copy(_cidBackground, canvasManager.getScreenBox(), cidDestination,
-					canvasManager.getScreenCornerTopLeft());
+			canvasManager
+					.copy(_cidBackground, canvasManager.getScreenBox(), cidDestination, canvasManager.getScreenCornerTopLeft());
 		}
 
 		/**

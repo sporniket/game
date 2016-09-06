@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
 import com.sporniket.libre.game.canvas.Box;
-import com.sporniket.libre.game.canvas.BoxCopyMachine;
 import com.sporniket.libre.game.canvas.CanvasManager;
 import com.sporniket.libre.game.canvas.Point;
 
@@ -19,7 +18,7 @@ import com.sporniket.libre.game.canvas.Point;
  * @author dsporn
  *
  */
-public class BufferedImagesManager extends CanvasManager<BufferedImage> implements BoxCopyMachine, ImageObserver
+public class BufferedImagesManager extends CanvasManager<BufferedImage> implements ImageObserver
 {
 	public BufferedImagesManager(int screenWidth, int screenHeight)
 	{

@@ -16,7 +16,7 @@ import com.sporniket.libre.game.api.InvalidValueException;
  * @author dsporn
  *
  */
-public abstract class CanvasManager<CanvasType>
+public abstract class CanvasManager<CanvasType> implements BoxCopyMachine
 {
 	private static final int REGISTRY_INITIAL_CAPACITY = 50;
 

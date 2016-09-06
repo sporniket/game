@@ -32,7 +32,7 @@ public class DefaultCanvasGamelet<CanvasType> extends CanvasGamelet<CanvasType>
 	 * @see com.sporniket.libre.game.gamelet.Gamelet#doExit()
 	 */
 	@Override
-	protected void doExit() throws GameletException
+	protected void doExit(CanvasGameletContext<CanvasType> context) throws GameletException
 	{
 	}
 
@@ -42,7 +42,7 @@ public class DefaultCanvasGamelet<CanvasType> extends CanvasGamelet<CanvasType>
 	 * @see com.sporniket.libre.game.gamelet.Gamelet#doInit()
 	 */
 	@Override
-	protected void doInit() throws GameletException
+	protected void doInit(CanvasGameletContext<CanvasType> context) throws GameletException
 	{
 	}
 
@@ -52,7 +52,7 @@ public class DefaultCanvasGamelet<CanvasType> extends CanvasGamelet<CanvasType>
 	 * @see com.sporniket.libre.game.gamelet.Gamelet#doRewind()
 	 */
 	@Override
-	protected void doRewind() throws GameletException
+	protected void doRewind(CanvasGameletContext<CanvasType> context) throws GameletException
 	{
 	}
 
@@ -62,7 +62,7 @@ public class DefaultCanvasGamelet<CanvasType> extends CanvasGamelet<CanvasType>
 	 * @see com.sporniket.libre.game.gamelet.Gamelet#doRun(long, com.sporniket.libre.game.gamelet.GameletContext)
 	 */
 	@Override
-	protected void doRun(long elapsedTime, GameletContext context) throws GameletException
+	protected void doRun(long elapsedTime, CanvasGameletContext<CanvasType> context) throws GameletException
 	{
 	}
 

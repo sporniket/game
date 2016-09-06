@@ -12,7 +12,7 @@ import com.sporniket.libre.game.gamelet.Gamelet;
  * @author dsporn
  *
  */
-public abstract class CanvasGamelet<CanvasType> extends Gamelet
+public abstract class CanvasGamelet<CanvasType> extends Gamelet<CanvasGameletContext<CanvasType>>
 {
 	/**
 	 * The rendering of the gamelet.

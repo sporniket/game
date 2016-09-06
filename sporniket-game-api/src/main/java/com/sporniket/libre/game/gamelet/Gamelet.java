@@ -8,7 +8,7 @@ import com.sporniket.libre.game.gamelet.events.Forward;
 import com.sporniket.libre.game.gamelet.events.GameletEvent;
 import com.sporniket.libre.game.gamelet.events.Render;
 
-public abstract class Gamelet
+public abstract class Gamelet<ContextType extends GameletContext>
 {
 
 	private static final int INITIAL_CAPACITY__LISTENERS = 10;
@@ -45,9 +45,9 @@ public abstract class Gamelet
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	public void exit() throws GameletException
+	public void exit(ContextType context) throws GameletException
 	{
-		doExit();
+		doExit(context);
 	}
 
 	/**
@@ -56,9 +56,9 @@ public abstract class Gamelet
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	public void init() throws GameletException
+	public void init(ContextType context) throws GameletException
 	{
-		doInit();
+		doInit(context);
 	}
 
 	public boolean isFinished()
@@ -86,9 +86,9 @@ public abstract class Gamelet
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	public void rewind() throws GameletException
+	public void rewind(ContextType context) throws GameletException
 	{
-		doRewind();
+		doRewind(context);
 		setFinished(false);
 	}
 
@@ -102,7 +102,7 @@ public abstract class Gamelet
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	public void run(long elapsedTime, GameletContext context) throws GameletException
+	public void run(long elapsedTime, ContextType context) throws GameletException
 	{
 		if (isFinished())
 		{
@@ -117,7 +117,7 @@ public abstract class Gamelet
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	protected abstract void doExit() throws GameletException;
+	protected abstract void doExit(ContextType context) throws GameletException;
 
 	/**
 	 * Extension point : specific init code.
@@ -125,7 +125,7 @@ public abstract class Gamelet
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	protected abstract void doInit() throws GameletException;
+	protected abstract void doInit(ContextType context) throws GameletException;
 
 	/**
 	 * Extension point : specific before any run code.
@@ -133,7 +133,7 @@ public abstract class Gamelet
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	protected abstract void doRewind() throws GameletException;
+	protected abstract void doRewind(ContextType context) throws GameletException;
 
 	/**
 	 * Extension point : specific run code.
@@ -145,7 +145,7 @@ public abstract class Gamelet
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	protected abstract void doRun(long elapsedTime, GameletContext context) throws GameletException;
+	protected abstract void doRun(long elapsedTime, ContextType context) throws GameletException;
 
 	/**
 	 * Notify listener of a {@link Backward} event.

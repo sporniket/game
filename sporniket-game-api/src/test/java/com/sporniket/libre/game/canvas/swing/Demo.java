@@ -20,6 +20,7 @@ import com.sporniket.libre.game.canvas.CanvasException;
 import com.sporniket.libre.game.canvas.CanvasManager;
 import com.sporniket.libre.game.canvas.Point;
 import com.sporniket.libre.game.canvas.gamelet.CanvasGamelet;
+import com.sporniket.libre.game.canvas.gamelet.CanvasGameletContext;
 import com.sporniket.libre.game.canvas.gamelet.DefaultCanvasGamelet;
 import com.sporniket.libre.game.canvas.sprite.SpriteDefinition;
 import com.sporniket.libre.game.canvas.sprite.SpriteDefinitionUtils;
@@ -49,7 +50,7 @@ public class Demo
 		int myLastCanvasId = -1;
 
 		@Override
-		protected void doInit() throws GameletException
+		protected void doInit(CanvasGameletContext<BufferedImage> context) throws GameletException
 		{
 			try
 			{
@@ -59,6 +60,15 @@ public class Demo
 				{
 						_sprites.get(0), _sprites.get(0), _sprites.get(0), _sprites.get(1)
 				});
+				
+				CanvasManager<BufferedImage> _canvasManager = context.getCanvasManager();
+				int _cidDisplay = _canvasManager.getCanvasId(CANVAS_GUID__BACKGROUND);
+				if (getLastCanvasId() != _cidDisplay)
+				{
+					regenerateBackground(_canvasManager, _cidDisplay);
+					setLastCanvasId(_cidDisplay);
+				}
+
 			}
 			catch (ParsingErrorException _exception)
 			{
@@ -94,20 +104,14 @@ public class Demo
 		@Override
 		public void render(CanvasManager<BufferedImage> canvasManager, int cidDestination, int cidPreviousRender)
 		{
-			int _cidDisplay = canvasManager.getCanvasId(CANVAS_GUID__DISPLAY);
+			int _cidBackground = canvasManager.getCanvasId(CANVAS_GUID__BACKGROUND);
 
-			if (getLastCanvasId() != _cidDisplay)
-			{
-				regenerateBackground(canvasManager, _cidDisplay);
-				setLastCanvasId(_cidDisplay);
-			}
-
-			if (cidDestination != _cidDisplay)
+			if (cidDestination != _cidBackground)
 			{
 				Box _screenBox = new Box().withX(0).withY(0).withWidth(canvasManager.getScreenWidth())
 						.withHeight(canvasManager.getScreenHeight());
 				Point _topLeftCorner = new Point().withX(0).withY(0);
-				((BoxCopyMachine) canvasManager).copy(_cidDisplay, _screenBox, cidDestination, _topLeftCorner);
+				((BoxCopyMachine) canvasManager).copy(_cidBackground, _screenBox, cidDestination, _topLeftCorner);
 			}
 		}
 
@@ -152,7 +156,9 @@ public class Demo
 
 	}
 
-	private static final String CANVAS_GUID__DISPLAY = "main";
+	private static final String CANVAS_GUID__BACKGROUND = "main";
+
+	private static final String CANVAS_GUID__SCREEN = "screen0";
 
 	private static final String CANVAS_GUID__TILESET = "spritesheet";
 
@@ -181,14 +187,16 @@ public class Demo
 
 	private void init() throws CanvasException, ParsingErrorException, GameletException
 	{
-		CanvasUtils.createBlackFilledCanvas(myCanvasManager, CANVAS_GUID__DISPLAY);
+		CanvasUtils.createBlackFilledCanvas(myCanvasManager, CANVAS_GUID__SCREEN);
+		CanvasUtils.createBlackFilledCanvas(myCanvasManager, CANVAS_GUID__BACKGROUND);
 		CanvasUtils.createCanvasFromImage(myCanvasManager, CANVAS_GUID__TILESET, "classpath:demo/spritesheet.png");
 
-		int _cidTileset = myCanvasManager.getCanvasId(CANVAS_GUID__TILESET);
-		int _cidDisplay = myCanvasManager.getCanvasId(CANVAS_GUID__DISPLAY);
+		int _cidDisplay = myCanvasManager.getCanvasId(CANVAS_GUID__SCREEN);
 
 		DemoGamelet _gamelet = new DemoGamelet();
-		_gamelet.init();
+		CanvasGameletContext<BufferedImage> _context = new CanvasGameletContext<BufferedImage>();
+		_context.setCanvasManager(myCanvasManager);
+		_gamelet.init(_context);
 		_gamelet.render(myCanvasManager, _cidDisplay, -1);
 
 		// test transparency mode
@@ -208,7 +216,7 @@ public class Demo
 	{
 		CanvasView _view = new CanvasView();
 		_view.setCanvasManager(myCanvasManager);
-		_view.setCanvasId(myCanvasManager.getCanvasId(CANVAS_GUID__DISPLAY));
+		_view.setCanvasId(myCanvasManager.getCanvasId(CANVAS_GUID__BACKGROUND));
 
 		JFrame f = new JFrame("Canvas Demo");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

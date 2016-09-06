@@ -4,6 +4,7 @@
 package com.sporniket.libre.game.gamelet.events;
 
 import com.sporniket.libre.game.gamelet.Gamelet;
+import com.sporniket.libre.game.gamelet.GameletContext;
 
 /**
  * Enclosing class for gamelet events.
@@ -11,16 +12,16 @@ import com.sporniket.libre.game.gamelet.Gamelet;
  * @author dsporn
  *
  */
-public abstract class GameletEvent
+public abstract class GameletEvent<ContextType extends GameletContext>
 {
-	private final Gamelet mySource;
+	private final Gamelet<ContextType> mySource;
 
-	public GameletEvent(Gamelet source)
+	public GameletEvent(Gamelet<ContextType> source)
 	{
 		mySource = source;
 	}
 
-	public Gamelet getSource()
+	public Gamelet<ContextType> getSource()
 	{
 		return mySource;
 	}

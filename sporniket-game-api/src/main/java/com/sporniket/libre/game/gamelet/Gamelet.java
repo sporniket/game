@@ -18,7 +18,7 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	 */
 	private boolean myFinished;
 
-	private final List<GameletListener> myListeners = new ArrayList<GameletListener>(INITIAL_CAPACITY__LISTENERS);
+	private final List<GameletListener<ContextType>> myListeners = new ArrayList<GameletListener<ContextType>>(INITIAL_CAPACITY__LISTENERS);
 
 	public Gamelet()
 	{
@@ -31,7 +31,7 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	 * @param listener
 	 *            the listener.
 	 */
-	public void addListener(GameletListener listener)
+	public void addListener(GameletListener<ContextType> listener)
 	{
 		if (null != listener)
 		{
@@ -72,7 +72,7 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	 * @param listener
 	 *            the listener.
 	 */
-	public void removeListener(GameletListener listener)
+	public void removeListener(GameletListener<ContextType> listener)
 	{
 		if (null != listener && getListeners().contains(listener))
 		{
@@ -155,9 +155,9 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	protected void fireBackwardEvent(Backward event) throws GameletException
+	protected void fireBackwardEvent(Backward<ContextType> event) throws GameletException
 	{
-		for (GameletListener _listener : getListeners())
+		for (GameletListener<ContextType> _listener : getListeners())
 		{
 			_listener.onBackward(event);
 		}
@@ -171,9 +171,9 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	protected void fireForwardEvent(Forward event) throws GameletException
+	protected void fireForwardEvent(Forward<ContextType> event) throws GameletException
 	{
-		for (GameletListener _listener : getListeners())
+		for (GameletListener<ContextType> _listener : getListeners())
 		{
 			_listener.onForward(event);
 		}
@@ -187,9 +187,9 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	protected void fireRenderEvent(Render event) throws GameletException
+	protected void fireRenderEvent(Render<ContextType> event) throws GameletException
 	{
-		for (GameletListener _listener : getListeners())
+		for (GameletListener<ContextType> _listener : getListeners())
 		{
 			_listener.onRender(event);
 		}
@@ -200,7 +200,7 @@ public abstract class Gamelet<ContextType extends GameletContext>
 		myFinished = finished;
 	}
 
-	private List<GameletListener> getListeners()
+	private List<GameletListener<ContextType>> getListeners()
 	{
 		return myListeners;
 	}

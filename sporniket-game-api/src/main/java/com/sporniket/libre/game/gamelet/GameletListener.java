@@ -13,7 +13,7 @@ import com.sporniket.libre.game.gamelet.events.Render;
  * @author dsporn
  *
  */
-public interface GameletListener
+public interface GameletListener<ContextType extends GameletContext>
 {
 	/**
 	 * @param event
@@ -21,7 +21,7 @@ public interface GameletListener
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	void onBackward(Backward event) throws GameletException;
+	void onBackward(Backward<ContextType> event) throws GameletException;
 
 	/**
 	 * @param event
@@ -29,7 +29,7 @@ public interface GameletListener
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	void onForward(Forward event) throws GameletException;
+	void onForward(Forward<ContextType> event) throws GameletException;
 
 	/**
 	 * @param event
@@ -37,5 +37,5 @@ public interface GameletListener
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	void onRender(Render event) throws GameletException;
+	void onRender(Render<ContextType> event) throws GameletException;
 }

@@ -102,12 +102,14 @@ public class Demo
 		}
 
 		@Override
-		public void render(CanvasManager<BufferedImage> canvasManager, int cidDestination, int cidPreviousRender)
+		public void render(CanvasGameletContext<BufferedImage> context, int cidDestination, int cidPreviousRender)
 		{
-			int _cidBackground = canvasManager.getCanvasId(CANVAS_GUID__BACKGROUND);
 
-			canvasManager
-					.copy(_cidBackground, canvasManager.getScreenBox(), cidDestination, canvasManager.getScreenCornerTopLeft());
+			CanvasManager<BufferedImage> _canvasManager = context.getCanvasManager();
+			int _cidBackground = _canvasManager.getCanvasId(CANVAS_GUID__BACKGROUND);
+
+			_canvasManager.copy(_cidBackground, _canvasManager.getScreenBox(), cidDestination,
+					_canvasManager.getScreenCornerTopLeft());
 		}
 
 		/**
@@ -192,7 +194,7 @@ public class Demo
 		CanvasGameletContext<BufferedImage> _context = new CanvasGameletContext<BufferedImage>();
 		_context.setCanvasManager(myCanvasManager);
 		_gamelet.init(_context);
-		_gamelet.render(myCanvasManager, _cidDisplay, -1);
+		_gamelet.render(_context, _cidDisplay, -1);
 
 		// test transparency mode
 		// myCanvasManager.copy(_cidTileset, _sprites.get(2).getSourceBox(), _cidDisplay, new Point().withX(40).withY(40));

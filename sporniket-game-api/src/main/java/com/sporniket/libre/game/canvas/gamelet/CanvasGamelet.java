@@ -3,7 +3,6 @@
  */
 package com.sporniket.libre.game.canvas.gamelet;
 
-import com.sporniket.libre.game.canvas.CanvasManager;
 import com.sporniket.libre.game.gamelet.Gamelet;
 
 /**
@@ -17,12 +16,12 @@ public abstract class CanvasGamelet<CanvasType> extends Gamelet<CanvasGameletCon
 	/**
 	 * The rendering of the gamelet.
 	 * 
-	 * @param canvasManager
-	 *            the canvas manager.
+	 * @param context
+	 *            the gamelet context.
 	 * @param cidDestination
 	 *            the canvas id of the canvas into which the rendering will be made.
 	 * @param cidPreviousRender
 	 *            the canvas id of the previous rendering, may be invalid (negative).
 	 */
-	public abstract void render(CanvasManager<CanvasType> canvasManager, int cidDestination, int cidPreviousRender);
+	public abstract void render(CanvasGameletContext<CanvasType> context, int cidDestination, int cidPreviousRender);
 }

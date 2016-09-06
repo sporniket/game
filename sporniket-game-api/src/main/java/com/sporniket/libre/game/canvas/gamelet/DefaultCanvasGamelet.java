@@ -3,8 +3,6 @@
  */
 package com.sporniket.libre.game.canvas.gamelet;
 
-import com.sporniket.libre.game.canvas.CanvasManager;
-import com.sporniket.libre.game.gamelet.GameletContext;
 import com.sporniket.libre.game.gamelet.GameletException;
 
 /**
@@ -22,7 +20,7 @@ public class DefaultCanvasGamelet<CanvasType> extends CanvasGamelet<CanvasType>
 	 * @see com.sporniket.libre.game.canvas.gamelet.CanvasGamelet#render(com.sporniket.libre.game.canvas.CanvasManager, int, int)
 	 */
 	@Override
-	public void render(CanvasManager<CanvasType> canvasManager, int cidDestination, int cidPreviousRender)
+	public void render(CanvasGameletContext<CanvasType> context, int cidDestination, int cidPreviousRender)
 	{
 	}
 

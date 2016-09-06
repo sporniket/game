@@ -8,46 +8,46 @@ import java.util.Map;
 import com.sporniket.libre.game.gamelet.events.Backward;
 import com.sporniket.libre.game.gamelet.events.Forward;
 
-public abstract class GameletControler implements GameletListener
+public abstract class GameletControler<ContextType extends GameletContext> implements GameletListener<ContextType>
 {
 	static final int INITIAL_CAPACITY__GAMELET_REGISTRY = 10;
 
-	protected GameletContext myContext;
+	protected ContextType myContext;
 
-	private final Map<String, Gamelet> myGameletRegistry = new HashMap<String, Gamelet>(INITIAL_CAPACITY__GAMELET_REGISTRY);
+	private final Map<String, Gamelet<ContextType>> myGameletRegistry = new HashMap<String, Gamelet<ContextType>>(INITIAL_CAPACITY__GAMELET_REGISTRY);
 
-	private final Deque<Gamelet> myRunningStack = new ArrayDeque<Gamelet>(INITIAL_CAPACITY__GAMELET_REGISTRY);
+	private final Deque<Gamelet<ContextType>> myRunningStack = new ArrayDeque<Gamelet<ContextType>>(INITIAL_CAPACITY__GAMELET_REGISTRY);
 
 	public GameletControler()
 	{
 		super();
 	}
 
-	public GameletContext getContext()
+	public ContextType getContext()
 	{
 		return myContext;
 	}
 
 	@Override
-	public void onBackward(Backward event) throws GameletException
+	public void onBackward(Backward<ContextType> event) throws GameletException
 	{
 		getRunningStack().removeLast();
 	}
 
 	@Override
-	public void onForward(Forward event) throws GameletException
+	public void onForward(Forward<ContextType> event) throws GameletException
 	{
 		String _name = event.getName();
 		if (!getGameletRegistry().containsKey(_name))
 		{
 			throw new GameletNotFoundException(_name);
 		}
-		Gamelet _gamelet = getGameletRegistry().get(_name);
+		Gamelet<ContextType> _gamelet = getGameletRegistry().get(_name);
 		getRunningStack().addLast(_gamelet);
 
 	}
 
-	public void registerGamelet(String name, Gamelet gamelet) throws GameletException
+	public void registerGamelet(String name, Gamelet<ContextType> gamelet) throws GameletException
 	{
 		// sanity check
 		if (null == name)
@@ -77,21 +77,21 @@ public abstract class GameletControler implements GameletListener
 		{
 			throw new GameletException(new IllegalStateException("nothing to run"));
 		}
-		Gamelet _currentGamelet = getRunningStack().peekLast();
+		Gamelet<ContextType> _currentGamelet = getRunningStack().peekLast();
 		_currentGamelet.run(elapsedTime, getContext());
 	}
 
-	public void setContext(GameletContext context)
+	public void setContext(ContextType context)
 	{
 		myContext = context;
 	}
 
-	private Map<String, Gamelet> getGameletRegistry()
+	private Map<String, Gamelet<ContextType>> getGameletRegistry()
 	{
 		return myGameletRegistry;
 	}
 
-	private Deque<Gamelet> getRunningStack()
+	private Deque<Gamelet<ContextType>> getRunningStack()
 	{
 		return myRunningStack;
 	}

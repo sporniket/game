@@ -16,7 +16,7 @@ import com.sporniket.libre.game.gamelet.events.Render;
  * @author dsporn
  *
  */
-public abstract class CanvasGameletControler<CanvasType> extends GameletControler implements GameletListener
+public abstract class CanvasGameletControler<CanvasType> extends GameletControler<CanvasGameletContext<CanvasType>> implements GameletListener<CanvasGameletContext<CanvasType>>
 {
 
 	/**
@@ -60,18 +60,16 @@ public abstract class CanvasGameletControler<CanvasType> extends GameletControle
 	}
 
 	@Override
-	public void onRender(Render event) throws GameletException
+	public void onRender(Render<CanvasGameletContext<CanvasType>> event) throws GameletException
 	{
 		// buffering management
 		int _canvasBufferingCurrentIndex = (getCanvasBufferingCurrentIndex() + 1) % getCanvasBufferingList().length;
 		setCanvasBufferingCurrentIndex(_canvasBufferingCurrentIndex);
 
-		@SuppressWarnings("unchecked")
 		CanvasManager<CanvasType> _canvasManager = ((CanvasGameletContext<CanvasType>) getContext()).getCanvasManager();
 		setCurrentCanvas(_canvasManager.getCanvasId(getCanvasBufferingList()[_canvasBufferingCurrentIndex]));
-		@SuppressWarnings("unchecked")
 		CanvasGamelet<CanvasType> _source = (CanvasGamelet<CanvasType>) event.getSource();
-		_source.render(_canvasManager, getCurrentCanvas(), getCurrentDisplayedCanvas());
+		_source.render(getContext(), getCurrentCanvas(), getCurrentDisplayedCanvas());
 
 		setCurrentDisplayedCanvas(getCurrentCanvas());
 	}

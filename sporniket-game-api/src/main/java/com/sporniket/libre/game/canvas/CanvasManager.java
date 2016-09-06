@@ -25,8 +25,18 @@ public abstract class CanvasManager<CanvasType>
 	private final List<CanvasDescriptor<CanvasType>> myCanvasRegistry = new ArrayList<CanvasDescriptor<CanvasType>>(
 			REGISTRY_INITIAL_CAPACITY);
 
-	private final int myScreenHeight;
+	private final Box myScreenBox;
 
+	private final Point myScreenCornerBottomLeft;
+	
+	private final Point myScreenCornerBottomRight;
+	
+	private final Point myScreenCornerTopLeft;
+	
+	private final Point myScreenCornerTopRight;
+	
+	private final int myScreenHeight;
+	
 	private final int myScreenWidth;
 
 	/**
@@ -41,6 +51,12 @@ public abstract class CanvasManager<CanvasType>
 	{
 		myScreenWidth = screenWidth;
 		myScreenHeight = screenHeight;
+		myScreenBox=new Box().withX(0).withY(0).withWidth(getScreenWidth())
+				.withHeight(getScreenHeight());
+		myScreenCornerTopLeft = new Point().withX(0).withY(0);
+		myScreenCornerTopRight = new Point().withX(getScreenWidth()).withY(0);
+		myScreenCornerBottomLeft = new Point().withX(0).withY(getScreenHeight());
+		myScreenCornerBottomRight = new Point().withX(getScreenWidth()).withY(getScreenHeight());
 	}
 
 	public void attachRegenerator(int canvas, CanvasCallback<CanvasType> regenerator)
@@ -100,6 +116,56 @@ public abstract class CanvasManager<CanvasType>
 			return getCanvasGuidToIdMap().get(guid);
 		}
 		throw new InvalidValueException(guid);
+	}
+
+	/**
+	 * A box representing the entire screen.
+	 * 
+	 * @return the box.
+	 */
+	public Box getScreenBox()
+	{
+		return myScreenBox;
+	}
+
+	/**
+	 * The point at the bottom left corner.
+	 * 
+	 * @return the point.
+	 */
+	public Point getScreenCornerBottomLeft()
+	{
+		return myScreenCornerBottomLeft;
+	}
+
+	/**
+	 * The point at the bottom right corner.
+	 * 
+	 * @return the point.
+	 */
+	public Point getScreenCornerBottomRight()
+	{
+		return myScreenCornerBottomRight;
+	}
+
+	/**
+	 * The point at the top left corner.
+	 * 
+	 * @return the point.
+	 */
+	public Point getScreenCornerTopLeft()
+	{
+		return myScreenCornerTopLeft;
+	}
+
+	/**
+	 * The point at the top right corner.
+	 * 
+	 * @return the point.
+	 */
+	public Point getScreenCornerTopRight()
+	{
+		return myScreenCornerTopRight;
 	}
 
 	public int getScreenHeight()

@@ -60,7 +60,7 @@ public class Demo
 				{
 						_sprites.get(0), _sprites.get(0), _sprites.get(0), _sprites.get(1)
 				});
-				
+
 				CanvasManager<BufferedImage> _canvasManager = context.getCanvasManager();
 				int _cidDisplay = _canvasManager.getCanvasId(CANVAS_GUID__BACKGROUND);
 				if (getLastCanvasId() != _cidDisplay)
@@ -106,13 +106,8 @@ public class Demo
 		{
 			int _cidBackground = canvasManager.getCanvasId(CANVAS_GUID__BACKGROUND);
 
-			if (cidDestination != _cidBackground)
-			{
-				Box _screenBox = new Box().withX(0).withY(0).withWidth(canvasManager.getScreenWidth())
-						.withHeight(canvasManager.getScreenHeight());
-				Point _topLeftCorner = new Point().withX(0).withY(0);
-				((BoxCopyMachine) canvasManager).copy(_cidBackground, _screenBox, cidDestination, _topLeftCorner);
-			}
+			((BoxCopyMachine) canvasManager).copy(_cidBackground, canvasManager.getScreenBox(), cidDestination,
+					canvasManager.getScreenCornerTopLeft());
 		}
 
 		/**
@@ -134,8 +129,8 @@ public class Demo
 				for (int _col = 0; _col < _colspan; _col++)
 				{
 					int _sprite = getRand().nextInt(getTilePool().length);
-					SpriteDefinitionUtils.copySpriteBloc(getTilePool()[_sprite], _to, (BoxCopyMachine) canvasManager,
-							_cidTileset, cidBackground);
+					SpriteDefinitionUtils.copySpriteBloc(getTilePool()[_sprite], _to, (BoxCopyMachine) canvasManager, _cidTileset,
+							cidBackground);
 					_x += GRID_SIZE;
 					_to.setX(_x);
 				}

@@ -16,7 +16,7 @@ import com.sporniket.libre.game.gamelet.events.Render;
  * @author dsporn
  *
  */
-public abstract class CanvasGameletControler<CanvasType> extends GameletControler<CanvasGameletContext<CanvasType>> implements GameletListener<CanvasGameletContext<CanvasType>>
+public final class CanvasGameletControler<CanvasType> extends GameletControler<CanvasGameletContext<CanvasType>, CanvasGamelet<CanvasType>> implements GameletListener<CanvasGameletContext<CanvasType>>
 {
 
 	/**

@@ -8,15 +8,15 @@ import java.util.Map;
 import com.sporniket.libre.game.gamelet.events.Backward;
 import com.sporniket.libre.game.gamelet.events.Forward;
 
-public abstract class GameletControler<ContextType extends GameletContext> implements GameletListener<ContextType>
+public abstract class GameletControler<ContextType extends GameletContext, GameletType extends Gamelet<ContextType>> implements GameletListener<ContextType>
 {
 	static final int INITIAL_CAPACITY__GAMELET_REGISTRY = 10;
 
 	protected ContextType myContext;
 
-	private final Map<String, Gamelet<ContextType>> myGameletRegistry = new HashMap<String, Gamelet<ContextType>>(INITIAL_CAPACITY__GAMELET_REGISTRY);
+	private final Map<String, GameletType> myGameletRegistry = new HashMap<String, GameletType>(INITIAL_CAPACITY__GAMELET_REGISTRY);
 
-	private final Deque<Gamelet<ContextType>> myRunningStack = new ArrayDeque<Gamelet<ContextType>>(INITIAL_CAPACITY__GAMELET_REGISTRY);
+	private final Deque<GameletType> myRunningStack = new ArrayDeque<GameletType>(INITIAL_CAPACITY__GAMELET_REGISTRY);
 
 	public GameletControler()
 	{
@@ -42,12 +42,12 @@ public abstract class GameletControler<ContextType extends GameletContext> imple
 		{
 			throw new GameletNotFoundException(_name);
 		}
-		Gamelet<ContextType> _gamelet = getGameletRegistry().get(_name);
+		GameletType _gamelet = getGameletRegistry().get(_name);
 		getRunningStack().addLast(_gamelet);
-
+		_gamelet.rewind(getContext());
 	}
 
-	public void registerGamelet(String name, Gamelet<ContextType> gamelet) throws GameletException
+	public void registerGamelet(String name, GameletType gamelet) throws GameletException
 	{
 		// sanity check
 		if (null == name)
@@ -77,7 +77,7 @@ public abstract class GameletControler<ContextType extends GameletContext> imple
 		{
 			throw new GameletException(new IllegalStateException("nothing to run"));
 		}
-		Gamelet<ContextType> _currentGamelet = getRunningStack().peekLast();
+		GameletType _currentGamelet = getRunningStack().peekLast();
 		_currentGamelet.run(elapsedTime, getContext());
 	}
 
@@ -86,12 +86,12 @@ public abstract class GameletControler<ContextType extends GameletContext> imple
 		myContext = context;
 	}
 
-	private Map<String, Gamelet<ContextType>> getGameletRegistry()
+	private Map<String, GameletType> getGameletRegistry()
 	{
 		return myGameletRegistry;
 	}
 
-	private Deque<Gamelet<ContextType>> getRunningStack()
+	private Deque<GameletType> getRunningStack()
 	{
 		return myRunningStack;
 	}

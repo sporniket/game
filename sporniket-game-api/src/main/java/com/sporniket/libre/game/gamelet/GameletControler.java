@@ -44,7 +44,7 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 		}
 		GameletType _gamelet = getGameletRegistry().get(_name);
 		getRunningStack().addLast(_gamelet);
-		_gamelet.rewind(getContext());
+		_gamelet.doRewind(getContext());
 	}
 
 	public void registerGamelet(String name, GameletType gamelet) throws GameletException
@@ -78,7 +78,7 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 			throw new GameletException(new IllegalStateException("nothing to run"));
 		}
 		GameletType _currentGamelet = getRunningStack().peekLast();
-		_currentGamelet.run(elapsedTime, getContext());
+		_currentGamelet.doRun(elapsedTime, getContext());
 	}
 
 	public void setContext(ContextType context)

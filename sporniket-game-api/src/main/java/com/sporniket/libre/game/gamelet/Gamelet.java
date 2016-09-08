@@ -45,9 +45,9 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	public void exit(ContextType context) throws GameletException
+	public void doExit(ContextType context) throws GameletException
 	{
-		doExit(context);
+		exit(context);
 	}
 
 	/**
@@ -56,9 +56,40 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	public void init(ContextType context) throws GameletException
+	public void doInit(ContextType context) throws GameletException
 	{
-		doInit(context);
+		init(context);
+	}
+
+	/**
+	 * method to call before running again the gamelet.
+	 * 
+	 * @throws GameletException
+	 *             when there is a problem.
+	 */
+	public void doRewind(ContextType context) throws GameletException
+	{
+		rewind(context);
+		setFinished(false);
+	}
+
+	/**
+	 * Execute the gamelet (poll events, change state, send events, return).
+	 * 
+	 * @param elapsedTime
+	 *            the elapsed time since the last call to run.
+	 * @param context
+	 *            the game context.
+	 * @throws GameletException
+	 *             when there is a problem.
+	 */
+	public void doRun(long elapsedTime, ContextType context) throws GameletException
+	{
+		if (isFinished())
+		{
+			throw new GameletException(new IllegalStateException("Gamelet is finished."));
+		}
+		run(elapsedTime, context);
 	}
 
 	public boolean isFinished()
@@ -81,71 +112,12 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	}
 
 	/**
-	 * method to call before running again the gamelet.
-	 * 
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	public void rewind(ContextType context) throws GameletException
-	{
-		doRewind(context);
-		setFinished(false);
-	}
-
-	/**
-	 * Execute the gamelet (poll events, change state, send events, return).
-	 * 
-	 * @param elapsedTime
-	 *            the elapsed time since the last call to run.
-	 * @param context
-	 *            the game context.
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	public void run(long elapsedTime, ContextType context) throws GameletException
-	{
-		if (isFinished())
-		{
-			throw new GameletException(new IllegalStateException("Gamelet is finished."));
-		}
-		doRun(elapsedTime, context);
-	}
-
-	/**
 	 * Extension point : specific exit code.
 	 * 
 	 * @throws GameletException
 	 *             when there is a problem.
 	 */
-	protected abstract void doExit(ContextType context) throws GameletException;
-
-	/**
-	 * Extension point : specific init code.
-	 * 
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	protected abstract void doInit(ContextType context) throws GameletException;
-
-	/**
-	 * Extension point : specific before any run code.
-	 * 
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	protected abstract void doRewind(ContextType context) throws GameletException;
-
-	/**
-	 * Extension point : specific run code.
-	 * 
-	 * @param elapsedTime
-	 *            the elapsed time since the last call to run.
-	 * @param context
-	 *            the game context.
-	 * @throws GameletException
-	 *             when there is a problem.
-	 */
-	protected abstract void doRun(long elapsedTime, ContextType context) throws GameletException;
+	protected abstract void exit(ContextType context) throws GameletException;
 
 	/**
 	 * Notify listener of a {@link Backward} event.
@@ -194,6 +166,34 @@ public abstract class Gamelet<ContextType extends GameletContext>
 			_listener.onRender(event);
 		}
 	}
+
+	/**
+	 * Extension point : specific init code.
+	 * 
+	 * @throws GameletException
+	 *             when there is a problem.
+	 */
+	protected abstract void init(ContextType context) throws GameletException;
+
+	/**
+	 * Extension point : specific before any run code.
+	 * 
+	 * @throws GameletException
+	 *             when there is a problem.
+	 */
+	protected abstract void rewind(ContextType context) throws GameletException;
+
+	/**
+	 * Extension point : specific run code.
+	 * 
+	 * @param elapsedTime
+	 *            the elapsed time since the last call to run.
+	 * @param context
+	 *            the game context.
+	 * @throws GameletException
+	 *             when there is a problem.
+	 */
+	protected abstract void run(long elapsedTime, ContextType context) throws GameletException;
 
 	protected void setFinished(boolean finished)
 	{

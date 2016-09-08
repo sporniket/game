@@ -53,7 +53,7 @@ public class Demo
 		int myLastCanvasId = -1;
 
 		@Override
-		protected void doInit(CanvasGameletContext<BufferedImage> context) throws GameletException
+		protected void init(CanvasGameletContext<BufferedImage> context) throws GameletException
 		{
 			try
 			{
@@ -194,11 +194,17 @@ public class Demo
 		int _cidDisplay = myCanvasManager.getCanvasId(CANVAS_GUID__SCREEN);
 		
 		CanvasGameletControler<BufferedImage> _controler = new CanvasGameletControler<BufferedImage>();
+		
 
-		DemoGamelet _gamelet = new DemoGamelet();
 		CanvasGameletContext<BufferedImage> _context = new CanvasGameletContext<BufferedImage>();
 		_context.setCanvasManager(myCanvasManager);
-		_gamelet.init(_context);
+		
+		DemoGamelet _gamelet = new DemoGamelet();
+		_gamelet.doInit(_context);
+
+		_controler.setContext(_context);
+		_controler.registerGamelet("demo", _gamelet);
+		
 		_gamelet.render(_context, _cidDisplay, -1);
 
 		// test transparency mode

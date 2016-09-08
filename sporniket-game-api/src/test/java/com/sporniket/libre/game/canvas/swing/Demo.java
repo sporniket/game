@@ -27,6 +27,7 @@ import com.sporniket.libre.game.canvas.sprite.SpriteDefinition;
 import com.sporniket.libre.game.canvas.sprite.SpriteDefinitionUtils;
 import com.sporniket.libre.game.gamelet.GameletControler;
 import com.sporniket.libre.game.gamelet.GameletException;
+import com.sporniket.libre.game.gamelet.events.Forward;
 import com.sporniket.libre.game.gamelet.events.Render;
 import com.sporniket.libre.game.pal.codec.ParsingErrorException;
 import com.sporniket.libre.game.pal.codec.SpriteDecoder;
@@ -41,16 +42,34 @@ public class Demo
 {
 	private static class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 	{
-		List<SpriteDefinition> mySprites;
-
-		SpriteDefinition[] myTilePool;
-
-		final Random myRand = new Random(System.currentTimeMillis());
-
 		/**
 		 * Store the last id of the offscreen canvas to draw into, to check if it is required to redraw all the tiles.
 		 */
 		int myLastCanvasId = -1;
+
+		final Random myRand = new Random(System.currentTimeMillis());
+
+		List<SpriteDefinition> mySprites;
+
+		SpriteDefinition[] myTilePool;
+
+		@Override
+		public void render(CanvasGameletContext<BufferedImage> context, int cidDestination, int cidPreviousRender)
+		{
+
+			CanvasManager<BufferedImage> _canvasManager = context.getCanvasManager();
+			int _cidBackground = _canvasManager.getCanvasId(CANVAS_GUID__BACKGROUND);
+
+			_canvasManager.copy(_cidBackground, _canvasManager.getScreenBox(), cidDestination,
+					_canvasManager.getScreenCornerTopLeft());
+
+			// test transparency mode
+			int _cidTileset = _canvasManager.getCanvasId(CANVAS_GUID__TILESET);
+			_canvasManager.copy(_cidTileset, getSprites().get(2).getSourceBox(), cidDestination, new Point().withX(40).withY(40));
+			_canvasManager.replace(_cidTileset, getSprites().get(2).getSourceBox(), cidDestination, new Point().withX(104)
+					.withY(40));
+
+		}
 
 		@Override
 		protected void init(CanvasGameletContext<BufferedImage> context) throws GameletException
@@ -72,6 +91,8 @@ public class Demo
 					setLastCanvasId(_cidDisplay);
 				}
 
+				fireRenderEvent(new Render<CanvasGameletContext<BufferedImage>>(this));
+
 			}
 			catch (ParsingErrorException _exception)
 			{
@@ -79,24 +100,9 @@ public class Demo
 			}
 		}
 
-		private List<SpriteDefinition> getSprites()
+		private int getLastCanvasId()
 		{
-			return mySprites;
-		}
-
-		private void setSprites(List<SpriteDefinition> sprites)
-		{
-			mySprites = sprites;
-		}
-
-		private SpriteDefinition[] getTilePool()
-		{
-			return myTilePool;
-		}
-
-		private void setTilePool(SpriteDefinition[] tilePool)
-		{
-			myTilePool = tilePool;
+			return myLastCanvasId;
 		}
 
 		private Random getRand()
@@ -104,15 +110,14 @@ public class Demo
 			return myRand;
 		}
 
-		@Override
-		public void render(CanvasGameletContext<BufferedImage> context, int cidDestination, int cidPreviousRender)
+		private List<SpriteDefinition> getSprites()
 		{
+			return mySprites;
+		}
 
-			CanvasManager<BufferedImage> _canvasManager = context.getCanvasManager();
-			int _cidBackground = _canvasManager.getCanvasId(CANVAS_GUID__BACKGROUND);
-
-			_canvasManager.copy(_cidBackground, _canvasManager.getScreenBox(), cidDestination,
-					_canvasManager.getScreenCornerTopLeft());
+		private SpriteDefinition[] getTilePool()
+		{
+			return myTilePool;
 		}
 
 		/**
@@ -144,14 +149,19 @@ public class Demo
 			}
 		}
 
-		private int getLastCanvasId()
-		{
-			return myLastCanvasId;
-		}
-
 		private void setLastCanvasId(int lastCanvasId)
 		{
 			myLastCanvasId = lastCanvasId;
+		}
+
+		private void setSprites(List<SpriteDefinition> sprites)
+		{
+			mySprites = sprites;
+		}
+
+		private void setTilePool(SpriteDefinition[] tilePool)
+		{
+			myTilePool = tilePool;
 		}
 
 	}
@@ -191,25 +201,18 @@ public class Demo
 		CanvasUtils.createBlackFilledCanvas(myCanvasManager, CANVAS_GUID__BACKGROUND);
 		CanvasUtils.createCanvasFromImage(myCanvasManager, CANVAS_GUID__TILESET, "classpath:demo/spritesheet.png");
 
-		int _cidDisplay = myCanvasManager.getCanvasId(CANVAS_GUID__SCREEN);
-		
 		CanvasGameletControler<BufferedImage> _controler = new CanvasGameletControler<BufferedImage>();
-		
 
 		CanvasGameletContext<BufferedImage> _context = new CanvasGameletContext<BufferedImage>();
 		_context.setCanvasManager(myCanvasManager);
-		
-		DemoGamelet _gamelet = new DemoGamelet();
-		_gamelet.doInit(_context);
 
 		_controler.setContext(_context);
-		_controler.registerGamelet("demo", _gamelet);
-		
-		_gamelet.render(_context, _cidDisplay, -1);
-
-		// test transparency mode
-		// myCanvasManager.copy(_cidTileset, _sprites.get(2).getSourceBox(), _cidDisplay, new Point().withX(40).withY(40));
-		// myCanvasManager.replace(_cidTileset, _sprites.get(2).getSourceBox(), _cidDisplay, new Point().withX(104).withY(40));
+		_controler.setCanvasBufferingList(new String[]
+		{
+			CANVAS_GUID__SCREEN
+		});
+		_controler.registerGamelet("demo", new DemoGamelet());
+		_controler.onForward(new Forward<CanvasGameletContext<BufferedImage>>(null, "demo"));
 
 		SwingUtilities.invokeLater(new Runnable()
 		{
@@ -224,7 +227,7 @@ public class Demo
 	{
 		CanvasView _view = new CanvasView();
 		_view.setCanvasManager(myCanvasManager);
-		_view.setCanvasId(myCanvasManager.getCanvasId(CANVAS_GUID__BACKGROUND));
+		_view.setCanvasId(myCanvasManager.getCanvasId(CANVAS_GUID__SCREEN));
 
 		JFrame f = new JFrame("Canvas Demo");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

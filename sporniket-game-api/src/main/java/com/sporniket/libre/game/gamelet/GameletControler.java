@@ -44,7 +44,14 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 		}
 		GameletType _gamelet = getGameletRegistry().get(_name);
 		getRunningStack().addLast(_gamelet);
-		_gamelet.doRewind(getContext());
+		if (_gamelet.isInitRequired())
+		{
+			_gamelet.doInit(getContext());
+		}
+		else
+		{
+			_gamelet.doRewind(getContext());
+		}
 	}
 
 	public void registerGamelet(String name, GameletType gamelet) throws GameletException

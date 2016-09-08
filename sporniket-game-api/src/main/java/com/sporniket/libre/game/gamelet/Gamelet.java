@@ -10,20 +10,36 @@ import com.sporniket.libre.game.gamelet.events.Render;
 
 public abstract class Gamelet<ContextType extends GameletContext>
 {
+	/**
+	 * Lifecycle status of a gamelet.
+	 * 
+	 * <p>
+	 * The gamelet lifecycle is following :
+	 * <ol>
+	 * <li>{@link #CREATED} : the gamelet has just been created, the next call MUST be {@link Gamelet#doInit(GameletContext)}.
+	 * <li>{@link #RUNNABLE} : one can call {@link Gamelet#doRun(long, GameletContext)}.
+	 * <li>{@link #FINISHED} : a {@link Backward} event has been fired, one can call {@link Gamelet#doRewind(GameletContext)} to
+	 * replay the gamelet or call {@link Gamelet#doExit(GameletContext)}
+	 * <li>{@link #DISPOSABLE} : the gamelet cannot be run anymore, it is ready for game exit.
+	 * </ol>
+	 * 
+	 * @author dsporn
+	 *
+	 */
+	private static enum State
+	{
+		CREATED,
+		DISPOSABLE,
+		FINISHED,
+		RUNNABLE;
+	}
 
 	private static final int INITIAL_CAPACITY__LISTENERS = 10;
 
-	/**
-	 * <code>true</code> when the gamelet sends the backward event.
-	 */
-	private boolean myFinished;
+	private final List<GameletListener<ContextType>> myListeners = new ArrayList<GameletListener<ContextType>>(
+			INITIAL_CAPACITY__LISTENERS);
 
-	private final List<GameletListener<ContextType>> myListeners = new ArrayList<GameletListener<ContextType>>(INITIAL_CAPACITY__LISTENERS);
-
-	public Gamelet()
-	{
-		super();
-	}
+	private State myState = State.CREATED;
 
 	/**
 	 * Add a listener interested in {@link GameletEvent}.
@@ -48,6 +64,7 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	public void doExit(ContextType context) throws GameletException
 	{
 		exit(context);
+		setState(State.DISPOSABLE);
 	}
 
 	/**
@@ -58,7 +75,12 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	 */
 	public void doInit(ContextType context) throws GameletException
 	{
+		if (State.CREATED != getState())
+		{
+			throw new GameletException(new IllegalStateException(getState().toString()));
+		}
 		init(context);
+		setState(State.RUNNABLE);
 	}
 
 	/**
@@ -69,8 +91,12 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	 */
 	public void doRewind(ContextType context) throws GameletException
 	{
+		if (State.FINISHED != getState())
+		{
+			throw new GameletException(new IllegalStateException(getState().toString()));
+		}
 		rewind(context);
-		setFinished(false);
+		setState(State.RUNNABLE);
 	}
 
 	/**
@@ -85,16 +111,41 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	 */
 	public void doRun(long elapsedTime, ContextType context) throws GameletException
 	{
-		if (isFinished())
+		if (State.RUNNABLE != getState())
 		{
-			throw new GameletException(new IllegalStateException("Gamelet is finished."));
+			throw new GameletException(new IllegalStateException(getState().toString()));
 		}
 		run(elapsedTime, context);
 	}
 
+	/**
+	 * Game state query.
+	 * 
+	 * @return <code>true</code> when the gamelet cannot be runned anymore (temporarily or definitively).
+	 */
 	public boolean isFinished()
 	{
-		return myFinished;
+		return State.FINISHED == getState() || State.DISPOSABLE == getState();
+	}
+
+	/**
+	 * Game state query.
+	 * 
+	 * @return <code>true</code> when the gamelet MUST be initialized (call {@link #doInit(GameletContext)}.
+	 */
+	public boolean isInitRequired()
+	{
+		return State.CREATED == getState();
+	}
+
+	/**
+	 * Game state query.
+	 * 
+	 * @return <code>true</code> when the gamelet may be run again provided one call {@link #rewind(GameletContext)} before.
+	 */
+	public boolean isRewindable()
+	{
+		return State.FINISHED == getState();
 	}
 
 	/**
@@ -133,6 +184,7 @@ public abstract class Gamelet<ContextType extends GameletContext>
 		{
 			_listener.onBackward(event);
 		}
+		setState(State.FINISHED);
 	}
 
 	/**
@@ -195,14 +247,19 @@ public abstract class Gamelet<ContextType extends GameletContext>
 	 */
 	protected abstract void run(long elapsedTime, ContextType context) throws GameletException;
 
-	protected void setFinished(boolean finished)
-	{
-		myFinished = finished;
-	}
-
 	private List<GameletListener<ContextType>> getListeners()
 	{
 		return myListeners;
+	}
+
+	private State getState()
+	{
+		return myState;
+	}
+
+	private void setState(State state)
+	{
+		myState = state;
 	}
 
 }

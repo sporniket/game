@@ -26,7 +26,7 @@ public class CanvasView extends JComponent
 	 */
 	private static final long serialVersionUID = 6032724799458153065L;
 
-	public int myCanvasId;
+	public int myCanvasId = -1;
 
 	private BufferedImagesManager myCanvasManager;
 
@@ -78,9 +78,11 @@ public class CanvasView extends JComponent
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-
-		Graphics2D _g2 = (Graphics2D) g;
-		getCanvasManager().copyToGraphics(getCanvasId(), getDestinationBox(), _g2, getDestinationPoint(), this);
+		if (getCanvasId() >= 0)
+		{
+			Graphics2D _g2 = (Graphics2D) g;
+			getCanvasManager().copyToGraphics(getCanvasId(), getDestinationBox(), _g2, getDestinationPoint(), this);
+		}
 	}
 
 	private Box getDestinationBox()

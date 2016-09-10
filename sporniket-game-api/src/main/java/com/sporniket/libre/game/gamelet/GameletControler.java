@@ -8,7 +8,8 @@ import java.util.Map;
 import com.sporniket.libre.game.gamelet.events.Backward;
 import com.sporniket.libre.game.gamelet.events.Forward;
 
-public abstract class GameletControler<ContextType extends GameletContext, GameletType extends Gamelet<ContextType>> implements GameletListener<ContextType>
+public abstract class GameletControler<ContextType extends GameletContext, GameletType extends Gamelet<ContextType>> implements
+		GameletListener<ContextType>
 {
 	static final int INITIAL_CAPACITY__GAMELET_REGISTRY = 10;
 
@@ -26,6 +27,16 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 	public ContextType getContext()
 	{
 		return myContext;
+	}
+
+	/**
+	 * Predicate to know whether one can call {@link #run(long)};
+	 * 
+	 * @return <code>true</code> if there is still a gamelet to run.
+	 */
+	public boolean isRunning()
+	{
+		return !getRunningStack().isEmpty();
 	}
 
 	@Override

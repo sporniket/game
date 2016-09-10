@@ -21,8 +21,10 @@ public class CanvasGameDescriptor
 	private final BaseUrlSpecs myBaseUrlSpecs = new BaseUrlSpecs() ;
 
 	private final CanvasManagerSpecs myCanvasManagerSpecs = new CanvasManagerSpecs() ;
-
+	
 	private CanvasSpecs[] myCanvasSpecs;
+
+	private final GameletsSpecs myGamelets = new GameletsSpecs() ;
 
 	public BaseUrlSpecs getBaseUrlSpecs()
 	{
@@ -37,6 +39,11 @@ public class CanvasGameDescriptor
 	public CanvasSpecs[] getCanvasSpecs()
 	{
 		return myCanvasSpecs;
+	}
+
+	public GameletsSpecs getGamelets()
+	{
+		return myGamelets;
 	}
 
 	public void setCanvasSpecs(CanvasSpecs[] canvasSpecs)

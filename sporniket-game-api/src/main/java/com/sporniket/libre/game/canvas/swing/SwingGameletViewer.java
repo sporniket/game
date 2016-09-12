@@ -133,6 +133,7 @@ class SwingGameletViewer
 		// create the view, and watch for input events
 		final CanvasView _view = new CanvasView();
 		_view.setCanvasManager(_canvasManager);
+		_controler.addUpdatedDisplayEventListener(_view);
 
 		// swing invoke later init :
 
@@ -195,7 +196,6 @@ class SwingGameletViewer
 						try
 						{
 							_lastTime = _now;
-							_view.setCanvasId(_controler.getCurrentDisplayedCanvas()); // FIXME use events
 							_controler.run(_elapsed);
 						}
 						catch (GameletException _exception)

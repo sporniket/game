@@ -3,6 +3,10 @@
  */
 package com.sporniket.libre.game.canvas.gamelet;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.sporniket.libre.game.canvas.CanvasException;
 import com.sporniket.libre.game.canvas.CanvasManager;
 import com.sporniket.libre.game.gamelet.GameletControler;
 import com.sporniket.libre.game.gamelet.GameletException;
@@ -16,7 +20,9 @@ import com.sporniket.libre.game.gamelet.events.Render;
  * @author dsporn
  *
  */
-public final class CanvasGameletControler<CanvasType> extends GameletControler<CanvasGameletContext<CanvasType>, CanvasGamelet<CanvasType>> implements GameletListener<CanvasGameletContext<CanvasType>>
+public final class CanvasGameletControler<CanvasType> extends
+		GameletControler<CanvasGameletContext<CanvasType>, CanvasGamelet<CanvasType>> implements
+		GameletListener<CanvasGameletContext<CanvasType>>
 {
 
 	/**
@@ -38,6 +44,16 @@ public final class CanvasGameletControler<CanvasType> extends GameletControler<C
 	 * Canvas id of the canvas ready to display, initialized with a negative (invalid) value.
 	 */
 	private int myCurrentDisplayedCanvas = -1;
+
+	private final List<UpdatedDisplayEventListener> myUpdatedDisplayEventListeners = new ArrayList<UpdatedDisplayEventListener>(10);
+
+	public void addUpdatedDisplayEventListener(UpdatedDisplayEventListener listener)
+	{
+		if (!getUpdatedDisplayEventListeners().contains(listener))
+		{
+			getUpdatedDisplayEventListeners().add(listener);
+		}
+	}
 
 	public int getCanvasBufferingCurrentIndex()
 	{
@@ -72,6 +88,22 @@ public final class CanvasGameletControler<CanvasType> extends GameletControler<C
 		_source.render(getContext(), getCurrentCanvas(), getCurrentDisplayedCanvas());
 
 		setCurrentDisplayedCanvas(getCurrentCanvas());
+		try
+		{
+			fireUpdatedDisplayEvent(new UpdatedDisplayEvent(getCurrentCanvas()));
+		}
+		catch (CanvasException _exception)
+		{
+			throw new GameletException(_exception);
+		}
+	}
+
+	public void removeUpdatedDisplayEventListener(UpdatedDisplayEventListener listener)
+	{
+		if (getUpdatedDisplayEventListeners().contains(listener))
+		{
+			getUpdatedDisplayEventListeners().remove(listener);
+		}
 	}
 
 	public void setCanvasBufferingCurrentIndex(int canvasBufferingCurrentIndex)
@@ -94,4 +126,16 @@ public final class CanvasGameletControler<CanvasType> extends GameletControler<C
 		myCurrentDisplayedCanvas = currentDisplayedCanvas;
 	}
 
+	private void fireUpdatedDisplayEvent(UpdatedDisplayEvent event) throws CanvasException
+	{
+		for (UpdatedDisplayEventListener _listener : getUpdatedDisplayEventListeners())
+		{
+			_listener.onUpdatedDisplay(event);
+		}
+	}
+
+	private List<UpdatedDisplayEventListener> getUpdatedDisplayEventListeners()
+	{
+		return myUpdatedDisplayEventListeners;
+	}
 }

@@ -10,7 +10,10 @@ import java.awt.Graphics2D;
 import javax.swing.JComponent;
 
 import com.sporniket.libre.game.canvas.Box;
+import com.sporniket.libre.game.canvas.CanvasException;
 import com.sporniket.libre.game.canvas.Point;
+import com.sporniket.libre.game.canvas.gamelet.UpdatedDisplayEvent;
+import com.sporniket.libre.game.canvas.gamelet.UpdatedDisplayEventListener;
 
 /**
  * View to link to a canvas id and the canvas manager hosting the canvas.
@@ -18,7 +21,7 @@ import com.sporniket.libre.game.canvas.Point;
  * @author dsporn
  *
  */
-public class CanvasView extends JComponent
+public class CanvasView extends JComponent implements UpdatedDisplayEventListener
 {
 
 	/**
@@ -61,6 +64,13 @@ public class CanvasView extends JComponent
 			_result = new Dimension(getCanvasManager().getScreenWidth(), getCanvasManager().getScreenHeight());
 		}
 		return _result;
+	}
+
+	@Override
+	public void onUpdatedDisplay(UpdatedDisplayEvent event) throws CanvasException
+	{
+		setCanvasId(event.getCanvasId());
+		revalidate();
 	}
 
 	public void setCanvasId(int canvasId)

@@ -4,7 +4,7 @@
 package com.sporniket.libre.game.api.input;
 
 /**
- * Input event for a pointer (mouse or touch event).
+ * Input event from a sensor (e.g. accelerometer, gyroscope, gps, ...).
  * @author dsporn
  *
  */

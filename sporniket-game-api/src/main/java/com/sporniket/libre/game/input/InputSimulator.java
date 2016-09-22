@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sporniket.libre.game.api.input;
+package com.sporniket.libre.game.input;
 
 /**
  * Special {@link InputTranslator}, that will listen to others {@link InputTranslator} and emit game event.

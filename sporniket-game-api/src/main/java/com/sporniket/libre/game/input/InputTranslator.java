@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sporniket.libre.game.api.input;
+package com.sporniket.libre.game.input;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sporniket.libre.game.api.input;
+package com.sporniket.libre.game.input;
 
 /**
  * Listener of {@link InputTranslator}, will be notified when there is an input event.

@@ -5,4 +5,4 @@
  * @author dsporn
  *
  */
-package com.sporniket.libre.game.api.input;
+package com.sporniket.libre.game.input;

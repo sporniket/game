@@ -8,7 +8,12 @@ package com.sporniket.libre.game.input;
  * @author dsporn
  *
  */
-public class GameControllerEvent
+public class GameControllerEvent extends InputEvent
 {
+
+	public GameControllerEvent(InputTranslator source)
+	{
+		super(source);
+	}
 
 }

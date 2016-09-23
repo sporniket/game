@@ -1,15 +1,22 @@
 package com.sporniket.libre.game.gamelet;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.sporniket.libre.game.gamelet.events.Backward;
 import com.sporniket.libre.game.gamelet.events.Forward;
+import com.sporniket.libre.game.input.InputProxy;
+import com.sporniket.libre.game.input.InputTranslator;
+import com.sporniket.libre.game.input.InputTranslatorListener;
+import com.sporniket.libre.game.input.Pointer;
+import com.sporniket.libre.game.input.PointerEvent;
 
 public abstract class GameletControler<ContextType extends GameletContext, GameletType extends Gamelet<ContextType>> implements
-		GameletListener<ContextType>
+		GameletListener<ContextType>, InputTranslatorListener
 {
 	static final int INITIAL_CAPACITY__GAMELET_REGISTRY = 10;
 
@@ -17,11 +24,20 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 
 	private final Map<String, GameletType> myGameletRegistry = new HashMap<String, GameletType>(INITIAL_CAPACITY__GAMELET_REGISTRY);
 
+	private final InputProxy myInputProxy = new InputProxy();
+
+	/**
+	 * Store a log of {@link Pointer} that will be put into the context before the call to
+	 * {@link GameletType#doRun(long, GameletContext)}.
+	 */
+	private final List<Pointer> myPointerLog = new ArrayList<Pointer>(50);
+
 	private final Deque<GameletType> myRunningStack = new ArrayDeque<GameletType>(INITIAL_CAPACITY__GAMELET_REGISTRY);
 
 	public GameletControler()
 	{
 		super();
+		getInputProxy().addListener(this);
 	}
 
 	public ContextType getContext()
@@ -65,6 +81,16 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 		}
 	}
 
+	@Override
+	public void onPointerEvent(PointerEvent event)
+	{
+		synchronized (myPointerLog)
+		{
+			myPointerLog.add(event.getPointer());
+		}
+		;
+	}
+
 	public void registerGamelet(String name, GameletType gamelet) throws GameletException
 	{
 		// sanity check
@@ -95,6 +121,12 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 		{
 			throw new GameletException(new IllegalStateException("nothing to run"));
 		}
+		// update pointer log in context.
+		synchronized (myPointerLog)
+		{
+			getContext().setPointerLog(myPointerLog);
+			myPointerLog.clear();
+		}
 		GameletType _currentGamelet = getRunningStack().peekLast();
 		_currentGamelet.doRun(elapsedTime, getContext());
 	}
@@ -102,6 +134,16 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 	public void setContext(ContextType context)
 	{
 		myContext = context;
+	}
+
+	/**
+	 * Any {@link InputTranslator} must be listened by this proxy.
+	 * 
+	 * @return the input event proxy.
+	 */
+	protected InputProxy getInputProxy()
+	{
+		return myInputProxy;
 	}
 
 	private Map<String, GameletType> getGameletRegistry()

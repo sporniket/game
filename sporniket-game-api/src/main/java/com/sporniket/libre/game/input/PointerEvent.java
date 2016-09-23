@@ -11,10 +11,17 @@ package com.sporniket.libre.game.input;
  */
 public class PointerEvent extends InputEvent
 {
+	private final Pointer myPointer ;
 
-	public PointerEvent(InputTranslator source)
+	public PointerEvent(InputTranslator source, Pointer pointer)
 	{
 		super(source);
+		myPointer = pointer ;
+	}
+
+	public Pointer getPointer()
+	{
+		return myPointer;
 	}
 
 }

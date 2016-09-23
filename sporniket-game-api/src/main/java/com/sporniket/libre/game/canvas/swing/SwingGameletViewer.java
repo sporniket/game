@@ -133,6 +133,15 @@ class SwingGameletViewer
 		// create the view, and watch for input events
 		final CanvasView _view = new CanvasView();
 		_view.setCanvasManager(_canvasManager);
+
+		// watch for mouse event from the view
+		MouseInputTranslator _mouseInputTranslator = new MouseInputTranslator();
+		_mouseInputTranslator.addListener(_controler.getInputProxy());
+		
+		_view.addMouseListener(_mouseInputTranslator);
+		_view.addMouseMotionListener(_mouseInputTranslator);
+		_view.addMouseWheelListener(_mouseInputTranslator);
+
 		_controler.addUpdatedDisplayEventListener(_view);
 
 		// swing invoke later init :

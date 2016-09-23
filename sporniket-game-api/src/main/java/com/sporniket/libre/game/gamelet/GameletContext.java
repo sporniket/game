@@ -1,14 +1,20 @@
 package com.sporniket.libre.game.gamelet;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.sporniket.libre.game.gamelet.input.GameControllerStateProvider;
-import com.sporniket.libre.game.gamelet.input.PointerStateProvider;
+import com.sporniket.libre.game.input.Pointer;
 
 public class GameletContext
 {
 
 	private GameControllerStateProvider myGameControllers;
 
-	private PointerStateProvider myPointers;
+	/**
+	 * Store a log of {@link Pointer} recorded since the last call.
+	 */
+	private final List<Pointer> myPointerLog = new ArrayList<Pointer>(50);
 
 	public GameletContext()
 	{
@@ -25,14 +31,9 @@ public class GameletContext
 		return myGameControllers;
 	}
 
-	/**
-	 * Give access to the pointer (mouse or finger touches)
-	 * 
-	 * @return the pointers.
-	 */
-	public PointerStateProvider getPointers()
+	public List<Pointer> getPointerLog()
 	{
-		return myPointers;
+		return myPointerLog;
 	}
 
 	public void setGameControllers(GameControllerStateProvider gameControllers)
@@ -40,9 +41,13 @@ public class GameletContext
 		myGameControllers = gameControllers;
 	}
 
-	public void setPointers(PointerStateProvider pointers)
+	public void setPointerLog(List<Pointer> newLog)
 	{
-		myPointers = pointers;
+		if (newLog != myPointerLog)
+		{
+			myPointerLog.clear();
+			myPointerLog.addAll(newLog);
+		}
 	}
 
 }

@@ -16,6 +16,11 @@ import com.sporniket.libre.game.gamelet.events.Render;
 import com.sporniket.libre.game.pal.codec.ParsingErrorException;
 import com.sporniket.libre.game.pal.codec.SpriteDecoder;
 
+/**
+ * Demo gamelet : show a tile based map.
+ * @author dsporn
+ *
+ */
 class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 {
 	static final String CANVAS_GUID__BACKGROUND = "main";
@@ -24,15 +29,21 @@ class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 
 	static final int GRID_SIZE = 32;
 
+	static final int MAP_COLS = 40;
+
+	static final int MAP_ROWS = 40;
+
 	/**
 	 * Store the last id of the offscreen canvas to draw into, to check if it is required to redraw all the tiles.
 	 */
 	int myLastCanvasId = -1;
 
+	final int[][] myMap = new int[MAP_ROWS][MAP_COLS];
+
 	final Random myRand = new Random(System.currentTimeMillis());
 
 	List<SpriteDefinition> mySprites;
-
+	
 	SpriteDefinition[] myTilePool;
 
 	@Override
@@ -42,20 +53,27 @@ class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 		CanvasManager<BufferedImage> _canvasManager = context.getCanvasManager();
 		int _cidBackground = _canvasManager.getCanvasId(CANVAS_GUID__BACKGROUND);
 
-		_canvasManager.copy(_cidBackground, _canvasManager.getScreenBox(), cidDestination,
-				_canvasManager.getScreenCornerTopLeft());
+		_canvasManager.copy(_cidBackground, _canvasManager.getScreenBox(), cidDestination, _canvasManager.getScreenCornerTopLeft());
 
 		// test transparency mode
 		int _cidTileset = _canvasManager.getCanvasId(CANVAS_GUID__TILESET);
 		_canvasManager.copy(_cidTileset, getSprites().get(2).getSourceBox(), cidDestination, new Point().withX(40).withY(40));
-		_canvasManager.replace(_cidTileset, getSprites().get(2).getSourceBox(), cidDestination, new Point().withX(104)
-				.withY(40));
+		_canvasManager.replace(_cidTileset, getSprites().get(2).getSourceBox(), cidDestination, new Point().withX(104).withY(40));
 
 	}
 
 	@Override
 	protected void init(CanvasGameletContext<BufferedImage> context) throws GameletException
 	{
+		//"load" the tilemap
+		int[] _valueMap = {0,0,0,1}; //ratio : 3 background tiles for one wall tile
+		for(int _row = 0 ; _row < MAP_ROWS ; _row++)
+		{
+			for (int _col = 0 ; _col < MAP_COLS ; _col++)
+			{
+				myMap[_row][_col] = getRand().nextInt(_valueMap.length);
+			}
+		}
 		try
 		{
 			setSprites(new SpriteDecoder().decode("tileGrid 4x1:0,0,32,32"));
@@ -120,7 +138,7 @@ class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 			_to.setX(_x);
 			for (int _col = 0; _col < _colspan; _col++)
 			{
-				int _sprite = getRand().nextInt(getTilePool().length);
+				int _sprite = myMap[_row][_col];
 				SpriteDefinitionUtils.copySpriteBloc(getTilePool()[_sprite], _to, (BoxCopyMachine) canvasManager, _cidTileset,
 						cidBackground);
 				_x += GRID_SIZE;

@@ -35,6 +35,8 @@ class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 
 	static final int MAP_ROWS = 40;
 
+	private final Render<CanvasGameletContext<BufferedImage>> MY_RENDER_EVENT = new Render<CanvasGameletContext<BufferedImage>>(this);
+
 	private boolean myDragging;
 
 	/**
@@ -70,8 +72,10 @@ class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 
 		// test transparency mode
 		int _cidTileset = _canvasManager.getCanvasId(CANVAS_GUID__TILESET);
-		_canvasManager.copy(_cidTileset, getSprites().get(2).getSourceBox(), cidDestination, new Point().withX(getPosition().getX()).withY(getPosition().getY()));
-		_canvasManager.replace(_cidTileset, getSprites().get(2).getSourceBox(), cidDestination, new Point().withX(getPosition().getX()+64).withY(getPosition().getY()));
+		_canvasManager.copy(_cidTileset, getSprites().get(2).getSourceBox(), cidDestination, new Point()
+				.withX(getPosition().getX()).withY(getPosition().getY()));
+		_canvasManager.replace(_cidTileset, getSprites().get(2).getSourceBox(), cidDestination,
+				new Point().withX(getPosition().getX() + 64).withY(getPosition().getY()));
 
 	}
 
@@ -79,17 +83,7 @@ class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 	protected void init(CanvasGameletContext<BufferedImage> context) throws GameletException
 	{
 		// "load" the tilemap
-		int[] _valueMap =
-		{
-				0, 0, 0, 1
-		}; // ratio : 3 background tiles for one wall tile
-		for (int _row = 0; _row < MAP_ROWS; _row++)
-		{
-			for (int _col = 0; _col < MAP_COLS; _col++)
-			{
-				myMap[_row][_col] = getRand().nextInt(_valueMap.length);
-			}
-		}
+		init__loadMap();
 		try
 		{
 			setSprites(new SpriteDecoder().decode("tileGrid 4x1:0,0,32,32"));
@@ -116,14 +110,6 @@ class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 		}
 	}
 
-	/**
-	 * @throws GameletException
-	 */
-	private void requestRender() throws GameletException
-	{
-		fireRenderEvent(new Render<CanvasGameletContext<BufferedImage>>(this));
-	}
-
 	@Override
 	protected void rewind(CanvasGameletContext<BufferedImage> context) throws GameletException
 	{
@@ -134,37 +120,8 @@ class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 	@Override
 	protected void run(long elapsedTime, CanvasGameletContext<BufferedImage> context) throws GameletException
 	{
-		boolean _isUpdated = false ;
 		// process mouse event (drag using left click only ==> pointer index = 0)
-		for (Pointer _pointer : context.getPointerLog())
-		{
-			if(0 == _pointer.getIndex() && (_pointer.getState() == com.sporniket.libre.game.input.Pointer.State.PRESSED || _pointer.getState() == com.sporniket.libre.game.input.Pointer.State.NOT_PRESSED || _pointer.getState() == com.sporniket.libre.game.input.Pointer.State.UNDEFINED))
-			{
-				//update dragging state
-				if(!isDragging() && _pointer.getState() == com.sporniket.libre.game.input.Pointer.State.PRESSED)
-				{
-					int _deltaX = _pointer.getX() - getPosition().getX();
-					int _deltaY = _pointer.getY() - getPosition().getY();
-					if(_deltaX >=0 && _deltaX < GRID_SIZE && _deltaY >=0 && _deltaY < GRID_SIZE)
-					{
-						getPointerDelta().withX(_deltaX).withY(_deltaY);
-						setDragging(true);
-					}
-				}
-				if(isDragging() && _pointer.getState() != com.sporniket.libre.game.input.Pointer.State.PRESSED)
-				{
-					setDragging(false);
-				}
-				
-				//update position
-				if (isDragging())
-				{
-					getPosition().withX(_pointer.getX() - getPointerDelta().getX()).withY(_pointer.getY() - getPointerDelta().getY());
-					_isUpdated = true ;
-				}
-				
-			}
-		}
+		boolean _isUpdated = run__processPointers(context);
 		if (_isUpdated)
 		{
 			requestRender();
@@ -201,6 +158,27 @@ class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 		return myTilePool;
 	}
 
+	/**
+	 * 
+	 */
+	private void init__loadMap()
+	{
+		int[] _valueMap =
+		{
+				0, 0, 0, 1
+		}; // ratio : 3 background tiles for one wall tile
+		for (int _row = 0; _row < MAP_ROWS; _row++)
+		{
+			for (int _col = 0; _col < MAP_COLS; _col++)
+			{
+				myMap[_row][_col] = getRand().nextInt(_valueMap.length);
+			}
+		}
+	}
+
+	/**
+	 * @return <code>true</code> when dragging the test object is activated.
+	 */
 	private boolean isDragging()
 	{
 		return myDragging;
@@ -233,6 +211,60 @@ class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 			_y += GRID_SIZE;
 			_to.setY(_y);
 		}
+	}
+
+	/**
+	 * @throws GameletException
+	 */
+	private void requestRender() throws GameletException
+	{
+		fireRenderEvent(MY_RENDER_EVENT);
+	}
+
+	/**
+	 * Process mouse events (drag using left click only ==> pointer index = 0).
+	 * 
+	 * @param context
+	 *            the game context.
+	 * @return <code>true</code> if the display has been updated.
+	 */
+	private boolean run__processPointers(CanvasGameletContext<BufferedImage> context)
+	{
+		boolean _isUpdated = false;
+		for (Pointer _pointer : context.getPointerLog())
+		{
+			if (0 == _pointer.getIndex()
+					&& (_pointer.getState() == com.sporniket.libre.game.input.Pointer.State.PRESSED
+							|| _pointer.getState() == com.sporniket.libre.game.input.Pointer.State.NOT_PRESSED || _pointer
+							.getState() == com.sporniket.libre.game.input.Pointer.State.UNDEFINED))
+			{
+				// update dragging state
+				if (!isDragging() && _pointer.getState() == com.sporniket.libre.game.input.Pointer.State.PRESSED)
+				{
+					int _deltaX = _pointer.getX() - getPosition().getX();
+					int _deltaY = _pointer.getY() - getPosition().getY();
+					if (_deltaX >= 0 && _deltaX < GRID_SIZE && _deltaY >= 0 && _deltaY < GRID_SIZE)
+					{
+						getPointerDelta().withX(_deltaX).withY(_deltaY);
+						setDragging(true);
+					}
+				}
+				if (isDragging() && _pointer.getState() != com.sporniket.libre.game.input.Pointer.State.PRESSED)
+				{
+					setDragging(false);
+				}
+
+				// update position
+				if (isDragging())
+				{
+					getPosition().withX(_pointer.getX() - getPointerDelta().getX()).withY(
+							_pointer.getY() - getPointerDelta().getY());
+					_isUpdated = true;
+				}
+
+			}
+		}
+		return _isUpdated;
 	}
 
 	private void setDragging(boolean dragging)

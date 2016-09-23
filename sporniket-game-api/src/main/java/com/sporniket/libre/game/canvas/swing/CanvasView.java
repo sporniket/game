@@ -70,7 +70,7 @@ public class CanvasView extends JComponent implements UpdatedDisplayEventListene
 	public void onUpdatedDisplay(UpdatedDisplayEvent event) throws CanvasException
 	{
 		setCanvasId(event.getCanvasId());
-		revalidate();
+		repaint();
 	}
 
 	public void setCanvasId(int canvasId)

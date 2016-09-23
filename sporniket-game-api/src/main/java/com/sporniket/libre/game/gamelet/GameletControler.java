@@ -46,6 +46,16 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 	}
 
 	/**
+	 * Any {@link InputTranslator} must be listened by this proxy.
+	 * 
+	 * @return the input event proxy.
+	 */
+	public InputProxy getInputProxy()
+	{
+		return myInputProxy;
+	}
+
+	/**
 	 * Predicate to know whether one can call {@link #run(long)};
 	 * 
 	 * @return <code>true</code> if there is still a gamelet to run.
@@ -133,16 +143,6 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 	public void setContext(ContextType context)
 	{
 		myContext = context;
-	}
-
-	/**
-	 * Any {@link InputTranslator} must be listened by this proxy.
-	 * 
-	 * @return the input event proxy.
-	 */
-	protected InputProxy getInputProxy()
-	{
-		return myInputProxy;
 	}
 
 	private Map<String, GameletType> getGameletRegistry()

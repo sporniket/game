@@ -88,7 +88,6 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 		{
 			myPointerLog.add(event.getPointer());
 		}
-		;
 	}
 
 	public void registerGamelet(String name, GameletType gamelet) throws GameletException

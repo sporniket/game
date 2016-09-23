@@ -4,7 +4,7 @@ package com.sporniket.libre.game.gamelet.input;
 /**
  * Interfaces for using pointers (mouse, fingers, etc...).
  * @author dsporn
- *
+ * @deprecated
  */
 public interface PointerStateProvider
 {

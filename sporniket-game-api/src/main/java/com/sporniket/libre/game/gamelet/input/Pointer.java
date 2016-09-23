@@ -30,7 +30,7 @@ package com.sporniket.libre.game.gamelet.input;
  * <hr>
  * 
  * @author David SPORN 
- *
+ * @deprecated
  */
 public class Pointer implements Cloneable
 {

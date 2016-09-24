@@ -5,7 +5,7 @@
 		<groupId>com.sporniket.game</groupId>
 		<artifactId>sporniket-game</artifactId>
 		<version>15.05.01-SNAPSHOT</version>
-		<relativePath>../sporniket-game/pom.xml</relativePath>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>sporniket-game-papi-swing</artifactId>

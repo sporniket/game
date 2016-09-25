@@ -8,11 +8,11 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>sporniket-game-api</artifactId>
+	<artifactId>canvas</artifactId>
 	<packaging>jar</packaging>
-
-	<name>sporniket-game-api</name>
-	<description>Generic game API (sprite engine and other stuff)</description>
+	
+	<name>Sporniket Game : ${project.artifactId}</name>
+	<description>API for 2D game development</description>
 	<url>${url.base}/blob/master/${project.artifactId}</url>
 
 	<dependencies>
@@ -22,11 +22,6 @@
 			<groupId>com.sporniket.game</groupId>
 			<artifactId>core</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.sporniket.game</groupId>
-			<artifactId>canvas</artifactId>
-		</dependency>
-		
 
 		<!-- ===EXTERNAL DEPENDENCIES (non test) -->
 		<!-- Sporniket-core -->
@@ -65,20 +60,6 @@
 					<source>${version.jdk}</source>
 					<target>${version.jdk}</target>
 				</configuration>
-			</plugin>
-			<!-- For generating javabeans -->
-			<plugin>
-				<groupId>com.sporniket.javabeans</groupId>
-				<artifactId>sporniket-javabeans-maven</artifactId>
-				<version>${version.sporniket-javabeans}</version>
-				<executions>
-					<execution>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

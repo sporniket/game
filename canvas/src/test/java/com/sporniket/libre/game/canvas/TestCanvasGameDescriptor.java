@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sporniket.libre.game.canvas.swing;
+package com.sporniket.libre.game.canvas;
 
 import java.io.IOException;
 

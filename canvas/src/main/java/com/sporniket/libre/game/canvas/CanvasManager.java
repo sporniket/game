@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sporniket.libre.game.api.InvalidValueException;
+import com.sporniket.libre.game.InvalidValueException;
 
 /**
  * Canvas manager that will deal with creating/maintaining a set of Canvas, and serve as a proxy to use those canvas.

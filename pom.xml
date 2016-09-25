@@ -33,6 +33,7 @@
 
 	<modules>
 		<module>core</module>
+		<module>canvas</module>
 		<module>sporniket-game-api</module>
 		<module>sporniket-game-papi</module>
 		<module>sporniket-game-papi-android</module>
@@ -45,6 +46,11 @@
 			<dependency>
 				<groupId>com.sporniket.game</groupId>
 				<artifactId>core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sporniket.game</groupId>
+				<artifactId>canvas</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

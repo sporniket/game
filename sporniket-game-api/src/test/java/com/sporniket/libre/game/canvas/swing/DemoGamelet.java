@@ -9,13 +9,13 @@ import com.sporniket.libre.game.canvas.CanvasManager;
 import com.sporniket.libre.game.canvas.Point;
 import com.sporniket.libre.game.canvas.gamelet.CanvasGameletContext;
 import com.sporniket.libre.game.canvas.gamelet.DefaultCanvasGamelet;
+import com.sporniket.libre.game.canvas.sprite.SpriteDecoder;
 import com.sporniket.libre.game.canvas.sprite.SpriteDefinition;
 import com.sporniket.libre.game.canvas.sprite.SpriteDefinitionUtils;
 import com.sporniket.libre.game.gamelet.GameletException;
 import com.sporniket.libre.game.gamelet.events.Render;
 import com.sporniket.libre.game.input.Pointer;
 import com.sporniket.libre.game.pal.codec.ParsingErrorException;
-import com.sporniket.libre.game.pal.codec.SpriteDecoder;
 
 /**
  * Demo gamelet : show a tile based map, and a draggable object.

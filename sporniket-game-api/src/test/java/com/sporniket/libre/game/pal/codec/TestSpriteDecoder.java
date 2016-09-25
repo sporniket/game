@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.sporniket.libre.game.canvas.sprite.SpriteDecoder;
 import com.sporniket.libre.game.canvas.sprite.SpriteDefinition;
 
 /**

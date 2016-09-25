@@ -3,7 +3,7 @@
  */
 package com.sporniket.libre.game.api.types;
 
-import com.sporniket.libre.game.api.InvalidValueException;
+import com.sporniket.libre.game.InvalidValueException;
 
 
 /**

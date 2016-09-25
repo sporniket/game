@@ -5,7 +5,7 @@ package com.sporniket.libre.game.api.sprite;
 
 import java.util.ArrayList;
 
-import com.sporniket.libre.game.api.InvalidValueException;
+import com.sporniket.libre.game.InvalidValueException;
 import com.sporniket.libre.game.api.OutOfRangeException;
 import com.sporniket.libre.game.api.sprite.SequenceItem.Type;
 import com.sporniket.libre.game.api.types.Updatable;

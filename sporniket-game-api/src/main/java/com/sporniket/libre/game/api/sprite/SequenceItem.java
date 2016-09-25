@@ -6,7 +6,7 @@ package com.sporniket.libre.game.api.sprite;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sporniket.libre.game.api.InvalidValueException;
+import com.sporniket.libre.game.InvalidValueException;
 
 
 /**

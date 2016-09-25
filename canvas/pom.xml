@@ -17,7 +17,6 @@
 
 	<dependencies>
 		<!-- ===INTERNAL DEPENDENCIES -->
-		<!-- Sporniket-game -->
 		<dependency>
 			<groupId>com.sporniket.game</groupId>
 			<artifactId>core</artifactId>

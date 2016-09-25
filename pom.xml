@@ -32,6 +32,7 @@
 	<url>${url.base}</url>
 
 	<modules>
+		<module>core</module>
 		<module>sporniket-game-api</module>
 		<module>sporniket-game-papi</module>
 		<module>sporniket-game-papi-android</module>
@@ -41,6 +42,11 @@
 	<dependencyManagement>
 		<dependencies>
 			<!-- ===INTERNAL DEPENDENCIES -->
+			<dependency>
+				<groupId>com.sporniket.game</groupId>
+				<artifactId>core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>com.sporniket.game</groupId>
 				<artifactId>sporniket-game-api</artifactId>

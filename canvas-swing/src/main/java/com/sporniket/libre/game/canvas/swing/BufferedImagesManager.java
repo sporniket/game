@@ -29,6 +29,15 @@ public class BufferedImagesManager extends CanvasManager<BufferedImage> implemen
 	}
 
 	@Override
+	public void clear(Box boxSpecs, int canvasIdTo, Point position) {
+		// TODO Auto-generated method stub
+		Graphics2D _to = getCanvasRegistry().get(canvasIdTo).getCanvas().createGraphics();
+		_to.setComposite(AlphaComposite.Clear);
+		
+		_to.fillRect(position.getX(), position.getY(), boxSpecs.getWidth(), boxSpecs.getHeight());
+	}
+
+	@Override
 	public void copy(int canvasIdFrom, Box boxSpecs, int canvasIdTo, Point position)
 	{
 		Graphics2D _to = getCanvasRegistry().get(canvasIdTo).getCanvas().createGraphics();

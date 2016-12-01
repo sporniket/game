@@ -27,7 +27,7 @@ public class Demo
 	{
 		try
 		{
-			SwingGameletViewer.runLandscapeQuarterHd("classpath:demo/game/demo-00.properties");
+			SwingGameletViewer.runLandscapeQuarterHd("classpath:demo/game/demo-01.properties");
 		}
 		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UrlProviderException | IOException
 				| SyntaxErrorException | CanvasException | GameletException _exception)

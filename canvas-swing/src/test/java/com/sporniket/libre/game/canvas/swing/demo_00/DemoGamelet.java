@@ -1,4 +1,4 @@
-package com.sporniket.libre.game.canvas.swing;
+package com.sporniket.libre.game.canvas.swing.demo_00;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -23,7 +23,7 @@ import com.sporniket.libre.game.pal.codec.ParsingErrorException;
  * @author dsporn
  *
  */
-class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
+public class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 {
 	static final String CANVAS_GUID__BACKGROUND = "main";
 

@@ -26,7 +26,7 @@ import com.sporniket.libre.lang.url.UrlProviderException;
  *
  */
 // FIXME obviously a first draft, full of shortcomings...
-class SwingGameletViewer
+public class SwingGameletViewer
 {
 	private static final String SPECIAL_NAME__SEQUENCER = "$Sequencer";
 

@@ -13,7 +13,6 @@ import com.sporniket.libre.game.canvas.sprite.SpriteDecoder;
 import com.sporniket.libre.game.canvas.sprite.SpriteDefinition;
 import com.sporniket.libre.game.canvas.sprite.SpriteDefinitionUtils;
 import com.sporniket.libre.game.gamelet.GameletException;
-import com.sporniket.libre.game.gamelet.events.Render;
 import com.sporniket.libre.game.input.Pointer;
 import com.sporniket.libre.game.pal.codec.ParsingErrorException;
 
@@ -34,8 +33,6 @@ public class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 	static final int MAP_COLS = 40;
 
 	static final int MAP_ROWS = 40;
-
-	private final Render<CanvasGameletContext<BufferedImage>> MY_RENDER_EVENT = new Render<CanvasGameletContext<BufferedImage>>(this);
 
 	private boolean myDragging;
 
@@ -211,14 +208,6 @@ public class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 			_y += GRID_SIZE;
 			_to.setY(_y);
 		}
-	}
-
-	/**
-	 * @throws GameletException
-	 */
-	private void requestRender() throws GameletException
-	{
-		fireRenderEvent(MY_RENDER_EVENT);
 	}
 
 	/**

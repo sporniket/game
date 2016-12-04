@@ -12,7 +12,6 @@ import com.sporniket.libre.game.canvas.sprite.SpriteDecoder;
 import com.sporniket.libre.game.canvas.sprite.SpriteDefinition;
 import com.sporniket.libre.game.canvas.sprite.SpriteDefinitionUtils;
 import com.sporniket.libre.game.gamelet.GameletException;
-import com.sporniket.libre.game.gamelet.events.Render;
 import com.sporniket.libre.game.pal.codec.ParsingErrorException;
 
 /**
@@ -238,9 +237,6 @@ public class DemoGamelet extends DefaultCanvasGamelet<BufferedImage> {
 	
 	static final int TIME_BETWEEN_MOVES = 80 ;
 
-	private final Render<CanvasGameletContext<BufferedImage>> MY_RENDER_EVENT = new Render<CanvasGameletContext<BufferedImage>>(
-			this);
-
 	private Caterpillar myCaterpillar ;
 
 	/**
@@ -355,13 +351,6 @@ public class DemoGamelet extends DefaultCanvasGamelet<BufferedImage> {
 				_canvasManager.getScreenCornerTopLeft());
 		_canvasManager.copy(_cidPlayground, _canvasManager.getScreenBox(), cidDestination,
 				_canvasManager.getScreenCornerTopLeft());
-	}
-
-	/**
-	 * @throws GameletException
-	 */
-	private void requestRender() throws GameletException {
-		fireRenderEvent(MY_RENDER_EVENT);
 	}
 
 	@Override

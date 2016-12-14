@@ -1,11 +1,8 @@
 package com.sporniket.libre.game.canvas.descriptor;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Descriptor of a canvas game.
- * 
+ *
  * @author dsporn
  *
  */
@@ -18,13 +15,15 @@ public class CanvasGameDescriptor
 		return INITIAL_CAPACITY__MANAGER_SPECS;
 	}
 
-	private final BaseUrlSpecs myBaseUrlSpecs = new BaseUrlSpecs() ;
+	private final BaseUrlSpecs myBaseUrlSpecs = new BaseUrlSpecs();
 
-	private final CanvasManagerSpecs myCanvasManagerSpecs = new CanvasManagerSpecs() ;
-	
+	private final CanvasManagerSpecs myCanvasManagerSpecs = new CanvasManagerSpecs();
+
 	private CanvasSpecs[] myCanvasSpecs;
 
-	private final GameletsSpecs myGamelets = new GameletsSpecs() ;
+	private final GameletsSpecs myGamelets = new GameletsSpecs();
+
+	private final GraphicalDefinitionSpecs myGraphicalDefinitionsSpecs = new GraphicalDefinitionSpecs();
 
 	public BaseUrlSpecs getBaseUrlSpecs()
 	{
@@ -44,6 +43,11 @@ public class CanvasGameDescriptor
 	public GameletsSpecs getGamelets()
 	{
 		return myGamelets;
+	}
+
+	public GraphicalDefinitionSpecs getGraphicalDefinitionsSpecs()
+	{
+		return myGraphicalDefinitionsSpecs;
 	}
 
 	public void setCanvasSpecs(CanvasSpecs[] canvasSpecs)

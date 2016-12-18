@@ -9,6 +9,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.junit.Test;
@@ -65,6 +66,18 @@ public class TestCanvasGameDescriptor
 		final Iterator<Integer> _tresholds = _descriptor.getGraphicalDefinitionsSpecs().getTresholds().iterator();
 		assertThat(_tresholds.next(), is(1600));
 		assertThat(_tresholds.next(), is(3200));
+	}
+
+	@Test
+	public void testApplyValues() throws UrlProviderException, IOException, SyntaxErrorException
+	{
+		final CanvasGameDescriptor _descriptor = CanvasGameDescriptorUtils.load("classpath:demo/game/game.properties",
+				Encoding.ISO_8859_1);
+		HashMap<String, String> _values = new HashMap<>();
+		_values.put("gdef", Integer.toString(1));
+		CanvasGameDescriptorUtils.applyValues(_descriptor, _values);
+		
+		assertThat(_descriptor.getBaseUrlSpecs().getBaseUrlForPictures(), is("gfx-1"));
 	}
 
 }

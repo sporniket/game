@@ -2,6 +2,8 @@ package com.sporniket.libre.game.canvas.swing;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -73,9 +75,9 @@ public class SwingGameletViewer
 			throw new IllegalArgumentException("Game does not support landscape quarter HD (960x540)");
 		}
 		// process descriptor base urls to replace {gdef} by the actual canvas specs prefix
-		String _realBaseUrlForPictures = _descriptor.getBaseUrlSpecs().getBaseUrlForData() + "/"
-				+ _descriptor.getBaseUrlSpecs().getBaseUrlForPictures().replace("{gdef}", _selectedCanvasSpecs.getPrefix());
-		_descriptor.getBaseUrlSpecs().setBaseUrlForPictures(_realBaseUrlForPictures);
+		Map<String, String> _values = new HashMap<String, String>();
+		_values.put("gdef", _selectedCanvasSpecs.getPrefix());
+		_descriptor = CanvasGameDescriptorUtils.applyValues(_descriptor, _values);
 		// init the canvas manager (for now, the kind url list is not supported --> black offscreen)
 		final BufferedImagesManager _canvasManager = new BufferedImagesManager(_selectedCanvasSpecs.getWidth(),
 				_selectedCanvasSpecs.getHeight());
@@ -91,7 +93,8 @@ public class SwingGameletViewer
 			_toParse = _toParse.substring(_posSep + 1);
 			if (_toParse.startsWith("url:"))
 			{
-				String _url = _descriptor.getBaseUrlSpecs().getBaseUrlForPictures() + "/" + _toParse.substring("url:".length());
+				String _url = _descriptor.getBaseUrlSpecs().getBaseUrlForData() + "/"
+						+ _descriptor.getBaseUrlSpecs().getBaseUrlForPictures() + "/" + _toParse.substring("url:".length());
 				CanvasUtils.createCanvasFromImage(_canvasManager, _name, _url);
 			}
 			else
@@ -126,8 +129,8 @@ public class SwingGameletViewer
 			_controler.registerGamelet(_name, _gamelet);
 		}
 		// setup the running sequence
-		_controler.registerGamelet(SPECIAL_NAME__SEQUENCER, new GameletSequencer<BufferedImage>(_descriptor.getGamelets()
-				.getSequence()));
+		_controler.registerGamelet(SPECIAL_NAME__SEQUENCER,
+				new GameletSequencer<BufferedImage>(_descriptor.getGamelets().getSequence()));
 		_controler.onForward(new Forward<CanvasGameletContext<BufferedImage>>(null, SPECIAL_NAME__SEQUENCER));
 
 		// create the view, and watch for input events
@@ -137,7 +140,7 @@ public class SwingGameletViewer
 		// watch for mouse event from the view
 		MouseInputTranslator _mouseInputTranslator = new MouseInputTranslator();
 		_mouseInputTranslator.addListener(_controler.getInputProxy());
-		
+
 		_view.addMouseListener(_mouseInputTranslator);
 		_view.addMouseMotionListener(_mouseInputTranslator);
 		_view.addMouseWheelListener(_mouseInputTranslator);

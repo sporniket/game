@@ -64,20 +64,32 @@ public class CanvasGameDescriptorUtils
 	 *            the descriptor to process.
 	 * @param values
 	 *            the values to use, e.g. <code>{gdef}</code> will be replaced with <code>descriptor.get("gdef")</code>.
-	 * @return the changed descriptor.
+	 * @return a descriptor with any tag replaced.
 	 */
 	public static CanvasGameDescriptor applyValues(CanvasGameDescriptor descriptor, Map<String, String> values)
 	{
+		CanvasGameDescriptor _clone = null;
+		try
+		{
+			_clone = (CanvasGameDescriptor) descriptor.clone();
+		}
+		catch (CloneNotSupportedException _exception)
+		{
+			// SHOULD NOT HAPPEN !
+			_exception.printStackTrace();
+			System.exit(1);
+		}
+		CanvasGameDescriptor _result = _clone;
 		for (String key : values.keySet())
 		{
 			String _tag = "{" + key + "}";
 			String _value = values.get(key);
 
 			// replace tag in any suitable field
-			descriptor.getBaseUrlSpecs()
+			_result.getBaseUrlSpecs()
 					.setBaseUrlForPictures(descriptor.getBaseUrlSpecs().getBaseUrlForPictures().replace(_tag, _value));
 		}
-		return descriptor;
+		return _result;
 	}
 
 }

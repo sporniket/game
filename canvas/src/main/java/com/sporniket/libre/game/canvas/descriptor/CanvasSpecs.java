@@ -11,7 +11,7 @@ package com.sporniket.libre.game.canvas.descriptor;
  * @author dsporn
  *
  */
-public class CanvasSpecs
+public class CanvasSpecs implements Cloneable
 {
 	/**
 	 * Canvas height.
@@ -39,6 +39,13 @@ public class CanvasSpecs
 		myWidth = width;
 		myHeight = height;
 		myPrefix = prefix;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException
+	{
+		// TODO Auto-generated method stub
+		return super.clone();
 	}
 
 	public int getHeight()

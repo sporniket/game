@@ -6,7 +6,7 @@ package com.sporniket.libre.game.canvas.descriptor;
  * @author dsporn
  *
  */
-public class CanvasGameDescriptor
+public class CanvasGameDescriptor implements Cloneable
 {
 	private static final int INITIAL_CAPACITY__MANAGER_SPECS = 10;
 
@@ -24,6 +24,41 @@ public class CanvasGameDescriptor
 	private final GameletsSpecs myGamelets = new GameletsSpecs();
 
 	private final GraphicalDefinitionSpecs myGraphicalDefinitionsSpecs = new GraphicalDefinitionSpecs();
+
+	@Override
+	public Object clone() throws CloneNotSupportedException
+	{
+		CanvasGameDescriptor _clone = new CanvasGameDescriptor();
+
+		// copy #myBaseUrlSpecs
+		_clone.getBaseUrlSpecs().setBaseUrlForData(getBaseUrlSpecs().getBaseUrlForData());
+		_clone.getBaseUrlSpecs().setBaseUrlForJukebox(getBaseUrlSpecs().getBaseUrlForJukebox());
+		_clone.getBaseUrlSpecs().setBaseUrlForPictures(getBaseUrlSpecs().getBaseUrlForPictures());
+		_clone.getBaseUrlSpecs().setBaseUrlForSoundEffects(getBaseUrlSpecs().getBaseUrlForSoundEffects());
+		_clone.getBaseUrlSpecs().setBaseUrlForSprites(getBaseUrlSpecs().getBaseUrlForSprites());
+
+		// copy #myCanvasManagerSpecs
+		_clone.getCanvasManagerSpecs().setBufferingNames(getCanvasManagerSpecs().getBufferingNames());
+		_clone.getCanvasManagerSpecs().setCanvasSpecs(getCanvasManagerSpecs().getCanvasSpecs());
+
+		// copy #myCanvasSpecs
+		CanvasSpecs[] _cloneCanvasSpecs = new CanvasSpecs[getCanvasSpecs().length];
+		for (int _index = 0; _index < _cloneCanvasSpecs.length; _index++)
+		{
+			_cloneCanvasSpecs[_index] = (CanvasSpecs) getCanvasSpecs()[_index].clone();
+		}
+		_clone.setCanvasSpecs(_cloneCanvasSpecs);
+
+		// copy #myGamelets
+		_clone.getGamelets().setRegistry(getGamelets().getRegistry());
+		_clone.getGamelets().setSequence(getGamelets().getSequence());
+
+		// copy #myGraphicalDefinitionsSpecs
+		_clone.getGraphicalDefinitionsSpecs().setAxis(getGraphicalDefinitionsSpecs().getAxis());
+		_clone.getGraphicalDefinitionsSpecs().setTresholds(getGraphicalDefinitionsSpecs().getTresholds());
+
+		return _clone;
+	}
 
 	public BaseUrlSpecs getBaseUrlSpecs()
 	{

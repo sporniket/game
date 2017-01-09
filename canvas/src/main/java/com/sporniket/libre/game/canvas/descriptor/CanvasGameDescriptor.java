@@ -1,5 +1,8 @@
 package com.sporniket.libre.game.canvas.descriptor;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Descriptor of a canvas game.
  *
@@ -28,7 +31,7 @@ public class CanvasGameDescriptor implements Cloneable
 	@Override
 	public Object clone() throws CloneNotSupportedException
 	{
-		CanvasGameDescriptor _clone = new CanvasGameDescriptor();
+		final CanvasGameDescriptor _clone = new CanvasGameDescriptor();
 
 		// copy #myBaseUrlSpecs
 		_clone.getBaseUrlSpecs().setBaseUrlForData(getBaseUrlSpecs().getBaseUrlForData());
@@ -42,7 +45,7 @@ public class CanvasGameDescriptor implements Cloneable
 		_clone.getCanvasManagerSpecs().setCanvasSpecs(getCanvasManagerSpecs().getCanvasSpecs());
 
 		// copy #myCanvasSpecs
-		CanvasSpecs[] _cloneCanvasSpecs = new CanvasSpecs[getCanvasSpecs().length];
+		final CanvasSpecs[] _cloneCanvasSpecs = new CanvasSpecs[getCanvasSpecs().length];
 		for (int _index = 0; _index < _cloneCanvasSpecs.length; _index++)
 		{
 			_cloneCanvasSpecs[_index] = (CanvasSpecs) getCanvasSpecs()[_index].clone();
@@ -56,6 +59,9 @@ public class CanvasGameDescriptor implements Cloneable
 		// copy #myGraphicalDefinitionsSpecs
 		_clone.getGraphicalDefinitionsSpecs().setAxis(getGraphicalDefinitionsSpecs().getAxis());
 		_clone.getGraphicalDefinitionsSpecs().setTresholds(getGraphicalDefinitionsSpecs().getTresholds());
+
+		final Map<String, Object> _dataMap = new HashMap<>(getGraphicalDefinitionsSpecs().getDataMap());
+		_clone.getGraphicalDefinitionsSpecs().setDataMap(_dataMap);
 
 		return _clone;
 	}

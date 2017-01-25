@@ -5,6 +5,7 @@ package com.sporniket.libre.game.canvas.descriptor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -140,6 +141,36 @@ public class GraphicalDefinitionSpecs
 	public Map<String, Object> getDataMap()
 	{
 		return myDataMap;
+	}
+
+	/**
+	 * Return the suitable graphical definition value for a given {@link CanvasSpecs}.
+	 * 
+	 * @param specs
+	 *            the {@link CanvasSpecs} that would be used.
+	 * @return the suitable graphical definition value.
+	 */
+	public int getGraphicalDefinition(CanvasSpecs specs)
+	{
+		int _result = 0;
+		if (!getTresholds().isEmpty())
+		{
+			int _value = (Axis.HORIZONTAL == getAxis()) ? specs.getWidth() : specs.getHeight();
+			int _index = 0;
+			for (Integer _treshold : getTresholds())
+			{
+				if (_value >= _treshold)
+				{
+					_result++;
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+
+		return _result;
 	}
 
 	private Pattern getIntegerValuesParser()

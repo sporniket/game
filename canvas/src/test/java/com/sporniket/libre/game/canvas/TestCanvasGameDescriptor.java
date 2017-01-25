@@ -100,6 +100,16 @@ public class TestCanvasGameDescriptor
 	}
 
 	@Test
+	public void testGetGraphicalDefinitionValue() throws UrlProviderException, IOException, SyntaxErrorException
+	{
+		final CanvasGameDescriptor _descriptor = CanvasGameDescriptorUtils.load("classpath:demo/game/game.properties",
+				Encoding.ISO_8859_1);
+		doTestSampleDescriptor(_descriptor);
+		assertThat(_descriptor.getGraphicalDefinitionsSpecs().getGraphicalDefinition(_descriptor.getCanvasSpecs()[0]), is(0)) ;
+		assertThat(_descriptor.getGraphicalDefinitionsSpecs().getGraphicalDefinition(_descriptor.getCanvasSpecs()[1]), is(1)) ;
+	}
+
+	@Test
 	public void testLoadDescriptor() throws UrlProviderException, IOException, SyntaxErrorException
 	{
 		final CanvasGameDescriptor _descriptor = CanvasGameDescriptorUtils.load("classpath:demo/game/game.properties",

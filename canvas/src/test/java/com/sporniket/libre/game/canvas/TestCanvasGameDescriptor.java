@@ -85,6 +85,7 @@ public class TestCanvasGameDescriptor
 				Encoding.ISO_8859_1);
 		final HashMap<String, String> _values = new HashMap<>();
 		_values.put("gdef", Integer.toString(1));
+		_values.put("foo","bar");
 		final CanvasGameDescriptor _usableDescriptor = CanvasGameDescriptorUtils.applyValues(_descriptor, _values);
 
 		assertThat(_usableDescriptor.getBaseUrlSpecs().getBaseUrlForPictures(), is("gfx-1"));

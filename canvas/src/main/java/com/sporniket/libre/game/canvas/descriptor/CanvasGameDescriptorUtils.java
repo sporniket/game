@@ -87,7 +87,7 @@ public class CanvasGameDescriptorUtils
 
 			// replace tag in any suitable field
 			_result.getBaseUrlSpecs()
-					.setBaseUrlForPictures(descriptor.getBaseUrlSpecs().getBaseUrlForPictures().replace(_tag, _value));
+					.setBaseUrlForPictures(_result.getBaseUrlSpecs().getBaseUrlForPictures().replace(_tag, _value));
 		}
 		return _result;
 	}

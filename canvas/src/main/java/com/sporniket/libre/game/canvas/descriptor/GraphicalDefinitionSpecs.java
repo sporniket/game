@@ -140,6 +140,10 @@ public class GraphicalDefinitionSpecs
 
 	public Map<String, Object> getDataMap()
 	{
+		if (null == myDataMap)
+		{
+			myDataMap = new HashMap<>(0);
+		}
 		return myDataMap;
 	}
 

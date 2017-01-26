@@ -74,9 +74,10 @@ public class SwingGameletViewer
 		{
 			throw new IllegalArgumentException("Game does not support landscape quarter HD (960x540)");
 		}
-		// process descriptor base urls to replace {gdef} by the actual canvas specs prefix
-		Map<String, String> _values = new HashMap<String, String>();
-		_values.put("gdef", _selectedCanvasSpecs.getPrefix());
+		// find the graphical definition
+		int _graphicalDefinition = _descriptor.getGraphicalDefinitionsSpecs().getGraphicalDefinition(_selectedCanvasSpecs);
+		// apply the values binded to the graphical definition
+		Map<String, String> _values = _descriptor.getGraphicalDefinitionsSpecs().getDataAsString(_graphicalDefinition);
 		_descriptor = CanvasGameDescriptorUtils.applyValues(_descriptor, _values);
 		// init the canvas manager (for now, the kind url list is not supported --> black offscreen)
 		final BufferedImagesManager _canvasManager = new BufferedImagesManager(_selectedCanvasSpecs.getWidth(),
@@ -106,6 +107,7 @@ public class SwingGameletViewer
 		// create the game context, links to canvas manager.
 		CanvasGameletContext<BufferedImage> _context = new CanvasGameletContext<BufferedImage>();
 		_context.setCanvasManager(_canvasManager);
+		_context.getData().putAll(_descriptor.getGraphicalDefinitionsSpecs().getData(_graphicalDefinition));
 		// create the controler, links to game context
 		final CanvasGameletControler<BufferedImage> _controler = new CanvasGameletControler<BufferedImage>();
 		_controler.setContext(_context);

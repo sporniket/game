@@ -24,32 +24,26 @@ import com.sporniket.libre.game.pal.codec.ParsingErrorException;
  */
 public class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 {
-	private static final String NAME__GRID_SIZE = "gridSize";
-
 	static final String CANVAS_GUID__BACKGROUND = "main";
 
 	static final String CANVAS_GUID__TILESET = "tileset";
 
-	static final int GRID_SIZE = 32;
-
-	static final int MAP_COLS = 40;
-
-	static final int MAP_ROWS = 40;
+	private static final String NAME__GRID_SIZE = "gridSize";
 
 	private boolean myDragging;
 
-	private int myGridSize = GRID_SIZE;
+	private int myGridSize;
 
 	/**
 	 * Store the last id of the offscreen canvas to draw into, to check if it is required to redraw all the tiles.
 	 */
 	private int myLastCanvasId = -1;
 
-	private int[][] myMap ;
+	private int[][] myMap;
 
-	private int myMapCols = MAP_COLS;
+	private int myMapCols;
 
-	private int myMapRows = MAP_ROWS;
+	private int myMapRows;
 
 	/**
 	 * delta between the position and the mouse pointer, when dragging.
@@ -120,9 +114,9 @@ public class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 	@Override
 	protected void init(CanvasGameletContext<BufferedImage> context) throws GameletException
 	{
-		//init rendering parameters
+		// init rendering parameters
 		init__renderingParameters(context);
-		
+
 		// "load" the tilemap
 		init__loadMap();
 		try
@@ -154,20 +148,6 @@ public class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 		}
 	}
 
-	private void init__renderingParameters(CanvasGameletContext<BufferedImage> context)
-	{
-		setGridSize((int) context.getData().get(NAME__GRID_SIZE));
-		int _screenWidth = context.getCanvasManager().getScreenWidth();
-		int _mapCols = _screenWidth/getGridSize();
-		if (0 != _screenWidth % _mapCols)
-		{
-			_mapCols++;
-		}
-		setMapCols(_mapCols);
-		setMapRows(getMapCols());
-		setMap(new int[getMapRows()][getMapCols()]);
-	}
-
 	/**
 	 * 
 	 */
@@ -187,6 +167,20 @@ public class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 				myMap[_row][_col] = getRand().nextInt(_valueMap.length);
 			}
 		}
+	}
+
+	private void init__renderingParameters(CanvasGameletContext<BufferedImage> context)
+	{
+		setGridSize((int) context.getData().get(NAME__GRID_SIZE));
+		int _screenWidth = context.getCanvasManager().getScreenWidth();
+		int _mapCols = _screenWidth / getGridSize();
+		if (0 != _screenWidth % _mapCols)
+		{
+			_mapCols++;
+		}
+		setMapCols(_mapCols);
+		setMapRows(getMapCols());
+		setMap(new int[getMapRows()][getMapCols()]);
 	}
 
 	/**
@@ -215,7 +209,7 @@ public class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 			_to.setX(_x);
 			for (int _col = 0; _col < _colspan; _col++)
 			{
-				int _sprite = myMap[_row][_col];
+				int _sprite = getMap()[_row][_col];
 				SpriteDefinitionUtils.copySpriteBloc(getTilePool()[_sprite], _to, (BoxCopyMachine) canvasManager, _cidTileset,
 						cidBackground);
 				_x += getGridSize();
@@ -282,7 +276,7 @@ public class DemoGamelet extends DefaultCanvasGamelet<BufferedImage>
 				{
 					int _deltaX = _pointer.getX() - getPosition().getX();
 					int _deltaY = _pointer.getY() - getPosition().getY();
-					if (_deltaX >= 0 && _deltaX < GRID_SIZE && _deltaY >= 0 && _deltaY < getGridSize())
+					if (_deltaX >= 0 && _deltaX < getGridSize() && _deltaY >= 0 && _deltaY < getGridSize())
 					{
 						getPointerDelta().withX(_deltaX).withY(_deltaY);
 						setDragging(true);

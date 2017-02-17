@@ -2,6 +2,9 @@ package com.sporniket.libre.game.canvas.descriptor;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import com.sporniket.libre.io.Encoding;
@@ -88,6 +91,13 @@ public class CanvasGameDescriptorUtils
 			// replace tag in any suitable field
 			_result.getBaseUrlSpecs()
 					.setBaseUrlForPictures(_result.getBaseUrlSpecs().getBaseUrlForPictures().replace(_tag, _value));
+			String[] _canvasSpecs = _result.getCanvasManagerSpecs().getCanvasSpecs();
+			List<String> _newSpecs = new ArrayList<>(_canvasSpecs.length);
+			for (String _spec : _canvasSpecs)
+			{
+				_newSpecs.add(_spec.replace(_tag, _value));
+			}
+			_result.getCanvasManagerSpecs().setCanvasSpecs(_newSpecs.toArray(new String[_newSpecs.size()]));
 		}
 		return _result;
 	}

@@ -47,7 +47,7 @@ public class TestCanvasGameDescriptor
 		assertThat(descriptor.getCanvasManagerSpecs().getCanvasSpecs()[1], is("screen1:offScreen"));
 		assertThat(descriptor.getCanvasManagerSpecs().getCanvasSpecs()[2], is("screen2:offScreen"));
 		assertThat(descriptor.getCanvasManagerSpecs().getCanvasSpecs()[3], is("tileset:url:spritesheet.png"));
-		assertThat(descriptor.getCanvasManagerSpecs().getCanvasSpecs()[4], is("background:urlList:back01.png, back02.png, ..."));
+		assertThat(descriptor.getCanvasManagerSpecs().getCanvasSpecs()[4], is("background:offScreen:{bgWidth}x{bgHeight}"));
 		assertThat(descriptor.getCanvasManagerSpecs().getCanvasSpecs()[5], is("main:offScreen"));
 
 		assertThat(descriptor.getCanvasSpecs(), is(not(nullValue())));
@@ -86,9 +86,12 @@ public class TestCanvasGameDescriptor
 		final HashMap<String, String> _values = new HashMap<>();
 		_values.put("gdef", Integer.toString(1));
 		_values.put("foo","bar");
+		_values.put("bgWidth","10");
+		_values.put("bgHeight","20");
 		final CanvasGameDescriptor _usableDescriptor = CanvasGameDescriptorUtils.applyValues(_descriptor, _values);
 
 		assertThat(_usableDescriptor.getBaseUrlSpecs().getBaseUrlForPictures(), is("gfx-1"));
+		assertThat(_usableDescriptor.getCanvasManagerSpecs().getCanvasSpecs()[4], is("background:offScreen:10x20"));
 	}
 
 	@Test

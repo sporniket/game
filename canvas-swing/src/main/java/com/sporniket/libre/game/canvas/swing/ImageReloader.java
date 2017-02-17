@@ -3,7 +3,9 @@
  */
 package com.sporniket.libre.game.canvas.swing;
 
+import java.awt.AlphaComposite;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -13,10 +15,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 import com.sporniket.libre.game.canvas.CanvasCallback;
-import com.sporniket.libre.game.canvas.CanvasDescriptor;
 import com.sporniket.libre.game.canvas.CanvasException;
-import com.sporniket.libre.game.canvas.CanvasFiller;
-import com.sporniket.libre.game.canvas.gamelet.CanvasGameletContext;
 
 /**
  * Regenerator that reload an image.
@@ -26,18 +25,12 @@ import com.sporniket.libre.game.canvas.gamelet.CanvasGameletContext;
  * @author dsporn
  *
  */
-public class ImageReloader implements CanvasFiller<BufferedImage>
+public class ImageReloader extends BufferedImageFiller
 {
 
 	private static final String PROTOCOL__CLASSPATH = "classpath:";
 
 	private BufferedImage myCache;
-
-	private int myPreferredHeight;
-
-	private int myPreferredWidth;
-
-	private CanvasDescriptor<BufferedImage> myTarget;
 
 	private final URL myUrl;
 
@@ -61,27 +54,16 @@ public class ImageReloader implements CanvasFiller<BufferedImage>
 	}
 
 	@Override
-	public void attachTo(CanvasDescriptor<BufferedImage> canvas)
-	{
-		setTarget(canvas);
-	}
-
-	@Override
 	public void fill() throws CanvasException
 	{
-		if (null == getTarget())
-		{
-			throw new IllegalStateException("Filler not attached to a canvas.");
-		}
-		if (getTarget().isDisposed())
-		{
-			throw new IllegalStateException("The canvas has been disposed, recreate one first.");
-		}
+		assertThatCanvasIsAccessible();
 		BufferedImage _source;
 		try
 		{
 			_source = getImage();
-			getTarget().getCanvas().createGraphics().drawImage(_source, 0, 0, null);
+			Graphics2D _g2 = getTarget().getCanvas().createGraphics();
+			_g2.setComposite(AlphaComposite.SrcOver);
+			_g2.drawImage(_source, 0, 0, null);
 			setCache(null); // dereference so that the source image may be collected.
 		}
 		catch (final IOException _exception)
@@ -122,23 +104,6 @@ public class ImageReloader implements CanvasFiller<BufferedImage>
 
 	}
 
-	@Override
-	public int getPreferredHeight()
-	{
-		return myPreferredHeight;
-	}
-
-	@Override
-	public int getPreferredWidth()
-	{
-		return myPreferredWidth;
-	}
-
-	private CanvasDescriptor<BufferedImage> getTarget()
-	{
-		return myTarget;
-	}
-
 	private URL getUrl()
 	{
 		return myUrl;
@@ -172,20 +137,5 @@ public class ImageReloader implements CanvasFiller<BufferedImage>
 	private void setCache(BufferedImage cache)
 	{
 		myCache = cache;
-	}
-
-	private void setPreferredHeight(int preferredHeight)
-	{
-		myPreferredHeight = preferredHeight;
-	}
-
-	private void setPreferredWidth(int preferredWidth)
-	{
-		myPreferredWidth = preferredWidth;
-	}
-
-	private void setTarget(CanvasDescriptor<BufferedImage> target)
-	{
-		myTarget = target;
 	}
 }

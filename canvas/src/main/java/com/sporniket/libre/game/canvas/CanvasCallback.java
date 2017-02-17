@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
  * @author dsporn
  *
  */
+@Deprecated
 public class CanvasCallback<CanvasType>
 {
 

@@ -9,7 +9,7 @@ package com.sporniket.libre.game.canvas;
  * @author dsporn
  *
  */
-public interface CanvasFiller<CanvasType, ContextType>
+public interface CanvasFiller<CanvasType>
 {
 	/**
 	 * Actual attachment to a canvas.
@@ -24,11 +24,10 @@ public interface CanvasFiller<CanvasType, ContextType>
 	/**
 	 * Fills the attached canvas.
 	 *
-	 * @param context
-	 *            the context, e.g. a file loader.
 	 * @throws CanvasException
+	 *             when there is a problem.
 	 */
-	void fill(ContextType context) throws CanvasException;
+	void fill() throws CanvasException;
 
 	/**
 	 * Get the preferred height for this filler.

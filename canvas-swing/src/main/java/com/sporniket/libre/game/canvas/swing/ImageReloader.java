@@ -26,7 +26,7 @@ import com.sporniket.libre.game.canvas.gamelet.CanvasGameletContext;
  * @author dsporn
  *
  */
-public class ImageReloader implements CanvasFiller<BufferedImage, CanvasGameletContext<BufferedImage>>
+public class ImageReloader implements CanvasFiller<BufferedImage>
 {
 
 	private static final String PROTOCOL__CLASSPATH = "classpath:";
@@ -67,7 +67,7 @@ public class ImageReloader implements CanvasFiller<BufferedImage, CanvasGameletC
 	}
 
 	@Override
-	public void fill(CanvasGameletContext<BufferedImage> context) throws CanvasException
+	public void fill() throws CanvasException
 	{
 		if (null == getTarget())
 		{

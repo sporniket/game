@@ -3,6 +3,8 @@
  */
 package com.sporniket.libre.game.canvas;
 
+import java.awt.Color;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,15 +30,15 @@ public abstract class CanvasManager<CanvasType> implements BoxCopyMachine
 	private final Box myScreenBox;
 
 	private final Point myScreenCornerBottomLeft;
-	
+
 	private final Point myScreenCornerBottomRight;
-	
+
 	private final Point myScreenCornerTopLeft;
-	
+
 	private final Point myScreenCornerTopRight;
-	
+
 	private final int myScreenHeight;
-	
+
 	private final int myScreenWidth;
 
 	/**
@@ -51,14 +53,41 @@ public abstract class CanvasManager<CanvasType> implements BoxCopyMachine
 	{
 		myScreenWidth = screenWidth;
 		myScreenHeight = screenHeight;
-		myScreenBox=new Box().withX(0).withY(0).withWidth(getScreenWidth())
-				.withHeight(getScreenHeight());
+		myScreenBox = new Box().withX(0).withY(0).withWidth(getScreenWidth()).withHeight(getScreenHeight());
 		myScreenCornerTopLeft = new Point().withX(0).withY(0);
 		myScreenCornerTopRight = new Point().withX(getScreenWidth()).withY(0);
 		myScreenCornerBottomLeft = new Point().withX(0).withY(getScreenHeight());
 		myScreenCornerBottomRight = new Point().withX(getScreenWidth()).withY(getScreenHeight());
 	}
 
+	/**
+	 * Set a built-in filler that loads a picture into the canvas.
+	 * 
+	 * @param canvas
+	 *            the target canvas.
+	 * @param picture
+	 *            the picture to load into the canvas.
+	 */
+	public abstract void setFiller(int canvas, URL picture);
+
+	/**
+	 * Set a built-in filler that erase the canvas using the given color (the color may be transparent).
+	 * 
+	 * @param canvas
+	 *            the target canvas.
+	 * @param color
+	 *            the color to use to fill the canvas.
+	 */
+	public abstract void setFiller(int canvas, Color color);
+
+	public void setFiller(int canvas, CanvasFiller<CanvasType> filler)
+	{
+		CanvasDescriptor<CanvasType> _canvasDescriptor = getCanvasRegistry().get(canvas);
+		filler.attachTo(_canvasDescriptor);
+		_canvasDescriptor.setFiller(filler);
+	}
+
+	@Deprecated
 	public void attachRegenerator(int canvas, CanvasCallback<CanvasType> regenerator)
 	{
 		CanvasDescriptor<CanvasType> _canvasDescriptor = getCanvasRegistry().get(canvas);
@@ -189,7 +218,7 @@ public abstract class CanvasManager<CanvasType> implements BoxCopyMachine
 	public void regenerate(int canvasId) throws CanvasException
 	{
 		CanvasDescriptor<CanvasType> _canvasDescriptor = getCanvasRegistry().get(canvasId);
-		if(_canvasDescriptor.isDisposed())
+		if (_canvasDescriptor.isDisposed())
 		{
 			CanvasType _newCanvas = createCanvasData(_canvasDescriptor.getWidth(), _canvasDescriptor.getHeight());
 			_canvasDescriptor.setCanvas(_newCanvas);

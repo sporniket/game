@@ -19,7 +19,7 @@ public interface CanvasFiller<CanvasType, ContextType>
 	 * @param canvas
 	 *            the canvas that will be filled from now.
 	 */
-	void attachTo(CanvasType canvas);
+	void attachTo(CanvasDescriptor<CanvasType> canvas);
 
 	/**
 	 * Fills the attached canvas.

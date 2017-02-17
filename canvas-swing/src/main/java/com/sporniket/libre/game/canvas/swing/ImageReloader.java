@@ -13,6 +13,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 import com.sporniket.libre.game.canvas.CanvasCallback;
+import com.sporniket.libre.game.canvas.CanvasDescriptor;
 import com.sporniket.libre.game.canvas.CanvasException;
 import com.sporniket.libre.game.canvas.CanvasFiller;
 import com.sporniket.libre.game.canvas.gamelet.CanvasGameletContext;
@@ -36,7 +37,7 @@ public class ImageReloader implements CanvasFiller<BufferedImage, CanvasGameletC
 
 	private int myPreferredWidth;
 
-	private BufferedImage myTarget;
+	private CanvasDescriptor<BufferedImage> myTarget;
 
 	private final URL myUrl;
 
@@ -60,7 +61,7 @@ public class ImageReloader implements CanvasFiller<BufferedImage, CanvasGameletC
 	}
 
 	@Override
-	public void attachTo(BufferedImage canvas)
+	public void attachTo(CanvasDescriptor<BufferedImage> canvas)
 	{
 		setTarget(canvas);
 	}
@@ -72,11 +73,15 @@ public class ImageReloader implements CanvasFiller<BufferedImage, CanvasGameletC
 		{
 			throw new IllegalStateException("Filler not attached to a canvas.");
 		}
+		if (getTarget().isDisposed())
+		{
+			throw new IllegalStateException("The canvas has been disposed, recreate one first.");
+		}
 		BufferedImage _source;
 		try
 		{
 			_source = getImage();
-			getTarget().createGraphics().drawImage(_source, 0, 0, null);
+			getTarget().getCanvas().createGraphics().drawImage(_source, 0, 0, null);
 			setCache(null); // dereference so that the source image may be collected.
 		}
 		catch (final IOException _exception)
@@ -129,7 +134,7 @@ public class ImageReloader implements CanvasFiller<BufferedImage, CanvasGameletC
 		return myPreferredWidth;
 	}
 
-	private BufferedImage getTarget()
+	private CanvasDescriptor<BufferedImage> getTarget()
 	{
 		return myTarget;
 	}
@@ -179,7 +184,7 @@ public class ImageReloader implements CanvasFiller<BufferedImage, CanvasGameletC
 		myPreferredWidth = preferredWidth;
 	}
 
-	private void setTarget(BufferedImage target)
+	private void setTarget(CanvasDescriptor<BufferedImage> target)
 	{
 		myTarget = target;
 	}

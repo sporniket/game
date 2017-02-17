@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.sporniket.libre.game.canvas.swing;
 
@@ -14,21 +14,29 @@ import javax.imageio.ImageIO;
 
 import com.sporniket.libre.game.canvas.CanvasCallback;
 import com.sporniket.libre.game.canvas.CanvasException;
+import com.sporniket.libre.game.canvas.CanvasFiller;
+import com.sporniket.libre.game.canvas.gamelet.CanvasGameletContext;
 
 /**
  * Regenerator that reload an image.
- * 
+ *
  * The image dimension should be queried to create the managed buffered image at the right size.
- * 
+ *
  * @author dsporn
  *
  */
-public class ImageReloader
+public class ImageReloader implements CanvasFiller<BufferedImage, CanvasGameletContext<BufferedImage>>
 {
 
 	private static final String PROTOCOL__CLASSPATH = "classpath:";
 
 	private BufferedImage myCache;
+
+	private int myPreferredHeight;
+
+	private int myPreferredWidth;
+
+	private BufferedImage myTarget;
 
 	private final URL myUrl;
 
@@ -44,53 +52,38 @@ public class ImageReloader
 			{
 				myUrl = new URL(url);
 			}
-			catch (MalformedURLException _exception)
+			catch (final MalformedURLException _exception)
 			{
 				throw new CanvasException(_exception);
 			}
 		}
 	}
 
-	public Dimension getImageDimension() throws CanvasException
+	@Override
+	public void attachTo(BufferedImage canvas)
 	{
-		try
-		{
-			BufferedImage _source = getImage();
-			return new Dimension(_source.getWidth(), _source.getHeight());
-		}
-		catch (IOException _exception)
-		{
-			throw new CanvasException(_exception);
-		}
+		setTarget(canvas);
 	}
 
-	public CanvasCallback<BufferedImage> getImageReloader() throws CanvasException
+	@Override
+	public void fill(CanvasGameletContext<BufferedImage> context) throws CanvasException
 	{
-		try
+		if (null == getTarget())
 		{
-			Method _regenerator = getClass().getMethod("reload", String.class, BufferedImage.class);
-			return new CanvasCallback<BufferedImage>(this, _regenerator);
+			throw new IllegalStateException("Filler not attached to a canvas.");
 		}
-		catch (NoSuchMethodException | SecurityException _exception)
-		{
-			throw new CanvasException(_exception);
-		}
-
-	}
-
-	public void reload(String guid, BufferedImage destination) throws CanvasException
-	{
 		BufferedImage _source;
 		try
 		{
 			_source = getImage();
-			destination.createGraphics().drawImage(_source, 0, 0, null);
+			getTarget().createGraphics().drawImage(_source, 0, 0, null);
 			setCache(null); // dereference so that the source image may be collected.
 		}
-		catch (IOException _exception)
+		catch (final IOException _exception)
 		{
 			throw new CanvasException(_exception);
 		}
+
 	}
 
 	private BufferedImage getCache()
@@ -103,6 +96,44 @@ public class ImageReloader
 		return (null == getCache()) ? prefetchImage() : getCache();
 	}
 
+	@Deprecated
+	public Dimension getImageDimension() throws CanvasException
+	{
+		return new Dimension(getPreferredWidth(), getPreferredHeight());
+	}
+
+	@Deprecated
+	public CanvasCallback<BufferedImage> getImageReloader() throws CanvasException
+	{
+		try
+		{
+			final Method _regenerator = getClass().getMethod("reload", String.class, BufferedImage.class);
+			return new CanvasCallback<>(this, _regenerator);
+		}
+		catch (NoSuchMethodException | SecurityException _exception)
+		{
+			throw new CanvasException(_exception);
+		}
+
+	}
+
+	@Override
+	public int getPreferredHeight()
+	{
+		return myPreferredHeight;
+	}
+
+	@Override
+	public int getPreferredWidth()
+	{
+		return myPreferredWidth;
+	}
+
+	private BufferedImage getTarget()
+	{
+		return myTarget;
+	}
+
 	private URL getUrl()
 	{
 		return myUrl;
@@ -110,13 +141,46 @@ public class ImageReloader
 
 	private BufferedImage prefetchImage() throws IOException
 	{
-		BufferedImage _image = ImageIO.read(getUrl());
+		final BufferedImage _image = ImageIO.read(getUrl());
 		setCache(_image);
+		setPreferredHeight(_image.getHeight());
+		setPreferredWidth(_image.getWidth());
 		return _image;
+	}
+
+	@Deprecated
+	public void reload(String guid, BufferedImage destination) throws CanvasException
+	{
+		BufferedImage _source;
+		try
+		{
+			_source = getImage();
+			destination.createGraphics().drawImage(_source, 0, 0, null);
+			setCache(null); // dereference so that the source image may be collected.
+		}
+		catch (final IOException _exception)
+		{
+			throw new CanvasException(_exception);
+		}
 	}
 
 	private void setCache(BufferedImage cache)
 	{
 		myCache = cache;
+	}
+
+	private void setPreferredHeight(int preferredHeight)
+	{
+		myPreferredHeight = preferredHeight;
+	}
+
+	private void setPreferredWidth(int preferredWidth)
+	{
+		myPreferredWidth = preferredWidth;
+	}
+
+	private void setTarget(BufferedImage target)
+	{
+		myTarget = target;
 	}
 }

@@ -22,9 +22,6 @@ public class CanvasDescriptor<CanvasType>
 
 	private int myHeight;
 
-	@Deprecated
-	private CanvasCallback<CanvasType> myRegenerator;
-
 	private int myWidth;
 
 	/**
@@ -55,11 +52,6 @@ public class CanvasDescriptor<CanvasType>
 		return myHeight;
 	}
 
-	CanvasCallback<CanvasType> getRegenerator()
-	{
-		return myRegenerator;
-	}
-
 	public int getWidth()
 	{
 		return myWidth;
@@ -71,15 +63,6 @@ public class CanvasDescriptor<CanvasType>
 	public boolean isDisposed()
 	{
 		return null == getCanvas();
-	}
-
-	@Deprecated 
-	void regenerate() throws CanvasException
-	{
-		if (null != getRegenerator())
-		{
-			getRegenerator().execute(getGuid(), getCanvas());
-		}
 	}
 
 	void setCanvas(CanvasType canvas)
@@ -100,12 +83,6 @@ public class CanvasDescriptor<CanvasType>
 	void setHeight(int height)
 	{
 		myHeight = height;
-	}
-
-	@Deprecated 
-	void setRegenerator(CanvasCallback<CanvasType> regenerator)
-	{
-		myRegenerator = regenerator;
 	}
 
 	void setWidth(int width)

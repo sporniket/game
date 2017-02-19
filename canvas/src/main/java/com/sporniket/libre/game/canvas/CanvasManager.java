@@ -4,7 +4,6 @@
 package com.sporniket.libre.game.canvas;
 
 import java.awt.Color;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,13 +86,6 @@ public abstract class CanvasManager<CanvasType> implements BoxCopyMachine
 		CanvasDescriptor<CanvasType> _canvasDescriptor = getCanvasRegistry().get(canvas);
 		filler.attachTo(_canvasDescriptor);
 		_canvasDescriptor.setFiller(filler);
-	}
-
-	@Deprecated
-	public void attachRegenerator(int canvas, CanvasCallback<CanvasType> regenerator)
-	{
-		CanvasDescriptor<CanvasType> _canvasDescriptor = getCanvasRegistry().get(canvas);
-		_canvasDescriptor.setRegenerator(regenerator);
 	}
 
 	/**
@@ -225,7 +217,7 @@ public abstract class CanvasManager<CanvasType> implements BoxCopyMachine
 			CanvasType _newCanvas = createCanvasData(_canvasDescriptor.getWidth(), _canvasDescriptor.getHeight());
 			_canvasDescriptor.setCanvas(_newCanvas);
 		}
-		_canvasDescriptor.getRegenerator().execute(_canvasDescriptor.getGuid(), _canvasDescriptor.getCanvas());
+		_canvasDescriptor.getFiller().fill();
 	}
 
 	/**

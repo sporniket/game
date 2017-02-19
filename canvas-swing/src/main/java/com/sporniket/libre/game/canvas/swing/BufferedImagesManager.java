@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
 import com.sporniket.libre.game.canvas.Box;
+import com.sporniket.libre.game.canvas.CanvasDescriptor;
 import com.sporniket.libre.game.canvas.CanvasException;
 import com.sporniket.libre.game.canvas.CanvasManager;
 import com.sporniket.libre.game.canvas.Point;
@@ -90,16 +91,19 @@ public class BufferedImagesManager extends CanvasManager<BufferedImage> implemen
 	@Override
 	public void setFiller(int canvas, Color color)
 	{
-		getCanvasRegistry().get(canvas).setFiller(new ColorFiller(color));
-
+		CanvasDescriptor<BufferedImage> _canvas = getCanvasRegistry().get(canvas);
+		ColorFiller _filler = new ColorFiller(color);
+		_canvas.setFiller(_filler);
+		_filler.attachTo(_canvas);
 	}
 
 	@Override
 	public void setFiller(int canvas, String picture) throws CanvasException
 	{
-		// TODO Auto-generated method stub
-		getCanvasRegistry().get(canvas).setFiller(new ImageReloader(picture));
-
+		CanvasDescriptor<BufferedImage> _canvas = getCanvasRegistry().get(canvas);
+		ImageReloader _filler = new ImageReloader(picture);
+		_canvas.setFiller(_filler);
+		_filler.attachTo(_canvas);
 	}
 
 	private void setImageObserver(ImageObserver imageObserver)

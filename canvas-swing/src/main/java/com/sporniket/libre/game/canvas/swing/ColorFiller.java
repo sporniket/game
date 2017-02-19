@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.sporniket.libre.game.canvas.swing;
 
@@ -16,14 +16,20 @@ import com.sporniket.libre.game.canvas.CanvasException;
  */
 public class ColorFiller extends BufferedImageFiller
 {
-	Color myColor;
+	final Color myColor;
+
+	public ColorFiller(Color color)
+	{
+		super();
+		myColor = color;
+	}
 
 	@Override
 	public void fill() throws CanvasException
 	{
 		assertThatCanvasIsAccessible();
-		BufferedImage _canvas = getTarget().getCanvas();
-		Graphics2D _g2 = _canvas.createGraphics();
+		final BufferedImage _canvas = getTarget().getCanvas();
+		final Graphics2D _g2 = _canvas.createGraphics();
 		_g2.setComposite(AlphaComposite.SrcOver);
 
 		_g2.setColor(Color.BLACK);
@@ -35,10 +41,4 @@ public class ColorFiller extends BufferedImageFiller
 	{
 		return myColor;
 	}
-
-	public void setColor(Color color)
-	{
-		myColor = color;
-	}
-
 }

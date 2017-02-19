@@ -40,7 +40,7 @@ public class CanvasDescriptor<CanvasType>
 		return myCanvas;
 	}
 
-	CanvasFiller<CanvasType> getFiller()
+	public CanvasFiller<CanvasType> getFiller()
 	{
 		return myFiller;
 	}
@@ -87,7 +87,7 @@ public class CanvasDescriptor<CanvasType>
 		myCanvas = canvas;
 	}
 
-	void setFiller(CanvasFiller<CanvasType> filler)
+	public void setFiller(CanvasFiller<CanvasType> filler)
 	{
 		myFiller = filler;
 	}

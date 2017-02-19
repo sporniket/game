@@ -67,8 +67,10 @@ public abstract class CanvasManager<CanvasType> implements BoxCopyMachine
 	 *            the target canvas.
 	 * @param picture
 	 *            the picture to load into the canvas.
+	 * @throws CanvasException
+	 *             when there is a problem.
 	 */
-	public abstract void setFiller(int canvas, URL picture);
+	public abstract void setFiller(int canvas, String picture) throws CanvasException;
 
 	/**
 	 * Set a built-in filler that erase the canvas using the given color (the color may be transparent).

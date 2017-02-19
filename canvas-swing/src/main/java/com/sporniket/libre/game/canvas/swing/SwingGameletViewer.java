@@ -2,7 +2,6 @@ package com.sporniket.libre.game.canvas.swing;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JFrame;
@@ -23,7 +22,7 @@ import com.sporniket.libre.lang.url.UrlProviderException;
 
 /**
  * Launcher for playing a gamelet based game.
- * 
+ *
  * @author dsporn
  *
  */
@@ -32,9 +31,36 @@ public class SwingGameletViewer
 {
 	private static final String SPECIAL_NAME__SEQUENCER = "$Sequencer";
 
+	private static void populateCanvasManagerFromDescriptor(CanvasGameDescriptor _descriptor,
+			final BufferedImagesManager _canvasManager) throws SyntaxErrorException, CanvasException
+	{
+		for (final String _spec : _descriptor.getCanvasManagerSpecs().getCanvasSpecs())
+		{
+			String _toParse = _spec.trim();
+			final int _posSep = _toParse.indexOf(":");
+			if (0 > _posSep)
+			{
+				throw new SyntaxErrorException("canvas manager specs should follow 'name:...' pattern");
+			}
+			final String _name = _toParse.substring(0, _posSep);
+			_toParse = _toParse.substring(_posSep + 1);
+			if (_toParse.startsWith("url:"))
+			{
+				final String _url = _descriptor.getBaseUrlSpecs().getBaseUrlForData() + "/"
+						+ _descriptor.getBaseUrlSpecs().getBaseUrlForPictures() + "/" + _toParse.substring("url:".length());
+				CanvasUtils.createCanvasFromImage(_canvasManager, _name, _url);
+			}
+			else
+			{
+				// default or unsupported
+				CanvasUtils.createBlackFilledCanvas(_canvasManager, _name);
+			}
+		}
+	}
+
 	/**
 	 * Run a game only if it support a landscape qHD sized canvas.
-	 * 
+	 *
 	 * @param descriptorUrl
 	 *            url to the descriptor file.
 	 * @throws UrlProviderException
@@ -61,9 +87,9 @@ public class SwingGameletViewer
 		CanvasGameDescriptor _descriptor = CanvasGameDescriptorUtils.load(descriptorUrl, Encoding.ISO_8859_1);
 		// look for the qHD canvas specs
 		CanvasSpecs _selectedCanvasSpecs = null;
-		for (CanvasSpecs _spec : _descriptor.getCanvasSpecs())
+		for (final CanvasSpecs _spec : _descriptor.getCanvasSpecs())
 		{
-			if (_spec.getWidth() == 960 && _spec.getHeight() == 540)
+			if ((_spec.getWidth() == 960) && (_spec.getHeight() == 540))
 			{
 				_selectedCanvasSpecs = _spec;
 				break;
@@ -75,59 +101,38 @@ public class SwingGameletViewer
 			throw new IllegalArgumentException("Game does not support landscape quarter HD (960x540)");
 		}
 		// find the graphical definition
-		int _graphicalDefinition = _descriptor.getGraphicalDefinitionsSpecs().getGraphicalDefinition(_selectedCanvasSpecs);
+		final int _graphicalDefinition = _descriptor.getGraphicalDefinitionsSpecs().getGraphicalDefinition(_selectedCanvasSpecs);
 		// apply the values binded to the graphical definition
-		Map<String, String> _values = _descriptor.getGraphicalDefinitionsSpecs().getDataAsString(_graphicalDefinition);
+		final Map<String, String> _values = _descriptor.getGraphicalDefinitionsSpecs().getDataAsString(_graphicalDefinition);
 		_descriptor = CanvasGameDescriptorUtils.applyValues(_descriptor, _values);
 		// init the canvas manager (for now, the kind url list is not supported --> black offscreen)
 		final BufferedImagesManager _canvasManager = new BufferedImagesManager(_selectedCanvasSpecs.getWidth(),
 				_selectedCanvasSpecs.getHeight());
-		for (String _spec : _descriptor.getCanvasManagerSpecs().getCanvasSpecs())
-		{
-			String _toParse = _spec.trim();
-			int _posSep = _toParse.indexOf(":");
-			if (0 > _posSep)
-			{
-				throw new SyntaxErrorException("canvas manager specs should follow 'name:...' pattern");
-			}
-			String _name = _toParse.substring(0, _posSep);
-			_toParse = _toParse.substring(_posSep + 1);
-			if (_toParse.startsWith("url:"))
-			{
-				String _url = _descriptor.getBaseUrlSpecs().getBaseUrlForData() + "/"
-						+ _descriptor.getBaseUrlSpecs().getBaseUrlForPictures() + "/" + _toParse.substring("url:".length());
-				CanvasUtils.createCanvasFromImage(_canvasManager, _name, _url);
-			}
-			else
-			{
-				// default or unsupported
-				CanvasUtils.createBlackFilledCanvas(_canvasManager, _name);
-			}
-		}
+		populateCanvasManagerFromDescriptor(_descriptor, _canvasManager);
 		// create the game context, links to canvas manager.
-		CanvasGameletContext<BufferedImage> _context = new CanvasGameletContext<BufferedImage>();
+		final CanvasGameletContext<BufferedImage> _context = new CanvasGameletContext<>();
 		_context.setCanvasManager(_canvasManager);
 		_context.getData().putAll(_descriptor.getGraphicalDefinitionsSpecs().getData(_graphicalDefinition));
 		// create the controler, links to game context
-		final CanvasGameletControler<BufferedImage> _controler = new CanvasGameletControler<BufferedImage>();
+		final CanvasGameletControler<BufferedImage> _controler = new CanvasGameletControler<>();
 		_controler.setContext(_context);
 		_controler.setCanvasBufferingList(_descriptor.getCanvasManagerSpecs().getBufferingNames());
 
 		// register the gamelets
-		for (String _gameletSpec : _descriptor.getGamelets().getRegistry())
+		for (final String _gameletSpec : _descriptor.getGamelets().getRegistry())
 		{
-			String _toParse = _gameletSpec.trim();
-			int _posSep = _toParse.indexOf(":");
+			final String _toParse = _gameletSpec.trim();
+			final int _posSep = _toParse.indexOf(":");
 			if (0 > _posSep)
 			{
 				throw new SyntaxErrorException("Gamelet specs should follow 'name:classname' pattern");
 			}
-			String _name = _toParse.substring(0, _posSep);
-			String _classname = _toParse.substring(_posSep + 1);
+			final String _name = _toParse.substring(0, _posSep);
+			final String _classname = _toParse.substring(_posSep + 1);
 			@SuppressWarnings("unchecked")
-			Class<? extends CanvasGamelet<BufferedImage>> _gameletClass = (Class<? extends CanvasGamelet<BufferedImage>>) Class
+			final Class<? extends CanvasGamelet<BufferedImage>> _gameletClass = (Class<? extends CanvasGamelet<BufferedImage>>) Class
 					.forName(_classname);
-			CanvasGamelet<BufferedImage> _gamelet = _gameletClass.newInstance();
+			final CanvasGamelet<BufferedImage> _gamelet = _gameletClass.newInstance();
 			_controler.registerGamelet(_name, _gamelet);
 		}
 		// setup the running sequence
@@ -140,7 +145,7 @@ public class SwingGameletViewer
 		_view.setCanvasManager(_canvasManager);
 
 		// watch for mouse event from the view
-		MouseInputTranslator _mouseInputTranslator = new MouseInputTranslator();
+		final MouseInputTranslator _mouseInputTranslator = new MouseInputTranslator();
 		_mouseInputTranslator.addListener(_controler.getInputProxy());
 
 		_view.addMouseListener(_mouseInputTranslator);
@@ -156,19 +161,20 @@ public class SwingGameletViewer
 
 		SwingUtilities.invokeLater(new Runnable()
 		{
-			public void run()
-			{
-				init__createAndShowGui();
-			}
-
 			private void init__createAndShowGui()
 			{
-				JFrame f = new JFrame("Canvas Demo");
+				final JFrame f = new JFrame("Canvas Demo");
 				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				f.add(_view);
 				f.pack();
 				f.setVisible(true);
 				f.setResizable(false);
+			}
+
+			@Override
+			public void run()
+			{
+				init__createAndShowGui();
 			}
 		});
 
@@ -180,11 +186,6 @@ public class SwingGameletViewer
 			long _lastTime = System.currentTimeMillis();
 
 			/**
-			 * should wait at least this amount since #_lastTime before calling run.
-			 */
-			long _timeResolution = 10;
-
-			/**
 			 * the given time elapsed will not exceed _maxTimegap.
 			 */
 			long _maxTimegap = 25;
@@ -194,12 +195,17 @@ public class SwingGameletViewer
 			 */
 			long _sleepTime = 4;
 
+			/**
+			 * should wait at least this amount since #_lastTime before calling run.
+			 */
+			long _timeResolution = 10;
+
 			@Override
 			public void run()
 			{
 				while (_controler.isRunning())
 				{
-					long _now = System.currentTimeMillis();
+					final long _now = System.currentTimeMillis();
 					long _elapsed = _now - _lastTime;
 					if (_elapsed > _maxTimegap)
 					{
@@ -212,7 +218,7 @@ public class SwingGameletViewer
 							_lastTime = _now;
 							_controler.run(_elapsed);
 						}
-						catch (GameletException _exception)
+						catch (final GameletException _exception)
 						{
 							_exception.printStackTrace();
 							break;
@@ -222,7 +228,7 @@ public class SwingGameletViewer
 					{
 						Thread.sleep(_sleepTime);
 					}
-					catch (InterruptedException _exception)
+					catch (final InterruptedException _exception)
 					{
 						_exception.printStackTrace();
 						break;

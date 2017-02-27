@@ -19,6 +19,19 @@ public class CanvasManagerSpecEntryOffscreen extends CanvasManagerSpecEntry
 
 	private int myWidth;
 
+	public CanvasManagerSpecEntryOffscreen()
+	{
+		// javabean convention
+	}
+
+	public CanvasManagerSpecEntryOffscreen(String name, Color color, int width, int height)
+	{
+		super(name);
+		myColor = color;
+		myHeight = height;
+		myWidth = width;
+	}
+
 	public Color getColor()
 	{
 		return myColor;

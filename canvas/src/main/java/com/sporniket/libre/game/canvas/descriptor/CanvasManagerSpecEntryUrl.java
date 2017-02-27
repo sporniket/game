@@ -11,7 +11,19 @@ package com.sporniket.libre.game.canvas.descriptor;
  */
 public class CanvasManagerSpecEntryUrl extends CanvasManagerSpecEntry
 {
+
 	private String myUrl;
+
+	public CanvasManagerSpecEntryUrl()
+	{
+		// Javabean convention
+	}
+
+	public CanvasManagerSpecEntryUrl(String name, String url)
+	{
+		super(name);
+		myUrl = url;
+	}
 
 	public String getUrl()
 	{

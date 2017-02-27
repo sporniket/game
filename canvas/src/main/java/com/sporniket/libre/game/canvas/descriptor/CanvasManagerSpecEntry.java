@@ -13,6 +13,16 @@ public abstract class CanvasManagerSpecEntry
 {
 	private String myName;
 
+	public CanvasManagerSpecEntry()
+	{
+		// javabeans convention
+	}
+
+	public CanvasManagerSpecEntry(String name)
+	{
+		myName = name;
+	}
+
 	public String getName()
 	{
 		return myName;

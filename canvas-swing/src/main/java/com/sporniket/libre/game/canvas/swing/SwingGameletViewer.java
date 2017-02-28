@@ -31,33 +31,6 @@ public class SwingGameletViewer
 {
 	private static final String SPECIAL_NAME__SEQUENCER = "$Sequencer";
 
-	private static void populateCanvasManagerFromDescriptor(CanvasGameDescriptor _descriptor,
-			final BufferedImagesManager _canvasManager) throws SyntaxErrorException, CanvasException
-	{
-		for (final String _spec : _descriptor.getCanvasManagerSpecs().getCanvasSpecs())
-		{
-			String _toParse = _spec.trim();
-			final int _posSep = _toParse.indexOf(":");
-			if (0 > _posSep)
-			{
-				throw new SyntaxErrorException("canvas manager specs should follow 'name:...' pattern");
-			}
-			final String _name = _toParse.substring(0, _posSep);
-			_toParse = _toParse.substring(_posSep + 1);
-			if (_toParse.startsWith("url:"))
-			{
-				final String _url = _descriptor.getBaseUrlSpecs().getBaseUrlForData() + "/"
-						+ _descriptor.getBaseUrlSpecs().getBaseUrlForPictures() + "/" + _toParse.substring("url:".length());
-				CanvasUtils.createCanvasFromImage(_canvasManager, _name, _url);
-			}
-			else
-			{
-				// default or unsupported
-				CanvasUtils.createBlackFilledCanvas(_canvasManager, _name);
-			}
-		}
-	}
-
 	/**
 	 * Run a game only if it support a landscape qHD sized canvas.
 	 *
@@ -105,14 +78,20 @@ public class SwingGameletViewer
 		// apply the values binded to the graphical definition
 		final Map<String, String> _values = _descriptor.getGraphicalDefinitionsSpecs().getDataAsString(_graphicalDefinition);
 		_descriptor = CanvasGameDescriptorUtils.applyValues(_descriptor, _values);
-		// init the canvas manager (for now, the kind url list is not supported --> black offscreen)
+
+		// init the canvas manager
 		final BufferedImagesManager _canvasManager = new BufferedImagesManager(_selectedCanvasSpecs.getWidth(),
 				_selectedCanvasSpecs.getHeight());
-		populateCanvasManagerFromDescriptor(_descriptor, _canvasManager);
+		String _baseUrlForImage = _descriptor.getBaseUrlSpecs().getBaseUrlForData() + "/"
+				+ _descriptor.getBaseUrlSpecs().getBaseUrlForPictures() + "/";
+		CanvasUtils.populateCanvasManagerFromSpecifications(_canvasManager,
+				_descriptor.getCanvasManagerSpecs().getEntries(_selectedCanvasSpecs), _baseUrlForImage);
+
 		// create the game context, links to canvas manager.
 		final CanvasGameletContext<BufferedImage> _context = new CanvasGameletContext<>();
 		_context.setCanvasManager(_canvasManager);
 		_context.getData().putAll(_descriptor.getGraphicalDefinitionsSpecs().getData(_graphicalDefinition));
+
 		// create the controler, links to game context
 		final CanvasGameletControler<BufferedImage> _controler = new CanvasGameletControler<>();
 		_controler.setContext(_context);
@@ -135,6 +114,7 @@ public class SwingGameletViewer
 			final CanvasGamelet<BufferedImage> _gamelet = _gameletClass.newInstance();
 			_controler.registerGamelet(_name, _gamelet);
 		}
+
 		// setup the running sequence
 		_controler.registerGamelet(SPECIAL_NAME__SEQUENCER,
 				new GameletSequencer<BufferedImage>(_descriptor.getGamelets().getSequence()));

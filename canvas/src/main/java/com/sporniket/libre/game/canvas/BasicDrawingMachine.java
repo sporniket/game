@@ -32,26 +32,32 @@ public interface BasicDrawingMachine
 	/**
 	 * Draws a box outline.
 	 * 
+	 * @param canvasId
+	 *            the canvas id into which the drawing is done.
 	 * @param box
 	 *            the box description.
 	 * 
 	 * @category BasicDrawingMachine Drawing
 	 */
-	void drawBox(Box box);
+	void drawBox(int canvasId, Box box);
 
 	/**
 	 * Draws a filled box.
 	 * 
+	 * @param canvasId
+	 *            the canvas id into which the drawing is done.
 	 * @param box
 	 *            the box description.
 	 * 
 	 * @category BasicDrawingMachine Drawing
 	 */
-	void drawFilledBox(Box box);
+	void drawFilledBox(int canvasId, Box box);
 
 	/**
 	 * Draw a line from one point to another.
 	 * 
+	 * @param canvasId
+	 *            the canvas id into which the drawing is done.
 	 * @param from
 	 *            start of the line.
 	 * @param to
@@ -59,11 +65,13 @@ public interface BasicDrawingMachine
 	 * 
 	 * @category BasicDrawingMachine Drawing
 	 */
-	void drawLine(Point from, Point to);
+	void drawLine(int canvasId, Point from, Point to);
 
 	/**
 	 * Draw a text.
 	 * 
+	 * @param canvasId
+	 *            the canvas id into which the drawing is done.
 	 * @param text
 	 *            the text to draw (single line of text).
 	 * @param at
@@ -71,7 +79,7 @@ public interface BasicDrawingMachine
 	 * 
 	 * @category BasicDrawingMachine Drawing
 	 */
-	void drawText(String text, Point at);
+	void drawText(int canvasId, String text, Point at);
 
 	/**
 	 * Enable the transparent mode.

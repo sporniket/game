@@ -35,6 +35,8 @@ public class BufferedImagesManager extends CanvasManager<BufferedImage> implemen
 
 	private Color myColor = DEFAULT__COLOR;
 
+	private Color myColorOpaque = DEFAULT__COLOR;
+
 	private Font myFont = DEFAULT__FONT;
 
 	private ImageObserver myImageObserver = this;
@@ -132,7 +134,7 @@ public class BufferedImagesManager extends CanvasManager<BufferedImage> implemen
 	@Override
 	public Color getColor()
 	{
-		return myColor;
+		return isTransparentModeEnabled() ? myColor : myColorOpaque;
 	}
 
 	@Override
@@ -195,6 +197,7 @@ public class BufferedImagesManager extends CanvasManager<BufferedImage> implemen
 		{
 			myColor = DEFAULT__COLOR;
 		}
+		myColorOpaque = (myColor.getAlpha() < 255) ? new Color(myColor.getRGB()) : myColor;
 	}
 
 	@Override

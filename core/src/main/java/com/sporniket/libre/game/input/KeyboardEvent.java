@@ -8,7 +8,7 @@ package com.sporniket.libre.game.input;
  * @author dsporn
  *
  */
-public class KeyboardEvent extends InputEvent
+public abstract class KeyboardEvent extends InputEvent
 {
 
 	public KeyboardEvent(InputTranslator source)

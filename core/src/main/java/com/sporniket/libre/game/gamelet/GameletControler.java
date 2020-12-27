@@ -12,11 +12,15 @@ import com.sporniket.libre.game.gamelet.events.Forward;
 import com.sporniket.libre.game.input.InputProxy;
 import com.sporniket.libre.game.input.InputTranslator;
 import com.sporniket.libre.game.input.InputTranslatorListener;
+import com.sporniket.libre.game.input.Key;
+import com.sporniket.libre.game.input.KeyboardEvent;
+import com.sporniket.libre.game.input.KeyboardEventPhysical;
+import com.sporniket.libre.game.input.KeyboardEventTypedChar;
 import com.sporniket.libre.game.input.Pointer;
 import com.sporniket.libre.game.input.PointerEvent;
 
-public abstract class GameletControler<ContextType extends GameletContext, GameletType extends Gamelet<ContextType>> implements
-		GameletListener<ContextType>, InputTranslatorListener
+public abstract class GameletControler<ContextType extends GameletContext, GameletType extends Gamelet<ContextType>>
+		implements GameletListener<ContextType>, InputTranslatorListener
 {
 	static final int INITIAL_CAPACITY__GAMELET_REGISTRY = 10;
 
@@ -27,10 +31,22 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 	private final InputProxy myInputProxy = new InputProxy();
 
 	/**
-	 * Store a log of {@link Pointer} that will be put into the context before the call to
+	 * Storage for a log of {@link Pointer} that will be put into the context before the call to
 	 * {@link GameletType#doRun(long, GameletContext)}.
 	 */
 	private final List<Pointer> myPointerLog = new ArrayList<Pointer>(50);
+
+	/**
+	 * Storage for a log of {@link Key} that will be put into the context before the call to
+	 * {@link GameletType#doRun(long, GameletContext)}.
+	 */
+	private final List<Key> myKeyboardLog = new ArrayList<>(50);
+
+	/**
+	 * Storage for a log of typed chars that will be put into the context before the call to
+	 * {@link GameletType#doRun(long, GameletContext)}.
+	 */
+	private final List<Character> myTypedCharsLog = new ArrayList<>(50);
 
 	private final Deque<GameletType> myRunningStack = new ArrayDeque<GameletType>(INITIAL_CAPACITY__GAMELET_REGISTRY);
 
@@ -100,6 +116,29 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 		}
 	}
 
+	@Override
+	public void onKeyboardEvent(KeyboardEvent event)
+	{
+		if (event instanceof KeyboardEventPhysical)
+		{
+			synchronized (myKeyboardLog)
+			{
+				myKeyboardLog.add(((KeyboardEventPhysical) event).getKey());
+			}
+		}
+		else if (event instanceof KeyboardEventTypedChar)
+		{
+			synchronized (myTypedCharsLog)
+			{
+				myTypedCharsLog.add(((KeyboardEventTypedChar) event).getChar());
+			}
+		}
+		else
+		{
+			throw new IllegalArgumentException("Unsupported event type " + event.getClass().getName() + " : " + event.toString());
+		}
+	}
+
 	public void registerGamelet(String name, GameletType gamelet) throws GameletException
 	{
 		// sanity check
@@ -135,6 +174,17 @@ public abstract class GameletControler<ContextType extends GameletContext, Gamel
 		{
 			getContext().setPointerLog(myPointerLog);
 			myPointerLog.clear();
+		}
+		//update keyboard logs in context
+		synchronized (myKeyboardLog)
+		{
+			getContext().setKeyboardLog(myKeyboardLog);
+			myKeyboardLog.clear();
+		}
+		synchronized (myTypedCharsLog)
+		{
+			getContext().setTypedCharsLog(myTypedCharsLog);
+			myTypedCharsLog.clear();
 		}
 		GameletType _currentGamelet = getRunningStack().peekLast();
 		_currentGamelet.doRun(elapsedTime, getContext());

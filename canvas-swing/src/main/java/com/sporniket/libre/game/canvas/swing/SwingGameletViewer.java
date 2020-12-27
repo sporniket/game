@@ -1,7 +1,10 @@
 package com.sporniket.libre.game.canvas.swing;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Map;
 
 import javax.swing.JFrame;
@@ -29,6 +32,68 @@ import com.sporniket.libre.lang.url.UrlProviderException;
 // FIXME obviously a first draft, full of shortcomings...
 public class SwingGameletViewer
 {
+	private static KeyListener DEBUG_KEY_LISTENER = new KeyListener()
+	{
+		
+		@Override
+		public void keyTyped(KeyEvent e)
+		{
+			String _prompt = "keyTyped   :";
+			debugKey(_prompt, e);
+		}
+
+		/**
+		 * @param prompt
+		 * @param e
+		 */
+		private void debugKey(String prompt, KeyEvent e)
+		{
+			long _physicalKey = getPhysicalKey(e);
+			System.out.println(prompt+e.getKeyCode()+ "\t "+_physicalKey + "\t "+Long.toHexString(_physicalKey));
+		}
+		
+		@Override
+		public void keyReleased(KeyEvent e)
+		{
+			String _prompt = "keyReleased:";
+			debugKey(_prompt, e);
+			
+		}
+		
+		@Override
+		public void keyPressed(KeyEvent e)
+		{
+			String _prompt = "keyPressed :";
+			debugKey(_prompt, e);
+			
+		}
+		
+
+		private long getPhysicalKey(KeyEvent e)
+		{
+			Long _result = getPrivateFieldValueAsLong(e, "scancode");
+			if (null == _result || 0 == _result)
+			{
+				_result = getPrivateFieldValueAsLong(e, "rawCode");
+			}
+			return _result;
+		}
+
+		private Long getPrivateFieldValueAsLong(final KeyEvent holder, String fieldName)
+		{
+			try
+			{
+				Field field = KeyEvent.class.getDeclaredField(fieldName);
+				field.setAccessible(true);
+				return field.getLong(holder);
+			}
+			catch (NoSuchFieldException | SecurityException | IllegalAccessException __exception)
+			{
+				__exception.printStackTrace();
+				return null;
+			}
+		}
+	};
 	private static final String SPECIAL_NAME__SEQUENCER = "$Sequencer";
 
 	/**
@@ -131,6 +196,13 @@ public class SwingGameletViewer
 		_view.addMouseListener(_mouseInputTranslator);
 		_view.addMouseMotionListener(_mouseInputTranslator);
 		_view.addMouseWheelListener(_mouseInputTranslator);
+		
+		// watch for keyboard event from the view
+		final KeyboardInputTranslator _keyboardInputTranslator = new KeyboardInputTranslator() ;
+		_keyboardInputTranslator.addListener(_controler.getInputProxy());
+		
+		_view.addKeyListener(DEBUG_KEY_LISTENER);
+		_view.addKeyListener(_keyboardInputTranslator);
 
 		_controler.addUpdatedDisplayEventListener(_view);
 
@@ -149,6 +221,7 @@ public class SwingGameletViewer
 				f.pack();
 				f.setVisible(true);
 				f.setResizable(false);
+				_view.grabFocus();
 			}
 
 			@Override
